@@ -108,15 +108,22 @@ hr {
 
 .razas-grid {
     display: grid;
+    /* Por defecto, 2 columnas para escritorio */
     grid-template-columns: repeat(2, 1fr); 
     gap: 10px;
+}
+
+/* MODIFICADO (Punto 2): Media Query para móviles */
+@media (max-width: 600px) {
+    .razas-grid {
+        grid-template-columns: repeat(1, 1fr); /* Una sola columna para móviles */
+    }
 }
 
 .race-item-wrapper {
     display: flex;
     flex-direction: column;
     padding: 5px 0;
-    /* MODIFICADO (Punto 3): FIX para que respete el ancho de la columna */
     min-width: 0; 
 }
 
@@ -124,7 +131,6 @@ hr {
     display: flex;
     align-items: center;
     font-weight: bold;
-    /* MODIFICADO (Punto 3): FIX para que respete el ancho de la columna */
     min-width: 0; 
 }
 
@@ -132,7 +138,6 @@ hr {
     flex-grow: 1;
     padding: 5px;
     border-radius: 4px;
-    /* MODIFICADO (Punto 3): FIX para que el select no desborde su contenedor */
     min-width: 0;
 }
 
@@ -145,7 +150,6 @@ hr {
     border: 1px dashed #a0c3ff;
     border-radius: 4px;
     font-weight: normal;
-    /* MODIFICADO (Punto 3): FIX para que el contenedor no desborde */
     min-width: 0;
 }
 .chapter-select-container label {
@@ -155,7 +159,6 @@ hr {
 .chapter-select-container select {
     padding: 5px;
     border-radius: 4px;
-    /* MODIFICADO (Punto 3): FIX para que el select no desborde su contenedor */
     min-width: 0; 
 }
 

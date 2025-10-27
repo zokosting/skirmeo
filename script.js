@@ -38,7 +38,7 @@ const MAPAS_POR_JUGADOR = {
     "3": ["Fortress"],
     "4": [
         "Biffy's Peril", "Mountain Trail", "Quatra", "Saint's Square", "Tainted Place", 
-        "Tainted soul", "Tartarus Center", "Volcanic Reaction, Rockclaw Foothills"
+        "Tainted soul", "Tartarus Center", "Volcanic Reaction", "Rockclaw Foothills"
     ],
     "5": ["Red Jungle"],
     "6": [
