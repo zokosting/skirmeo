@@ -9,13 +9,15 @@
 <body>
 
     <header>
-        <h1>⚔️<br/>DAWN OF WAR</h1>
-        <p class="header-edition">Definitive Edition</p>
+        <h1>⚔️</h1>
+        <p>Dawn of War</p>
+        <p>Definitive Edition</p>
     </header>
 
     <main>
-        <section id="configuracion-jugadores" class="section-compact">
-            <h2>Max Players &nbsp;
+        <section id="configuracion-jugadores">
+            <h2>Max Players</h2>
+            <div class="control-group">
                 <select id="num-jugadores" onchange="generarDesplegablesRazas()">
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
@@ -24,19 +26,23 @@
                     <option value="6">6</option>
                     <option value="8">8</option>
                 </select>
-            </h2>
+            </div>
         </section>
 
         <hr>
 
-        <section id="seleccion-mapa" class="section-compact">
-            <h2>Map
+        <section id="seleccion-mapa">
+            <h2>Map</h2>
+            <div class="control-group">
                 <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()">
                     </select>
-                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()" class="btn-compact">RANDOM</button>
-            </h2>
+            </div>
             
             <div id="descripcion-mapa" class="mapa-info">
+                </div>
+            
+            <div class="control-group">
+                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()">RANDOM</button>
             </div>
         </section>
 
@@ -57,7 +63,8 @@
             <h2>Game Options</h2>
             
             <div id="configuracion-dificultad" class="config-sub-group">
-                <h3>AI difficulty&nbsp;
+                <h3>AI difficulty</h3>
+                <div class="control-group">
                     <select id="ai-difficulty">
                         <option value="Easy">Easy</option>
                         <option value="Standard/Normal" selected>Standard/Normal</option>
@@ -65,7 +72,7 @@
                         <option value="Harder">Harder</option>
                         <option value="Insane">Insane</option>
                     </select>
-                </h3>
+                </div>
             </div>
 
             <div id="condiciones-victoria" class="config-sub-group">
@@ -101,7 +108,6 @@
 
         <section id="resultado-partida">
             <div id="resultado" class="resultado-container">
-                <p>Press "GENERATE!" to see the assignment.</p>
             </div>
         </section>
     </main>
