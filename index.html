@@ -15,8 +15,7 @@
 
     <main>
         <section id="configuracion-jugadores">
-            <h2>Max Players</h2>
-            <div class="control-group">
+            <h2>Max Players 
                 <select id="num-jugadores" onchange="generarDesplegablesRazas()">
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
@@ -25,30 +24,28 @@
                     <option value="6">6</option>
                     <option value="8">8</option>
                 </select>
-            </div>
-        </section>
+            </h2>
+            </section>
 
         <hr>
 
         <section id="seleccion-mapa">
-            <h2>Map</h2>
-            <div class="control-group">
-                <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()">
-                    </select>
-            </div>
+            <h2>Map
+                <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()"></select>
+                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()" class="btn-compact">RANDOM</button>
+            </h2>
             
             <div id="descripcion-mapa" class="mapa-info">
-                </div>
-            
-            <div class="control-group">
-                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()">RANDOM</button>
             </div>
-        </section>
+            </section>
 
         <hr>
 
         <section id="seleccion-razas">
             <h2>Players List</h2>
+            <div class="players-list-controls">
+                <button id="btn-randomize-all-races" onclick="randomizeAllRaces()" class="btn-compact">🎲 Randomize All Races</button>
+            </div>
             <p id="instruccion-razas" class="instruccion-principal">
                 </p>
             
@@ -57,13 +54,32 @@
         </section>
         
         <hr>
+
+        <section id="team-options-section">
+            <h2>Team Configuration</h2>
+            <div id="team-options-group" class="team-options-group">
+                <div class="team-option-item">
+                    <input type="radio" id="team-auto" name="team-option" value="Auto Teams" checked>
+                    <label for="team-auto">Auto Teams – The game will evenly divide the players into the number of teams selected</label>
+                </div>
+                <div class="team-option-item">
+                    <input type="radio" id="team-ffa" name="team-option" value="Free for All">
+                    <label for="team-ffa">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins the game</label>
+                </div>
+                <div class="team-option-item">
+                    <input type="radio" id="team-random" name="team-option" value="Random Teams">
+                    <label for="team-random">Random Teams – Players are divided into random teams, equally or not</label>
+                </div>
+            </div>
+        </section>
+
+        <hr>
         
         <section id="game-options">
             <h2>Game Options</h2>
             
             <div id="configuracion-dificultad" class="config-sub-group">
-                <h3>AI difficulty</h3>
-                <div class="control-group">
+                <h3>AI difficulty
                     <select id="ai-difficulty">
                         <option value="Easy">Easy</option>
                         <option value="Standard/Normal" selected>Standard/Normal</option>
@@ -71,8 +87,8 @@
                         <option value="Harder">Harder</option>
                         <option value="Insane">Insane</option>
                     </select>
+                </h3>
                 </div>
-            </div>
 
             <div id="condiciones-victoria" class="config-sub-group">
                 <h3>Game rules</h3>

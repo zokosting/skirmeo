@@ -14,6 +14,16 @@ header, footer {
     padding: 15px 0;
 }
 
+/* Added styles for the header text that was moved */
+header h1 {
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+header p {
+    margin-top: 0;
+    font-size: 0.9em;
+}
+
 main {
     max-width: 800px;
     margin: 20px auto;
@@ -24,40 +34,113 @@ main {
 }
 
 h2 {
-    color: #c0392b; /* Un rojo oscuro para un toque de wargame */
+    color: #c0392b; /* Dark red for wargame touch */
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 5px;
+    /* NEW: Flexbox for H2 alignment with controls */
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
 }
 
-.control-group, .razas-grid {
-    margin-bottom: 20px;
+/* NEW: Style for controls inside H2 */
+h2 select, h2 button {
+    margin-left: 15px; 
+    font-size: 0.9em;
+    padding: 5px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
+h3 {
+    color: #34495e;
+    font-size: 1.1em;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    /* NEW: Flexbox for H3 alignment with controls (like AI difficulty) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3 select {
+    margin-left: 15px; 
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ecf0f1;
+    margin: 20px 0;
+}
+
+/* Removed old .control-group styles that interfered with H2 alignment */
 .razas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
 }
 
-/* Estilo para los checkboxes de raza */
-.raza-item input[type="checkbox"]:disabled + label {
-    opacity: 0.5;
-    cursor: not-allowed;
+/* NEW: Styles for the Randomize button container */
+.players-list-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+/* NEW: Wrapper for race select and chapter select */
+.race-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+}
+
+.race-item-select-group {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.select-raza-rotatoria {
+    flex-grow: 1;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* NEW: Chapter Select Container Style */
+.chapter-select-container {
+    display: flex; 
+    align-items: center;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #f1f8ff; 
+    border: 1px dashed #a0c3ff;
+    border-radius: 4px;
+    font-weight: normal;
+}
+.chapter-select-container label {
+    margin-right: 5px;
+    font-size: 0.9em;
+}
+.chapter-select-container select {
+    padding: 5px;
+    border-radius: 4px;
 }
 
 .instruccion-principal {
     background-color: #ecf0f1;
     padding: 10px;
     border-radius: 5px;
-    font-weight: bold;
+    font-weight: normal;
     color: #2980b9;
+    /* Small horizontal separation before dropdowns */
+    margin-bottom: 15px;
 }
 
 #btn-generar {
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #27ae60; /* Verde para acción */
+    background-color: #27ae60; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -68,6 +151,18 @@ h2 {
 
 #btn-generar:hover {
     background-color: #2ecc71;
+}
+
+.btn-compact {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-compact:hover {
+    background-color: #2980b9;
 }
 
 /* Estilo para el resultado */
@@ -86,7 +181,8 @@ h2 {
 .victoria-grid {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    margin-top: 10px;
 }
 
 .victoria-item {
@@ -102,12 +198,11 @@ h2 {
 .descripcion-victoria {
     font-size: 0.9em;
     color: #555;
-    /* Esto es clave para la visualización dinámica */
     margin-left: 10px; 
 }
 
 .mapa-info {
-    min-height: 20px; /* Asegura espacio aunque esté vacío */
+    min-height: 20px;
     margin-top: 5px;
     padding-left: 5px;
     font-style: italic;
@@ -117,4 +212,26 @@ h2 {
     margin: 0;
     font-size: 0.9em;
     color: #444;
+    font-style: italic; 
+}
+
+/* NEW: Team Options Group */
+.team-options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.team-option-item {
+    display: flex;
+    align-items: flex-start;
+}
+
+.team-option-item input[type="radio"] {
+    margin-right: 8px;
+    margin-top: 3px; 
 }
