@@ -16,7 +16,6 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win (or lose) by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
-// ¡LISTA DE MAPAS AGRUPADA POR NÚMERO DE JUGADORES! (Confirmado según tu listado)
 const MAPAS_POR_JUGADOR = {
     "2": [
         "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", 
@@ -45,6 +44,7 @@ const instruccionRazas = document.getElementById('instruccion-razas');
 const numJugadoresSelect = document.getElementById('num-jugadores');
 const dificultadSelect = document.getElementById('ai-difficulty');
 const mapaSelect = document.getElementById('mapa-seleccionado');
+const resourceRateSelect = document.getElementById('resource-rate'); // ¡Nuevo!
 const resultadoDiv = document.getElementById('resultado');
 const contenedorCondiciones = document.querySelector('.victoria-grid');
 const quickStartCheckbox = document.getElementById('quick-start');
@@ -94,7 +94,6 @@ function generarDesplegablesRazas() {
         contenedorDesplegables.appendChild(divGroup);
     }
     
-    // Llamada clave: Actualiza los mapas después de cambiar los jugadores.
     generarSeleccionMapa();
 }
 
@@ -139,16 +138,15 @@ function generarCondicionesVictoria() {
  * Rellena el desplegable del mapa basándose en el número de jugadores seleccionado.
  */
 function generarSeleccionMapa() {
-    // CORRECCIÓN: Usamos el valor del select de jugadores
     const numJugadores = numJugadoresSelect.value; 
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; 
     
     mapaSelect.innerHTML = ''; 
     
-    // Opción por defecto
+    // Opción por defecto (valor vacío para activar la selección aleatoria)
     const defaultOption = document.createElement('option');
     defaultOption.value = "";
-    defaultOption.textContent = "--- Seleccionar Mapa ---";
+    defaultOption.textContent = "--- Seleccionar Mapa (Aleatorio) ---";
     mapaSelect.appendChild(defaultOption);
 
     if (mapasDisponibles.length === 0) {
@@ -166,6 +164,13 @@ function generarSeleccionMapa() {
     }
 }
 
+/**
+ * Función auxiliar para seleccionar un elemento aleatorio de un array.
+ */
+function seleccionarAleatorio(array) {
+    return array[Math.floor(Math.random() * array.length)];
+}
+
 
 // --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
 
@@ -173,11 +178,14 @@ function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
     const razasSeleccionadas = Array.from(selectElements).map(select => select.value);
     
+    // Obtener parámetros
     const dificultadSeleccionada = dificultadSelect.value; 
-    const mapaSeleccionado = mapaSelect.value;
+    let mapaSeleccionado = mapaSelect.value; // Puede ser "" (vacío)
+    const resourceRateSeleccionado = resourceRateSelect.value; // ¡Nuevo!
     const numJugadores = parseInt(numJugadoresSelect.value);
     const quickStartActivo = quickStartCheckbox.checked ? "Activado (Recursos Elevados)" : "Desactivado (Recursos Estándar)";
 
+    // Obtener las condiciones de victoria seleccionadas (sin cambios)
     const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
     const condicionesSeleccionadas = Array.from(checkboxesVictoria)
         .filter(cb => cb.checked)
@@ -186,11 +194,20 @@ function generarPartida() {
             return condicionCompleta || cb.value;
         });
 
-    // --- Validación ---
+    // --- LÓGICA DE MAPA ALEATORIO ---
+    let fuenteMapa = "Seleccionado";
     if (mapaSeleccionado === "") {
-        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar un Mapa de Batalla.</p>`;
-        return;
+        const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
+        if (mapasDisponibles.length > 0) {
+            mapaSeleccionado = seleccionarAleatorio(mapasDisponibles); // Selecciona uno aleatorio
+            fuenteMapa = "Aleatorio";
+        } else {
+             resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** No hay mapas disponibles para ${numJugadores} jugadores. No se pudo generar el mapa aleatorio.</p>`;
+             return;
+        }
     }
+    
+    // --- Validación de Condiciones de Victoria ---
     if (condicionesSeleccionadas.length === 0) {
          resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar al menos una Condición de Victoria.</p>`;
          return;
@@ -202,11 +219,12 @@ function generarPartida() {
     let resultadoHTML = `
         <h3>✅ Configuración: ${numJugadores} Jugadores | Dificultad: **${dificultadSeleccionada}**</h3>
         
-        <h4>🗺️ Mapa de Batalla:</h4>
+        <h4>🗺️ Mapa de Batalla (${fuenteMapa}):</h4>
         <p>**${mapaSeleccionado}**</p>
 
         <h4>💰 Starting Resources:</h4>
-        <p>${quickStartActivo}</p>
+        <p>Tasa de Recursos: **${resourceRateSeleccionado}**</p>
+        <p>Recursos Iniciales: ${quickStartActivo}</p>
         
         <h4>⚙️ Condiciones de Victoria:</h4>
         <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es):</p>
@@ -238,8 +256,6 @@ function generarPartida() {
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
-    // generarSeleccionMapa() se llama ahora dentro de generarDesplegablesRazas()
-    // Esto asegura que la lógica de dependencia se ejecute al inicio, usando el valor por defecto (3).
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);

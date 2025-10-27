@@ -68,6 +68,9 @@
                 <label for="mapa-seleccionado">Elige el mapa:</label>
                 <select id="mapa-seleccionado">
                     </select>
+                <p class="nota-jugadores">
+                    Si no seleccionas un mapa, se elegirá uno **aleatoriamente** de la lista filtrada.
+                </p>
             </div>
         </section>
         
@@ -85,6 +88,14 @@
         
         <section id="starting-resources">
             <h2>Paso 6: Starting Resources</h2>
+            <div class="control-group">
+                <label for="resource-rate">Tasa de Recursos (Resource Rate):</label>
+                <select id="resource-rate">
+                    <option value="Standard" selected>Standard</option>
+                    <option value="High">High</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
             <div class="control-group">
                 <input type="checkbox" id="quick-start" name="quick-start" value="Quick-start">
                 <label for="quick-start">Activar **Quick-start** (Comienzas con más recursos).</label>
