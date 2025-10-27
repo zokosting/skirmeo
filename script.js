@@ -9,7 +9,7 @@ const RAZA_FIJA = "Space Marines";
 const CHAPTERS_DISPONIBLES = [
     "Ultramarines", 
     "Blood Angels", 
-    "Salamandras", 
+    "Salamanders", // MODIFICADO (Punto 1)
     "Space Wolves", 
     "Dark Angels", 
     "Black Templars", 
@@ -75,7 +75,17 @@ const quickStartCheckbox = document.getElementById('quick-start');
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
 function generarDesplegablesRazas() {
-    const numJugadores = parseInt(numJugadoresSelect.value);
+    const numJugadoresStr = numJugadoresSelect.value; // Obtiene el valor, que puede ser ""
+
+    // MODIFICADO (Punto 2): Si no hay un número seleccionado, solo limpia y llama a mapa
+    if (numJugadoresStr === "") {
+        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are Space Marines.</p>`; 
+        contenedorDesplegables.innerHTML = ''; 
+        generarSeleccionMapa(); 
+        return; 
+    }
+
+    const numJugadores = parseInt(numJugadoresStr);
     
     if (isNaN(numJugadores) || numJugadores < 2) {
         contenedorDesplegables.innerHTML = '<p class="alerta">Error reading player count.</p>';
@@ -84,7 +94,6 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    // MODIFICADO (Punto 2): Se eliminan los asteriscos
     instruccionRazas.innerHTML = `<p class="mapa-detalle">You are Space Marines.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
@@ -141,27 +150,20 @@ function generarDesplegablesRazas() {
     generarSeleccionMapa();
 }
 
-// MODIFICADO (Punto 1): Ahora solo muestra la descripción si existe
-function mostrarDescripcionMapa() {
-    const mapaSeleccionado = mapaSelect.value;
-    // Solo toma la descripción si existe en el objeto MAPAS_DESCRIPCION
-    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
-    
-    // Solo display si hay un mapa seleccionado Y la descripción no es undefined o nula
-    if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
-        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
-    } else {
-        descripcionMapaDiv.innerHTML = ''; // Limpia el contenido si no hay descripción
-    }
-}
-
-
 function generarSeleccionMapa() {
     const numJugadores = numJugadoresSelect.value;
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
     
     mapaSelect.innerHTML = '';
     
+    // MODIFICADO (Punto 2): Agregar opción -Select por defecto
+    const defaultOption = document.createElement('option');
+    defaultOption.textContent = "-Select";
+    defaultOption.value = "";
+    defaultOption.selected = true;
+    defaultOption.disabled = true;
+    mapaSelect.appendChild(defaultOption);
+
     if (mapasDisponibles.length === 0) {
         const option = document.createElement('option');
         option.textContent = "No maps available";
@@ -174,10 +176,21 @@ function generarSeleccionMapa() {
             option.textContent = mapa;
             mapaSelect.appendChild(option);
         });
-        mapaSelect.selectedIndex = 0; 
+        // La opción -Select es la que queda seleccionada por defecto.
     }
     
     mostrarDescripcionMapa();
+}
+
+function mostrarDescripcionMapa() {
+    const mapaSeleccionado = mapaSelect.value;
+    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
+    
+    if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
+        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
+    } else {
+        descripcionMapaDiv.innerHTML = ''; 
+    }
 }
 
 
@@ -234,7 +247,6 @@ function seleccionarMapaAleatorio() {
         mapaSelect.value = mapaElegido; 
         mostrarDescripcionMapa(); 
     } else {
-        // En este caso el mensaje de error es aceptable
         descripcionMapaDiv.innerHTML = '<p class="alerta">No maps available for this player count to select randomly.</p>';
         mapaSelect.value = "";
     }
@@ -286,6 +298,12 @@ function updateTeamOptionStyle() {
 // --- 3. MATCH GENERATION FUNCTION (Updated result display) ---
 
 function generarPartida() {
+    // Validación inicial para -Select
+    if (numJugadoresSelect.value === "") {
+        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Max Players selection is required.</p>`;
+        return;
+    }
+    
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
     const razasSeleccionadas = [];
     const chaptersSeleccionados = {};
@@ -305,7 +323,6 @@ function generarPartida() {
     
     const selectedTeamRadio = document.querySelector('input[name="team-option"]:checked');
     const teamOption = selectedTeamRadio ? selectedTeamRadio.value : 'N/A';
-    // Se utiliza innerText o textContent ya que el JS maneja la negrita solo en la etiqueta
     const teamLabel = selectedTeamRadio ? selectedTeamRadio.nextElementSibling.textContent : 'N/A'; 
     const teamDescription = teamLabel.split(' – ')[1] || 'No team description.';
     
@@ -380,7 +397,7 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. APPLICATION STARTUP (Unchanged) ---
+// --- 4. APPLICATION STARTUP (Updated) ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
@@ -388,7 +405,7 @@ function iniciarAplicacion() {
     
     updateTeamOptionStyle(); 
 
-    resultadoDiv.innerHTML = '<p>Press "GENERATE!" to see the assignment.</p>';
+    resultadoDiv.innerHTML = '';
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);

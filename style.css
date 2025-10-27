@@ -33,7 +33,6 @@ main {
 }
 
 h2 {
-    /* MODIFICADO (Punto 5): Color de mezcla gris/azul oscuro */
     color: #34495e; 
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 5px;
@@ -53,7 +52,7 @@ h3 select,
     font-weight: 400; 
 }
 
-/* MODIFICADO (Punto 4): Tamaño de fuente para la descripción de reglas de juego */
+/* Tamaño de fuente para la descripción de reglas de juego */
 .descripcion-victoria {
     font-size: 13.3333px;
 }
@@ -109,7 +108,6 @@ hr {
 
 .razas-grid {
     display: grid;
-    /* MODIFICADO (Punto 3): Se fija en 2 columnas y ocupa todo el ancho de 'main' */
     grid-template-columns: repeat(2, 1fr); 
     gap: 10px;
 }
@@ -118,18 +116,24 @@ hr {
     display: flex;
     flex-direction: column;
     padding: 5px 0;
+    /* MODIFICADO (Punto 3): FIX para que respete el ancho de la columna */
+    min-width: 0; 
 }
 
 .race-item-select-group {
     display: flex;
     align-items: center;
     font-weight: bold;
+    /* MODIFICADO (Punto 3): FIX para que respete el ancho de la columna */
+    min-width: 0; 
 }
 
 .select-raza-rotatoria {
     flex-grow: 1;
     padding: 5px;
     border-radius: 4px;
+    /* MODIFICADO (Punto 3): FIX para que el select no desborde su contenedor */
+    min-width: 0;
 }
 
 .chapter-select-container {
@@ -141,6 +145,8 @@ hr {
     border: 1px dashed #a0c3ff;
     border-radius: 4px;
     font-weight: normal;
+    /* MODIFICADO (Punto 3): FIX para que el contenedor no desborde */
+    min-width: 0;
 }
 .chapter-select-container label {
     margin-right: 5px;
@@ -149,6 +155,8 @@ hr {
 .chapter-select-container select {
     padding: 5px;
     border-radius: 4px;
+    /* MODIFICADO (Punto 3): FIX para que el select no desborde su contenedor */
+    min-width: 0; 
 }
 
 .instruccion-principal {
