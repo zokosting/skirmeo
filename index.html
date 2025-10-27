@@ -44,29 +44,31 @@
         <section id="seleccion-razas">
             <h2>Players List</h2>
             
-            <div class="players-list-controls">
-                <button id="btn-randomize-all-races" onclick="randomizeAllRaces()" class="btn-compact">🎲 Randomize All Races</button>
-            </div>
             <p id="instruccion-razas" class="instruccion-principal">
                 </p>
             
+            <div id="contenedor-desplegables-razas" class="razas-grid">
+                </div>
+
+            <div class="players-list-controls">
+                <button id="btn-randomize-all-races" onclick="randomizeAllRaces()" class="btn-compact">Randomize Races</button>
+            </div>
+            
             <div id="team-options-group" class="team-options-group">
                 <div class="team-option-item">
-                    <input type="radio" id="team-auto" name="team-option" value="Auto Teams" checked>
-                    <label for="team-auto">Auto Teams – The game will evenly divide the players into the number of teams selected</label>
+                    <input type="radio" id="team-auto" name="team-option" value="Auto Teams" checked onchange="updateTeamOptionStyle()">
+                    <label for="team-auto">Auto Teams – The game will evenly divide the players into the number of teams selected.</label>
                 </div>
                 <div class="team-option-item">
-                    <input type="radio" id="team-ffa" name="team-option" value="Free for All">
-                    <label for="team-ffa">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins the game</label>
+                    <input type="radio" id="team-ffa" name="team-option" value="Free for All" onchange="updateTeamOptionStyle()">
+                    <label for="team-ffa">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins.</label>
                 </div>
                 <div class="team-option-item">
-                    <input type="radio" id="team-random" name="team-option" value="Random Teams">
-                    <label for="team-random">Random Teams – Players are divided into random teams, equally or not</label>
+                    <input type="radio" id="team-random" name="team-option" value="Random Teams" onchange="updateTeamOptionStyle()">
+                    <label for="team-random">Random Teams – Players are divided into random teams, equally or not.</label>
                 </div>
             </div>
             
-            <div id="contenedor-desplegables-razas" class="razas-grid">
-                </div>
         </section>
         
         <hr>

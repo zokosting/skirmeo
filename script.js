@@ -14,7 +14,7 @@ const CHAPTERS_DISPONIBLES = [
     "Dark Angels", 
     "Black Templars", 
     "Imperial Fists", 
-    "more (White Scars, Iron Hands, Crimson Fists)"
+    "others (White Scars, Iron Hands, Crimson Fists)"
 ];
 
 const CONDICIONES_VICTORIA = [
@@ -85,6 +85,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
+    // Adjusted: Instructions text is already present in index.html, only updating content
     instruccionRazas.innerHTML = `<p class="mapa-detalle">You are **Space Marines**.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
@@ -138,8 +139,47 @@ function generarDesplegablesRazas() {
         contenedorDesplegables.appendChild(raceWrapper);
     }
     
-    generarSeleccionMapa();
+    generarSeleccionMapa(); // Now this function is available
 }
+
+// NEW: Function to generate map options
+function generarSeleccionMapa() {
+    const numJugadores = numJugadoresSelect.value;
+    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
+    
+    mapaSelect.innerHTML = '';
+    
+    if (mapasDisponibles.length === 0) {
+        const option = document.createElement('option');
+        option.textContent = "No maps available";
+        option.value = "";
+        mapaSelect.appendChild(option);
+    } else {
+        mapasDisponibles.forEach(mapa => {
+            const option = document.createElement('option');
+            option.value = mapa;
+            option.textContent = mapa;
+            mapaSelect.appendChild(option);
+        });
+        // Select the first one by default
+        mapaSelect.selectedIndex = 0; 
+    }
+    
+    mostrarDescripcionMapa();
+}
+
+// NEW: Function to display map description
+function mostrarDescripcionMapa() {
+    const mapaSeleccionado = mapaSelect.value;
+    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado] || "No detailed description available for this map.";
+    
+    if (mapaSeleccionado && mapaSeleccionado !== "No maps available") {
+        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
+    } else {
+        descripcionMapaDiv.innerHTML = '';
+    }
+}
+
 
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
@@ -180,7 +220,7 @@ function generarCondicionesVictoria() {
         contenedorCondiciones.appendChild(divGroup);
     });
 }
-// ... (generarSeleccionMapa, mostrarDescripcionMapa, seleccionarAleatorio, seleccionarMapaAleatorio remain the same) ...
+
 
 function seleccionarAleatorio(array) {
     return array[Math.floor(Math.random() * array.length)];
@@ -213,7 +253,7 @@ function toggleChapterSelect(selectElement) {
     }
 }
 
-/** UPDATED: Selects a random race for all non-fixed race dropdowns, and randomizes Chapter if SM is selected. */
+/** Selects a random race for all non-fixed race dropdowns, and randomizes Chapter if SM is selected. */
 function randomizeAllRaces() {
     const raceSelects = document.querySelectorAll('.select-raza-rotatoria');
     raceSelects.forEach(select => {
@@ -233,6 +273,16 @@ function randomizeAllRaces() {
                 chapterSelect.value = randomChapter;
             }
         }
+    });
+}
+
+/** NEW: Updates the style of the selected team option label to bold. */
+function updateTeamOptionStyle() {
+    const radioButtons = document.querySelectorAll('#team-options-group input[name="team-option"]');
+    radioButtons.forEach(radio => {
+        const label = radio.nextElementSibling;
+        // The label is made bold only if the radio button is checked.
+        label.style.fontWeight = radio.checked ? 'bold' : '400'; 
     });
 }
 
@@ -259,7 +309,7 @@ function generarPartida() {
     // Get selected Team Option details
     const selectedTeamRadio = document.querySelector('input[name="team-option"]:checked');
     const teamOption = selectedTeamRadio ? selectedTeamRadio.value : 'N/A';
-    const teamLabel = selectedTeamRadio ? selectedTeamRadio.parentNode.querySelector('label').textContent : 'N/A';
+    const teamLabel = selectedTeamRadio ? selectedTeamRadio.nextElementSibling.textContent : 'N/A'; // Get text content from label
     const teamDescription = teamLabel.split(' – ')[1] || 'No team description.';
     
     // Get parameters
@@ -337,11 +387,15 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. APPLICATION STARTUP (Unchanged) ---
+// --- 4. APPLICATION STARTUP (Updated) ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
+    
+    // NEW: Set initial style for team options on load
+    updateTeamOptionStyle(); 
+
     resultadoDiv.innerHTML = '<p>Press "GENERATE!" to see the assignment.</p>';
 }
 
