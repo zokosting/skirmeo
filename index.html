@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Partidas de Wargame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>⚔️ Generador de Partidas ⚔️</h1>
+        <p>Configura tu batalla de mesa personalizada.</p>
+    </header>
+
+    <main>
+        <section id="configuracion-jugadores">
+            <h2>Paso 1: Número de Jugadores</h2>
+            <div class="control-group">
+                <label for="num-jugadores">Elige la cantidad total de jugadores:</label>
+                <select id="num-jugadores" onchange="actualizarSeleccionRazas()">
+                    <option value="2">2 Jugadores</option>
+                    <option value="3" selected>3 Jugadores</option>
+                    <option value="4">4 Jugadores</option>
+                    <option value="5">5 Jugadores</option>
+                    <option value="6">6 Jugadores</option>
+                    <option value="8">8 Jugadores</option>
+                </select>
+            </div>
+            <p class="nota-jugadores">
+                **Recuerda:** Un jugador siempre usará la Raza Fija.
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="seleccion-razas">
+            <h2>Paso 2: Razas Adicionales</h2>
+            <p id="instruccion-razas" class="instruccion-principal">
+                Debes seleccionar **2** razas para el resto de jugadores.
+            </p>
+            
+            <div id="contenedor-razas" class="razas-grid">
+                </div>
+            
+            <p id="alerta-seleccion" class="alerta"></p>
+        </section>
+
+        <hr>
+
+        <section id="generacion-partida">
+            <h2>Paso 3: ¡Generar!</h2>
+            <button id="btn-generar" onclick="generarPartida()">🎲 Generar Partida Aleatoria</button>
+        </section>
+
+        <hr>
+
+        <section id="resultado-partida">
+            <h2>Partida Generada</h2>
+            <div id="resultado" class="resultado-container">
+                <p>Presiona "Generar Partida Aleatoria" para ver la asignación.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© Wargame Assistant 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
