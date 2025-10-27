@@ -45,9 +45,8 @@ h2 {
     align-items: center;
 }
 
-/* Added small margin-left for separation on select/button inside H2 */
 h2 select, h2 button {
-    margin-left: 15px; /* Increased separation */
+    margin-left: 10px;
     font-size: 0.9em;
     padding: 5px 8px;
     border-radius: 4px;
@@ -65,7 +64,7 @@ h3 {
 }
 
 h3 select {
-    margin-left: 15px; /* Increased separation */
+    margin-left: 10px;
 }
 
 hr {
@@ -108,12 +107,11 @@ hr {
     border-radius: 4px;
 }
 
-/* This is the container for the "You are Space Marines." text */
 .instruccion-principal {
     background-color: #ecf0f1;
     padding: 10px;
     border-radius: 5px;
-    font-weight: normal; /* Changed to normal, as the .mapa-detalle will handle bolding */
+    font-weight: bold;
     color: #2980b9;
     margin-bottom: 15px;
 }
@@ -190,10 +188,8 @@ hr {
     font-style: italic;
     color: #333;
 }
-/* Style to be applied to "You are Space Marines." and map descriptions */
 .mapa-detalle {
     margin: 0;
     font-size: 0.9em;
     color: #444;
-    font-style: italic; /* Inherit the style of the original map description */
 }
