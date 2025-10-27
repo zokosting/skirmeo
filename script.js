@@ -3,7 +3,6 @@ const RAZAS_DISPONIBLES = [
     "Orks", "Eldar", "Imperial Guard", "Chaos Space Marines", 
     "Space Marines", "Tau Empire", "Necrons", "Sisters Of Battle", "Dark Eldar"
 ];
-// Define la raza fija y por defecto.
 const RAZA_FIJA = "Space Marines"; 
 
 const CONDICIONES_VICTORIA = [
@@ -17,19 +16,43 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win (or lose) by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
+// ¡LISTA DE MAPAS AGRUPADA POR NÚMERO DE JUGADORES!
+const MAPAS_POR_JUGADOR = {
+    "2": [
+        "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", 
+        "Fallen City", "Hellfire Canyon", "Meeting of Minds", "Outer Reaches", "Railway", 
+        "Riverbed", "Tainted Pair", "Valley of Khorne"
+    ],
+    "3": ["Fortress"],
+    "4": [
+        "Biffy's Peril", "Mountain Trail", "Quatra", "Saint's Square", "Tainted Place", 
+        "Tainted soul", "Tartarus Center", "Volcanic Reaction"
+    ],
+    "5": ["Red Jungle"],
+    "6": [
+        "Bloodshed Alley", "Crossroads", "Dread Alleu", "Jungle Walls", "Kasyr Lutien", 
+        "Mortalis", "Streets of Vogen", "Testing Grounds"
+    ],
+    "8": [
+        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Penal Colony"
+    ]
+};
+
+
 // Elementos del DOM 
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
 const instruccionRazas = document.getElementById('instruccion-razas');
 const numJugadoresSelect = document.getElementById('num-jugadores');
 const dificultadSelect = document.getElementById('ai-difficulty');
+const mapaSelect = document.getElementById('mapa-seleccionado');
 const resultadoDiv = document.getElementById('resultado');
 const contenedorCondiciones = document.querySelector('.victoria-grid');
-const quickStartCheckbox = document.getElementById('quick-start'); // ¡Nuevo!
+const quickStartCheckbox = document.getElementById('quick-start');
 
 // --- 2. FUNCIONES DE LÓGICA DE INTERFAZ ---
 
 /**
- * Genera el número correcto de desplegables (<select>) para las razas rotatorias.
+ * Genera los desplegables de raza Y llama a generarSeleccionMapa, ya que ambos dependen de los jugadores.
  */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
@@ -70,15 +93,18 @@ function generarDesplegablesRazas() {
         divGroup.appendChild(select);
         contenedorDesplegables.appendChild(divGroup);
     }
+    
+    // ¡NUEVA LLAMADA CLAVE! Actualiza los mapas después de cambiar los jugadores.
+    generarSeleccionMapa();
 }
 
 /**
- * Genera los checkboxes para las condiciones de victoria y añade el listener.
+ * Genera los checkboxes para las condiciones de victoria (sin cambios).
  */
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
     CONDICIONES_VICTORIA.forEach((condicion, index) => {
-        const [nombreCorto, descripcion] = condicion.split(' – ').map(s => s.trim()); // Separamos nombre y descripción
+        const [nombreCorto, descripcion] = condicion.split(' – ').map(s => s.trim()); 
         
         const divGroup = document.createElement('div');
         divGroup.classList.add('victoria-item'); 
@@ -87,66 +113,98 @@ function generarCondicionesVictoria() {
         checkbox.type = 'checkbox';
         checkbox.id = `condicion-${index}`;
         checkbox.name = 'condicion';
-        checkbox.value = nombreCorto; // El valor guardado es el nombre corto
+        checkbox.value = nombreCorto; 
 
         const label = document.createElement('label');
         label.htmlFor = checkbox.id;
         label.textContent = nombreCorto;
         
-        const descSpan = document.createElement('span'); // ¡Nuevo! Contenedor para la descripción
+        const descSpan = document.createElement('span'); 
         descSpan.classList.add('descripcion-victoria');
         descSpan.textContent = ` – ${descripcion}`;
-        descSpan.style.display = 'none'; // Oculto por defecto
+        descSpan.style.display = 'none'; 
 
-        // Lógica para mostrar/ocultar la descripción
         checkbox.onchange = function() {
             descSpan.style.display = this.checked ? 'inline' : 'none';
         };
 
         divGroup.appendChild(checkbox);
         divGroup.appendChild(label);
-        divGroup.appendChild(descSpan); // Añadimos el span de la descripción
+        divGroup.appendChild(descSpan); 
         contenedorCondiciones.appendChild(divGroup);
     });
 }
 
-
-// --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
-
 /**
- * Genera la lista final de la partida y recoge todos los parámetros.
+ * ¡FUNCIÓN MODIFICADA! Rellena el desplegable del mapa basándose en el número de jugadores.
  */
+function generarSeleccionMapa() {
+    const numJugadores = numJugadoresSelect.value;
+    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; // Obtiene la lista o un array vacío
+    
+    mapaSelect.innerHTML = ''; 
+    
+    // Opción por defecto
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.textContent = "--- Seleccionar Mapa ---";
+    mapaSelect.appendChild(defaultOption);
+
+    if (mapasDisponibles.length === 0) {
+        // Opción si no hay mapas para esa cantidad (aunque según tu lista, siempre hay)
+        const noMapOption = document.createElement('option');
+        noMapOption.textContent = "No hay mapas listados para este número de jugadores.";
+        noMapOption.disabled = true;
+        mapaSelect.appendChild(noMapOption);
+    } else {
+        mapasDisponibles.forEach(mapa => {
+            const option = document.createElement('option');
+            option.value = mapa;
+            option.textContent = mapa;
+            mapaSelect.appendChild(option);
+        });
+    }
+}
+
+
+// --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA (Sin cambios en lógica) ---
+
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
     const razasSeleccionadas = Array.from(selectElements).map(select => select.value);
     
-    // Obtener las condiciones de victoria seleccionadas
+    const dificultadSeleccionada = dificultadSelect.value; 
+    const mapaSeleccionado = mapaSelect.value;
+    const numJugadores = parseInt(numJugadoresSelect.value);
+    const quickStartActivo = quickStartCheckbox.checked ? "Activado (Recursos Elevados)" : "Desactivado (Recursos Estándar)";
+
     const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
     const condicionesSeleccionadas = Array.from(checkboxesVictoria)
         .filter(cb => cb.checked)
         .map(cb => {
-            // Buscamos la descripción completa en la lista original
             const condicionCompleta = CONDICIONES_VICTORIA.find(c => c.startsWith(cb.value));
-            return condicionCompleta || cb.value; // Devolvemos la cadena completa (Nombre – Descripción)
+            return condicionCompleta || cb.value;
         });
 
-    // Obtener parámetros finales
-    const dificultadSeleccionada = dificultadSelect.value; 
-    const numJugadores = parseInt(numJugadoresSelect.value);
-    const quickStartActivo = quickStartCheckbox.checked ? "Activado (Recursos Elevados)" : "Desactivado (Recursos Estándar)"; // ¡Nuevo!
-
     // --- Validación ---
+    if (mapaSeleccionado === "") {
+        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar un Mapa de Batalla.</p>`;
+        return;
+    }
     if (condicionesSeleccionadas.length === 0) {
          resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar al menos una Condición de Victoria.</p>`;
          return;
     }
-
-    const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; // Jugador 1 (Raza Fija) + Razas Rotatorias
+    
+    const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; 
 
     // 4. Mostrar el Resultado en el HTML
     let resultadoHTML = `
         <h3>✅ Configuración: ${numJugadores} Jugadores | Dificultad: **${dificultadSeleccionada}**</h3>
         
+        <h4>🗺️ Mapa de Batalla:</h4>
+        <p>**${mapaSeleccionado}**</p>
+
         <h4>💰 Starting Resources:</h4>
         <p>${quickStartActivo}</p>
         
@@ -154,7 +212,6 @@ function generarPartida() {
         <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es):</p>
         <ul>
             ${condicionesSeleccionadas.map(c => {
-                // Separamos nombre y descripción para mostrar de forma legible
                 const [nombre, descripcion] = c.split(' – ').map(s => s.trim());
                 return `<li>**${nombre}** – *${descripcion}*</li>`;
             }).join('')}
@@ -181,6 +238,7 @@ function generarPartida() {
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
+    // generarSeleccionMapa() se llama ahora dentro de generarDesplegablesRazas()
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
