@@ -60,7 +60,7 @@ const quickStartCheckbox = document.getElementById('quick-start');
 
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
-/** Generates race dropdowns and calls generateMapSelection. (Updated HTML structure) */
+/** Generates race dropdowns and calls generateMapSelection. (Updated HTML structure and instruction text format) */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
     
@@ -70,18 +70,18 @@ function generarDesplegablesRazas() {
     }
     
     const numRazasARotar = numJugadores - 1; 
-    // Simplified instruction text
-    instruccionRazas.innerHTML = `You are **Space Marines**.`; 
+    
+    // Apply .mapa-detalle styling to instruction text
+    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are **Space Marines**.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
-        // No div.control-group wrapper for each race, just a container for the elements
         const raceContainer = document.createElement('div');
         raceContainer.classList.add('race-item-container');
         
-        // Creating a simple span for the "Race x" text 
+        // Creating a simple span for the "Race x: " text, with an added non-breaking space for separation
         const raceLabelText = document.createElement('span');
-        raceLabelText.textContent = `Race ${i + 1}: `;
+        raceLabelText.innerHTML = `Race ${i + 1}: &nbsp;`; // Añade espacio
         
         const select = document.createElement('select');
         select.id = `raza-jugador-${i}`;
@@ -202,7 +202,7 @@ function seleccionarMapaAleatorio() {
 }
 
 
-// --- 3. MATCH GENERATION FUNCTION (Updated Faction Assignment) ---
+// --- 3. MATCH GENERATION FUNCTION (Remains the same) ---
 
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
