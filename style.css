@@ -105,3 +105,16 @@ h2 {
     /* Esto es clave para la visualización dinámica */
     margin-left: 10px; 
 }
+
+.mapa-info {
+    min-height: 20px; /* Asegura espacio aunque esté vacío */
+    margin-top: 5px;
+    padding-left: 5px;
+    font-style: italic;
+    color: #333;
+}
+.mapa-detalle {
+    margin: 0;
+    font-size: 0.9em;
+    color: #444;
+}

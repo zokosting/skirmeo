@@ -57,7 +57,7 @@
             </p>
             
             <div id="contenedor-desplegables-razas" class="razas-grid">
-                </div>
+            </div>
         </section>
         
         <hr>
@@ -66,12 +66,20 @@
             <h2>Paso 4: Mapa de Batalla</h2>
             <div class="control-group">
                 <label for="mapa-seleccionado">Elige el mapa:</label>
-                <select id="mapa-seleccionado">
+                <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()">
                     </select>
-                <p class="nota-jugadores">
-                    Si no seleccionas un mapa, se elegirá uno **aleatoriamente** de la lista filtrada.
-                </p>
             </div>
+            
+            <div id="descripcion-mapa" class="mapa-info">
+                </div>
+            
+            <div class="control-group">
+                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()">🎲 Elegir Mapa Aleatorio</button>
+            </div>
+            
+            <p class="nota-jugadores">
+                Si no seleccionas un mapa ni usas el botón aleatorio, deberás elegir uno al generar la partida.
+            </p>
         </section>
         
         <hr>
@@ -81,7 +89,7 @@
             <p>Selecciona las condiciones que deben cumplirse para ganar la partida:</p>
             
             <div class="victoria-grid">
-                </div>
+            </div>
         </section>
         
         <hr>
