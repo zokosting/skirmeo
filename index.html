@@ -1,226 +1,117 @@
-// --- 1. CONFIGURACIÓN DE DATOS GLOBALES ---
-const RAZAS_DISPONIBLES = [
-    "Orks", "Eldar", "Imperial Guard", "Chaos Space Marines", 
-    "Space Marines", "Tau Empire", "Necrons", "Sisters Of Battle", "Dark Eldar"
-];
-const RAZA_FIJA = "Space Marines"; 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Partidas de Wargame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const CONDICIONES_VICTORIA = [
-    "Annihilate – Win by destroying all of the enemy’s unit-producing buildings",
-    "Game Timer – El juego termina al agotar el tiempo (se puede seleccionar junto a otras condiciones)",
-    "Assassinate – Win by killing the enemy commander(s)",
-    "Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period",
-    "Destroy HQ – Win by razing all HQ buildings of the opponent",
-    "Economic Victory – Win by amassing a large amount of resources (e.g., requisition & power) and holding them",
-    "Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time",
-    "Sudden Death – Win (or lose) by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
-];
+    <header>
+        <h1>⚔️ Generador de Partidas ⚔️</h1>
+        <p>Configura tu batalla de mesa personalizada.</p>
+    </header>
 
-// ¡NUEVA LISTA DE MAPAS!
-const LISTA_MAPAS = [
-    "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", "Fallen City", 
-    "Hellfire Canyon", "Meeting of Minds", "Outer Reaches", "Railway", "Riverbed", "Tainted Pair", 
-    "Valley of Khorne", "Fortress", "Biffy's Peril", "Mountain Trail", "Quatra", "Saint's Square", 
-    "Tainted Place", "Tainted soul", "Tartarus Center", "Volcanic Reaction", "Red Jungle", 
-    "Bloodshed Alley", "Crossroads", "Dread Alleu", "Jungle Walls", "Kasyr Lutien", "Mortalis", 
-    "Streets of Vogen", "Testing Grounds", "Burial Grounds", "Daturias Pits", "Doom Chamber", 
-    "Lost Hope", "Penal Colony"
-];
+    <main>
+        <section id="configuracion-dificultad">
+            <h2>Paso 1: Nivel de Dificultad de la IA</h2>
+            <div class="control-group">
+                <label for="ai-difficulty">Elige la dificultad:</label>
+                <select id="ai-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Standard/Normal" selected>Standard/Normal</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Harder">Harder</option>
+                    <option value="Insane">Insane</option>
+                </select>
+            </div>
+        </section>
 
+        <hr>
 
-// Elementos del DOM 
-const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
-const instruccionRazas = document.getElementById('instruccion-razas');
-const numJugadoresSelect = document.getElementById('num-jugadores');
-const dificultadSelect = document.getElementById('ai-difficulty');
-const mapaSelect = document.getElementById('mapa-seleccionado'); // ¡Nuevo!
-const resultadoDiv = document.getElementById('resultado');
-const contenedorCondiciones = document.querySelector('.victoria-grid');
-const quickStartCheckbox = document.getElementById('quick-start');
+        <section id="configuracion-jugadores">
+            <h2>Paso 2: Número de Jugadores</h2>
+            <div class="control-group">
+                <label for="num-jugadores">Elige la cantidad total de jugadores:</label>
+                <select id="num-jugadores" onchange="generarDesplegablesRazas()">
+                    <option value="2">2 Jugadores</option>
+                    <option value="3" selected>3 Jugadores</option>
+                    <option value="4">4 Jugadores</option>
+                    <option value="5">5 Jugadores</option>
+                    <option value="6">6 Jugadores</option>
+                    <option value="8">8 Jugadores</option>
+                </select>
+            </div>
+            <p class="nota-jugadores">
+                **Raza Fija:** El Jugador 1 (la IA) siempre será **Space Marines**.
+            </p>
+        </section>
 
-// --- 2. FUNCIONES DE LÓGICA DE INTERFAZ ---
+        <hr>
 
-/**
- * Genera el número correcto de desplegables (<select>) para las razas rotatorias.
- * (La lógica es idéntica a la versión anterior, no se toca para evitar introducir errores).
- */
-function generarDesplegablesRazas() {
-    const numJugadores = parseInt(numJugadoresSelect.value);
-    
-    if (isNaN(numJugadores) || numJugadores < 2) {
-        contenedorDesplegables.innerHTML = '<p class="alerta">Error al leer el número de jugadores.</p>';
-        return; 
-    }
-    
-    const numRazasARotar = numJugadores - 1; 
-    instruccionRazas.innerHTML = `Selecciona la raza para cada uno de los **${numRazasARotar}** jugadores restantes. Por defecto es **${RAZA_FIJA}**:`;
-    contenedorDesplegables.innerHTML = ''; 
-
-    for (let i = 1; i <= numRazasARotar; i++) {
-        const divGroup = document.createElement('div');
-        divGroup.classList.add('control-group');
-        
-        const label = document.createElement('label');
-        label.htmlFor = `raza-jugador-${i}`; 
-        label.textContent = `Raza para Jugador ${i + 1}:`;
-        
-        const select = document.createElement('select');
-        select.id = `raza-jugador-${i}`;
-        select.classList.add('select-raza-rotatoria');
-
-        RAZAS_DISPONIBLES.forEach(raza => {
-            const option = document.createElement('option');
-            option.value = raza;
-            option.textContent = raza;
+        <section id="seleccion-razas">
+            <h2>Paso 3: Asignación de Razas Rotatorias</h2>
+            <p id="instruccion-razas" class="instruccion-principal">
+                Selecciona la raza para cada uno de los jugadores restantes. Por defecto es **Space Marines**.
+            </p>
             
-            if (raza === RAZA_FIJA) {
-                option.selected = true; 
-            }
-            select.appendChild(option);
-        });
-
-        divGroup.appendChild(label);
-        divGroup.appendChild(select);
-        contenedorDesplegables.appendChild(divGroup);
-    }
-}
-
-/**
- * Genera los checkboxes para las condiciones de victoria y añade el listener.
- * (La lógica es idéntica a la versión anterior, no se toca para evitar introducir errores).
- */
-function generarCondicionesVictoria() {
-    contenedorCondiciones.innerHTML = '';
-    CONDICIONES_VICTORIA.forEach((condicion, index) => {
-        const [nombreCorto, descripcion] = condicion.split(' – ').map(s => s.trim()); 
+            <div id="contenedor-desplegables-razas" class="razas-grid">
+                </div>
+        </section>
         
-        const divGroup = document.createElement('div');
-        divGroup.classList.add('victoria-item'); 
+        <hr>
+
+        <section id="seleccion-mapa">
+            <h2>Paso 4: Mapa de Batalla</h2>
+            <div class="control-group">
+                <label for="mapa-seleccionado">Elige el mapa:</label>
+                <select id="mapa-seleccionado">
+                    </select>
+            </div>
+        </section>
         
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = `condicion-${index}`;
-        checkbox.name = 'condicion';
-        checkbox.value = nombreCorto; 
-
-        const label = document.createElement('label');
-        label.htmlFor = checkbox.id;
-        label.textContent = nombreCorto;
+        <hr>
         
-        const descSpan = document.createElement('span'); 
-        descSpan.classList.add('descripcion-victoria');
-        descSpan.textContent = ` – ${descripcion}`;
-        descSpan.style.display = 'none'; 
-
-        checkbox.onchange = function() {
-            descSpan.style.display = this.checked ? 'inline' : 'none';
-        };
-
-        divGroup.appendChild(checkbox);
-        divGroup.appendChild(label);
-        divGroup.appendChild(descSpan); 
-        contenedorCondiciones.appendChild(divGroup);
-    });
-}
-
-/**
- * ¡NUEVA FUNCIÓN! Rellena el desplegable del mapa.
- */
-function generarSeleccionMapa() {
-    mapaSelect.innerHTML = ''; 
-    
-    // Opción por defecto
-    const defaultOption = document.createElement('option');
-    defaultOption.value = "";
-    defaultOption.textContent = "--- Seleccionar Mapa ---";
-    mapaSelect.appendChild(defaultOption);
-
-    LISTA_MAPAS.forEach(mapa => {
-        const option = document.createElement('option');
-        option.value = mapa;
-        option.textContent = mapa;
-        mapaSelect.appendChild(option);
-    });
-}
-
-
-// --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
-
-/**
- * Genera la lista final de la partida y recoge todos los parámetros.
- */
-function generarPartida() {
-    const selectElements = document.querySelectorAll('.select-raza-rotatoria');
-    const razasSeleccionadas = Array.from(selectElements).map(select => select.value);
-    
-    // Obtener parámetros finales
-    const dificultadSeleccionada = dificultadSelect.value; 
-    const mapaSeleccionado = mapaSelect.value; // ¡Nuevo!
-    const numJugadores = parseInt(numJugadoresSelect.value);
-    const quickStartActivo = quickStartCheckbox.checked ? "Activado (Recursos Elevados)" : "Desactivado (Recursos Estándar)";
-
-    // Obtener las condiciones de victoria seleccionadas
-    const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
-    const condicionesSeleccionadas = Array.from(checkboxesVictoria)
-        .filter(cb => cb.checked)
-        .map(cb => {
-            const condicionCompleta = CONDICIONES_VICTORIA.find(c => c.startsWith(cb.value));
-            return condicionCompleta || cb.value;
-        });
-
-    // --- Validación ---
-    if (mapaSeleccionado === "") {
-        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar un Mapa de Batalla.</p>`;
-        return;
-    }
-    if (condicionesSeleccionadas.length === 0) {
-         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar al menos una Condición de Victoria.</p>`;
-         return;
-    }
-    
-    const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; // Jugador 1 (Raza Fija) + Razas Rotatorias
-
-    // 4. Mostrar el Resultado en el HTML
-    let resultadoHTML = `
-        <h3>✅ Configuración: ${numJugadores} Jugadores | Dificultad: **${dificultadSeleccionada}**</h3>
+        <section id="condiciones-victoria">
+            <h2>Paso 5: Condiciones de Victoria</h2>
+            <p>Selecciona las condiciones que deben cumplirse para ganar la partida:</p>
+            
+            <div class="victoria-grid">
+                </div>
+        </section>
         
-        <h4>🗺️ Mapa de Batalla:</h4>
-        <p>**${mapaSeleccionado}**</p>
-
-        <h4>💰 Starting Resources:</h4>
-        <p>${quickStartActivo}</p>
+        <hr>
         
-        <h4>⚙️ Condiciones de Victoria:</h4>
-        <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es):</p>
-        <ul>
-            ${condicionesSeleccionadas.map(c => {
-                const [nombre, descripcion] = c.split(' – ').map(s => s.trim());
-                return `<li>**${nombre}** – *${descripcion}*</li>`;
-            }).join('')}
-        </ul>
-        
-        <h4>👥 Asignación de Facciones:</h4>
-        <ol>
-    `;
+        <section id="starting-resources">
+            <h2>Paso 6: Starting Resources</h2>
+            <div class="control-group">
+                <input type="checkbox" id="quick-start" name="quick-start" value="Quick-start">
+                <label for="quick-start">Activar **Quick-start** (Comienzas con más recursos).</label>
+            </div>
+        </section>
 
-    partidaGenerada.forEach((raza, index) => {
-        const jugadorNum = index + 1;
-        const etiqueta = (index === 0) 
-            ? `**Raza Fija (IA)**` 
-            : `Raza Rotatoria (Jugador ${jugadorNum})`;
-        resultadoHTML += `<li>**Jugador ${jugadorNum}:** ${raza} (${etiqueta})</li>`;
-    });
+        <hr>
 
-    resultadoHTML += '</ol>';
-    resultadoDiv.innerHTML = resultadoHTML;
-}
+        <section id="generacion-partida">
+            <h2>Paso 7: ¡Generar!</h2>
+            <button id="btn-generar" onclick="generarPartida()">🎲 Generar Partida</button>
+        </section>
 
-// --- 4. INICIO DE LA APLICACIÓN ---
+        <hr>
 
-function iniciarAplicacion() {
-    generarDesplegablesRazas();
-    generarCondicionesVictoria(); 
-    generarSeleccionMapa(); // ¡Nuevo!
-}
+        <section id="resultado-partida">
+            <h2>Partida Generada</h2>
+            <div id="resultado" class="resultado-container">
+                <p>Presiona "Generar Partida" para ver la asignación.</p>
+            </div>
+        </section>
+    </main>
 
-document.addEventListener('DOMContentLoaded', iniciarAplicacion);
+    <footer>
+        <p>© Wargame Assistant 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
