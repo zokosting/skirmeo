@@ -18,7 +18,7 @@
             <h2>Paso 1: Número de Jugadores</h2>
             <div class="control-group">
                 <label for="num-jugadores">Elige la cantidad total de jugadores:</label>
-                <select id="num-jugadores" onchange="actualizarSeleccionRazas()">
+                <select id="num-jugadores" onchange="generarDesplegablesRazas()">
                     <option value="2">2 Jugadores</option>
                     <option value="3" selected>3 Jugadores</option>
                     <option value="4">4 Jugadores</option>
@@ -35,22 +35,20 @@
         <hr>
 
         <section id="seleccion-razas">
-            <h2>Paso 2: Razas Adicionales</h2>
+            <h2>Paso 2: Asignación de Razas Rotatorias</h2>
             <p id="instruccion-razas" class="instruccion-principal">
-                Debes seleccionar **2** razas para el resto de jugadores.
+                Selecciona la raza para cada uno de los **2** jugadores restantes.
             </p>
             
-            <div id="contenedor-razas" class="razas-grid">
+            <div id="contenedor-desplegables-razas" class="razas-grid">
                 </div>
-            
-            <p id="alerta-seleccion" class="alerta"></p>
         </section>
 
         <hr>
 
         <section id="generacion-partida">
             <h2>Paso 3: ¡Generar!</h2>
-            <button id="btn-generar" onclick="generarPartida()">🎲 Generar Partida Aleatoria</button>
+            <button id="btn-generar" onclick="generarPartida()">🎲 Generar Partida</button>
         </section>
 
         <hr>
@@ -58,7 +56,7 @@
         <section id="resultado-partida">
             <h2>Partida Generada</h2>
             <div id="resultado" class="resultado-container">
-                <p>Presiona "Generar Partida Aleatoria" para ver la asignación.</p>
+                <p>Presiona "Generar Partida" para ver la asignación.</p>
             </div>
         </section>
     </main>
