@@ -14,8 +14,24 @@
     </header>
 
     <main>
+        <section id="configuracion-dificultad">
+            <h2>Paso 1: Nivel de Dificultad de la IA</h2>
+            <div class="control-group">
+                <label for="ai-difficulty">Elige la dificultad:</label>
+                <select id="ai-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Standard/Normal" selected>Standard/Normal</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Harder">Harder</option>
+                    <option value="Insane">Insane</option>
+                </select>
+            </div>
+        </section>
+
+        <hr>
+
         <section id="configuracion-jugadores">
-            <h2>Paso 1: Número de Jugadores</h2>
+            <h2>Paso 2: Número de Jugadores</h2>
             <div class="control-group">
                 <label for="num-jugadores">Elige la cantidad total de jugadores:</label>
                 <select id="num-jugadores" onchange="generarDesplegablesRazas()">
@@ -28,16 +44,16 @@
                 </select>
             </div>
             <p class="nota-jugadores">
-                **Recuerda:** Un jugador siempre usará la Raza Fija.
+                **Raza Fija:** El Jugador 1 (la IA) siempre será **Space Marines**.
             </p>
         </section>
 
         <hr>
 
         <section id="seleccion-razas">
-            <h2>Paso 2: Asignación de Razas Rotatorias</h2>
+            <h2>Paso 3: Asignación de Razas Rotatorias</h2>
             <p id="instruccion-razas" class="instruccion-principal">
-                Selecciona la raza para cada uno de los **2** jugadores restantes.
+                Selecciona la raza para cada uno de los jugadores restantes. Por defecto es Space Marines.
             </p>
             
             <div id="contenedor-desplegables-razas" class="razas-grid">
@@ -47,7 +63,7 @@
         <hr>
 
         <section id="generacion-partida">
-            <h2>Paso 3: ¡Generar!</h2>
+            <h2>Paso 4: ¡Generar!</h2>
             <button id="btn-generar" onclick="generarPartida()">🎲 Generar Partida</button>
         </section>
 
