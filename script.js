@@ -75,7 +75,6 @@ const quickStartCheckbox = document.getElementById('quick-start');
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
 function generarDesplegablesRazas() {
-    // ... (logic remains the same, but the select group structure is simplified for CSS)
     const numJugadores = parseInt(numJugadoresSelect.value);
     
     if (isNaN(numJugadores) || numJugadores < 2) {
@@ -85,8 +84,8 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    // Adjusted: Instructions text is already present in index.html, only updating content
-    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are **Space Marines**.</p>`; 
+    // MODIFICADO (Punto 2): Se eliminan los asteriscos
+    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are Space Marines.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -139,10 +138,24 @@ function generarDesplegablesRazas() {
         contenedorDesplegables.appendChild(raceWrapper);
     }
     
-    generarSeleccionMapa(); // Now this function is available
+    generarSeleccionMapa();
 }
 
-// NEW: Function to generate map options
+// MODIFICADO (Punto 1): Ahora solo muestra la descripción si existe
+function mostrarDescripcionMapa() {
+    const mapaSeleccionado = mapaSelect.value;
+    // Solo toma la descripción si existe en el objeto MAPAS_DESCRIPCION
+    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
+    
+    // Solo display si hay un mapa seleccionado Y la descripción no es undefined o nula
+    if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
+        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
+    } else {
+        descripcionMapaDiv.innerHTML = ''; // Limpia el contenido si no hay descripción
+    }
+}
+
+
 function generarSeleccionMapa() {
     const numJugadores = numJugadoresSelect.value;
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
@@ -161,23 +174,10 @@ function generarSeleccionMapa() {
             option.textContent = mapa;
             mapaSelect.appendChild(option);
         });
-        // Select the first one by default
         mapaSelect.selectedIndex = 0; 
     }
     
     mostrarDescripcionMapa();
-}
-
-// NEW: Function to display map description
-function mostrarDescripcionMapa() {
-    const mapaSeleccionado = mapaSelect.value;
-    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado] || "No detailed description available for this map.";
-    
-    if (mapaSeleccionado && mapaSeleccionado !== "No maps available") {
-        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
-    } else {
-        descripcionMapaDiv.innerHTML = '';
-    }
 }
 
 
@@ -195,7 +195,6 @@ function generarCondicionesVictoria() {
         checkbox.name = 'condicion';
         checkbox.value = nombreCorto; 
         
-        // Ensure 'Destroy HQ' is selected by default
         const isDefaultChecked = (nombreCorto === "Destroy HQ");
         if (isDefaultChecked) {
             checkbox.checked = true;
@@ -235,6 +234,7 @@ function seleccionarMapaAleatorio() {
         mapaSelect.value = mapaElegido; 
         mostrarDescripcionMapa(); 
     } else {
+        // En este caso el mensaje de error es aceptable
         descripcionMapaDiv.innerHTML = '<p class="alerta">No maps available for this player count to select randomly.</p>';
         mapaSelect.value = "";
     }
@@ -261,10 +261,8 @@ function randomizeAllRaces() {
         
         select.value = randomRace;
         
-        // Trigger the onchange logic to update the Chapter dropdown's visibility
         toggleChapterSelect(select);
 
-        // NEW: If the random race is Space Marines, also randomize the Chapter select
         if (randomRace === 'Space Marines') {
             const playerId = select.id.split('-').pop();
             const chapterSelect = document.getElementById(`chapter-select-${playerId}`);
@@ -281,7 +279,6 @@ function updateTeamOptionStyle() {
     const radioButtons = document.querySelectorAll('#team-options-group input[name="team-option"]');
     radioButtons.forEach(radio => {
         const label = radio.nextElementSibling;
-        // The label is made bold only if the radio button is checked.
         label.style.fontWeight = radio.checked ? 'bold' : '400'; 
     });
 }
@@ -306,19 +303,17 @@ function generarPartida() {
         }
     });
     
-    // Get selected Team Option details
     const selectedTeamRadio = document.querySelector('input[name="team-option"]:checked');
     const teamOption = selectedTeamRadio ? selectedTeamRadio.value : 'N/A';
-    const teamLabel = selectedTeamRadio ? selectedTeamRadio.nextElementSibling.textContent : 'N/A'; // Get text content from label
+    // Se utiliza innerText o textContent ya que el JS maneja la negrita solo en la etiqueta
+    const teamLabel = selectedTeamRadio ? selectedTeamRadio.nextElementSibling.textContent : 'N/A'; 
     const teamDescription = teamLabel.split(' – ')[1] || 'No team description.';
     
-    // Get parameters
     const dificultadSeleccionada = dificultadSelect.value; 
     const resourceRateSeleccionado = resourceRateSelect.value;
     const numJugadores = parseInt(numJugadoresSelect.value);
     const quickStartActivo = quickStartCheckbox.checked ? "Activated (High Starting Resources)" : "Deactivated (Standard Starting Resources)";
 
-    // Get selected victory conditions
     const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
     const condicionesSeleccionadas = Array.from(checkboxesVictoria)
         .filter(cb => cb.checked)
@@ -327,10 +322,9 @@ function generarPartida() {
             return condicionCompleta || cb.value;
         });
 
-    // --- VALIDATION ---
     let mapaSeleccionado = mapaSelect.value;
     
-    if (mapaSeleccionado === "") {
+    if (mapaSeleccionado === "" || mapaSeleccionado === "No maps available") {
         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Map selection is required.</p>`;
         return;
     }
@@ -342,7 +336,6 @@ function generarPartida() {
     
     const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; 
 
-    // 4. Display Result in HTML 
     let resultadoHTML = `
         <h3>✅ Configuration: ${numJugadores} Players | AI Difficulty: **${dificultadSeleccionada}**</h3>
         
@@ -377,7 +370,7 @@ function generarPartida() {
         if (raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[`Race ${jugadorNum}`]})`;
         } else if (index === 0 && raza === RAZA_FIJA) {
-             // Assuming the fixed race (Player 1) is Space Marines and needs no chapter selector/info unless implemented
+             // Logic for Fixed Race Chapter could be added here if needed
         }
 
         resultadoHTML += `<li>**Race ${jugadorNum}:** ${raza}${chapterInfo} (${etiqueta})</li>`;
@@ -387,13 +380,12 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. APPLICATION STARTUP (Updated) ---
+// --- 4. APPLICATION STARTUP (Unchanged) ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
     
-    // NEW: Set initial style for team options on load
     updateTeamOptionStyle(); 
 
     resultadoDiv.innerHTML = '<p>Press "GENERATE!" to see the assignment.</p>';

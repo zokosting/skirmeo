@@ -33,30 +33,34 @@ main {
 }
 
 h2 {
-    color: #c0392b; /* Dark red for wargame touch */
+    /* MODIFICADO (Punto 5): Color de mezcla gris/azul oscuro */
+    color: #34495e; 
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 5px;
-    /* NEW: Align content to the left and create space between elements */
     display: flex;
-    justify-content: flex-start; /* Aligns all to the start (left) */
+    justify-content: flex-start;
     align-items: center; 
-    gap: 15px; /* Space between H2 title text and controls */
+    gap: 15px; 
 }
 
-/* NEW: Font styling for all controls inside H2 and H3, and main selects */
+/* Font styling for all controls inside H2 and H3, and main selects */
 h2 select, h2 button, 
 h3 select, 
 .select-raza-rotatoria, 
 .chapter-select,
 .btn-compact {
-    font-size: 13.3333px; /* 10pt equivalent */
+    font-size: 13.3333px; 
     font-weight: 400; 
 }
 
+/* MODIFICADO (Punto 4): Tamaño de fuente para la descripción de reglas de juego */
+.descripcion-victoria {
+    font-size: 13.3333px;
+}
+
 h2 select, h2 button {
-    /* Ensure they are small and don't take up full width */
     flex-grow: 0;
-    margin-left: 0; /* Use gap from H2 instead */
+    margin-left: 0; 
     padding: 5px 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -67,7 +71,6 @@ h3 {
     font-size: 1.1em;
     padding-top: 10px;
     margin-bottom: 5px;
-    /* NEW: Align content to the left and create space between elements */
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -84,34 +87,33 @@ hr {
     margin: 20px 0;
 }
 
-/* NEW: Button style to resemble a dropdown */
 .btn-compact {
-    background-color: white; /* Light background */
-    color: #333; /* Dark text */
-    border: 1px solid #ccc; /* Border like a select */
+    background-color: white; 
+    color: #333; 
+    border: 1px solid #ccc; 
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
 }
 
 .btn-compact:hover {
-    background-color: #f0f0f0; /* Light hover effect */
+    background-color: #f0f0f0; 
     border-color: #888;
 }
 
-/* Controls for Players List (Randomize button) - aligned right for now */
 .players-list-controls {
     display: flex;
     justify-content: flex-end;
+    margin-top: 15px;
     margin-bottom: 10px;
 }
 
 .razas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* MODIFICADO (Punto 3): Se fija en 2 columnas y ocupa todo el ancho de 'main' */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 10px;
 }
 
-/* Wrapper for race select and chapter select */
 .race-item-wrapper {
     display: flex;
     flex-direction: column;
@@ -130,7 +132,6 @@ hr {
     border-radius: 4px;
 }
 
-/* Chapter Select Container Style */
 .chapter-select-container {
     display: flex; 
     align-items: center;
@@ -159,8 +160,6 @@ hr {
     margin-bottom: 15px;
 }
 
-/* ... (Rest of the styles: #btn-generar, .resultado-container, .alerta, .victoria-grid, etc. remain the same) ... */
-
 /* Team Options Group - Now visually part of Players List */
 .team-options-group {
     display: flex;
@@ -169,7 +168,7 @@ hr {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin-top: 15px; /* Added separation from other controls */
+    margin-top: 15px; 
     margin-bottom: 15px;
 }
 
@@ -183,8 +182,8 @@ hr {
     margin-top: 3px; 
 }
 .team-option-item label {
-    font-size: 13.3333px; /* Ensure radio button labels follow the requested font size */
-    font-weight: 400;
+    font-size: 13.3333px; 
+    font-weight: 400; /* JS handles bolding when selected */
 }
 
 .mapa-detalle {
@@ -192,4 +191,34 @@ hr {
     font-size: 0.9em;
     color: #444;
     font-style: italic; 
+}
+
+/* Estilos de resultados (sin modificar) */
+#btn-generar {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #27ae60; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#btn-generar:hover {
+    background-color: #2ecc71;
+}
+
+.resultado-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.alerta {
+    color: #e74c3c;
+    font-weight: bold;
 }
