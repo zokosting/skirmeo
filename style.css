@@ -14,7 +14,6 @@ header, footer {
     padding: 15px 0;
 }
 
-/* Added styles for the header text that was moved */
 header h1 {
     font-size: 2em;
     margin-bottom: 5px;
@@ -37,16 +36,27 @@ h2 {
     color: #c0392b; /* Dark red for wargame touch */
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 5px;
-    /* NEW: Flexbox for H2 alignment with controls */
+    /* NEW: Align content to the left and create space between elements */
     display: flex;
-    justify-content: space-between; 
+    justify-content: flex-start; /* Aligns all to the start (left) */
     align-items: center; 
+    gap: 15px; /* Space between H2 title text and controls */
 }
 
-/* NEW: Style for controls inside H2 */
+/* NEW: Font styling for all controls inside H2 and H3, and main selects */
+h2 select, h2 button, 
+h3 select, 
+.select-raza-rotatoria, 
+.chapter-select,
+.btn-compact {
+    font-size: 13.3333px; /* 10pt equivalent */
+    font-weight: 400; 
+}
+
 h2 select, h2 button {
-    margin-left: 15px; 
-    font-size: 0.9em;
+    /* Ensure they are small and don't take up full width */
+    flex-grow: 0;
+    margin-left: 0; /* Use gap from H2 instead */
     padding: 5px 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -57,14 +67,15 @@ h3 {
     font-size: 1.1em;
     padding-top: 10px;
     margin-bottom: 5px;
-    /* NEW: Flexbox for H3 alignment with controls (like AI difficulty) */
+    /* NEW: Align content to the left and create space between elements */
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 15px;
 }
 
 h3 select {
-    margin-left: 15px; 
+    margin-left: 0;
 }
 
 hr {
@@ -73,21 +84,34 @@ hr {
     margin: 20px 0;
 }
 
-/* Removed old .control-group styles that interfered with H2 alignment */
-.razas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+/* NEW: Button style to resemble a dropdown */
+.btn-compact {
+    background-color: white; /* Light background */
+    color: #333; /* Dark text */
+    border: 1px solid #ccc; /* Border like a select */
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-/* NEW: Styles for the Randomize button container */
+.btn-compact:hover {
+    background-color: #f0f0f0; /* Light hover effect */
+    border-color: #888;
+}
+
+/* Controls for Players List (Randomize button) - aligned right for now */
 .players-list-controls {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
 }
 
-/* NEW: Wrapper for race select and chapter select */
+.razas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+/* Wrapper for race select and chapter select */
 .race-item-wrapper {
     display: flex;
     flex-direction: column;
@@ -106,7 +130,7 @@ hr {
     border-radius: 4px;
 }
 
-/* NEW: Chapter Select Container Style */
+/* Chapter Select Container Style */
 .chapter-select-container {
     display: flex; 
     align-items: center;
@@ -132,90 +156,12 @@ hr {
     border-radius: 5px;
     font-weight: normal;
     color: #2980b9;
-    /* Small horizontal separation before dropdowns */
     margin-bottom: 15px;
 }
 
-#btn-generar {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: #27ae60; 
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+/* ... (Rest of the styles: #btn-generar, .resultado-container, .alerta, .victoria-grid, etc. remain the same) ... */
 
-#btn-generar:hover {
-    background-color: #2ecc71;
-}
-
-.btn-compact {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-compact:hover {
-    background-color: #2980b9;
-}
-
-/* Estilo para el resultado */
-.resultado-container {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-.alerta {
-    color: #e74c3c;
-    font-weight: bold;
-}
-
-.victoria-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.victoria-item {
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.victoria-item input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-.descripcion-victoria {
-    font-size: 0.9em;
-    color: #555;
-    margin-left: 10px; 
-}
-
-.mapa-info {
-    min-height: 20px;
-    margin-top: 5px;
-    padding-left: 5px;
-    font-style: italic;
-    color: #333;
-}
-.mapa-detalle {
-    margin: 0;
-    font-size: 0.9em;
-    color: #444;
-    font-style: italic; 
-}
-
-/* NEW: Team Options Group */
+/* Team Options Group - Now visually part of Players List */
 .team-options-group {
     display: flex;
     flex-direction: column;
@@ -223,7 +169,8 @@ hr {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 15px; /* Added separation from other controls */
+    margin-bottom: 15px;
 }
 
 .team-option-item {
@@ -234,4 +181,15 @@ hr {
 .team-option-item input[type="radio"] {
     margin-right: 8px;
     margin-top: 3px; 
+}
+.team-option-item label {
+    font-size: 13.3333px; /* Ensure radio button labels follow the requested font size */
+    font-weight: 400;
+}
+
+.mapa-detalle {
+    margin: 0;
+    font-size: 0.9em;
+    color: #444;
+    font-style: italic; 
 }

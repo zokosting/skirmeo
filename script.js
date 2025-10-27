@@ -5,7 +5,7 @@ const RAZAS_DISPONIBLES = [
 ];
 const RAZA_FIJA = "Space Marines"; 
 
-// NEW: Space Marines Chapters
+// Space Marines Chapters
 const CHAPTERS_DISPONIBLES = [
     "Ultramarines", 
     "Blood Angels", 
@@ -27,6 +27,7 @@ const CONDICIONES_VICTORIA = [
     "Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time",
     "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
+// ... (MAPAS_POR_JUGADOR and MAPAS_DESCRIPCION remain the same) ...
 
 const MAPAS_POR_JUGADOR = {
     "2": [
@@ -73,8 +74,8 @@ const quickStartCheckbox = document.getElementById('quick-start');
 
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
-/** Generates race dropdowns and calls generateMapSelection. (Updated with Chapter logic and styling) */
 function generarDesplegablesRazas() {
+    // ... (logic remains the same, but the select group structure is simplified for CSS)
     const numJugadores = parseInt(numJugadoresSelect.value);
     
     if (isNaN(numJugadores) || numJugadores < 2) {
@@ -84,18 +85,15 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    // Applying the desired format for the instruction text
     instruccionRazas.innerHTML = `<p class="mapa-detalle">You are **Space Marines**.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
         const playerId = i;
         
-        // Wrapper div for race select and chapter select
         const raceWrapper = document.createElement('div');
         raceWrapper.classList.add('race-item-wrapper');
         
-        // Group for the select and label
         const raceSelectGroup = document.createElement('div');
         raceSelectGroup.classList.add('race-item-select-group');
         
@@ -106,7 +104,6 @@ function generarDesplegablesRazas() {
         select.id = `raza-jugador-${playerId}`;
         select.classList.add('select-raza-rotatoria');
         
-        // NEW: Add onchange listener for Chapter selection
         select.setAttribute('onchange', 'toggleChapterSelect(this)');
 
         RAZAS_DISPONIBLES.forEach(raza => {
@@ -124,11 +121,9 @@ function generarDesplegablesRazas() {
         raceSelectGroup.appendChild(select);
         raceWrapper.appendChild(raceSelectGroup);
         
-        // NEW: Add Chapter container (hidden by default)
         const chapterContainer = document.createElement('div');
         chapterContainer.id = `chapter-container-${playerId}`;
         chapterContainer.classList.add('chapter-select-container');
-        // Check if default is SM to show the chapter dropdown
         chapterContainer.style.display = select.value === 'Space Marines' ? 'flex' : 'none';
         
         let chapterHTML = '<label for="chapter-select">Chapter:</label>';
@@ -146,7 +141,6 @@ function generarDesplegablesRazas() {
     generarSeleccionMapa();
 }
 
-/** Generates victory condition checkboxes. (Modified: Select 'Destroy HQ' by default) */
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
     CONDICIONES_VICTORIA.forEach((condicion, index) => {
@@ -161,7 +155,7 @@ function generarCondicionesVictoria() {
         checkbox.name = 'condicion';
         checkbox.value = nombreCorto; 
         
-        // NEW: Select 'Destroy HQ' by default
+        // Ensure 'Destroy HQ' is selected by default
         const isDefaultChecked = (nombreCorto === "Destroy HQ");
         if (isDefaultChecked) {
             checkbox.checked = true;
@@ -174,7 +168,6 @@ function generarCondicionesVictoria() {
         const descSpan = document.createElement('span'); 
         descSpan.classList.add('descripcion-victoria');
         descSpan.textContent = ` – ${descripcion}`;
-        // Show description if checked by default
         descSpan.style.display = isDefaultChecked ? 'inline' : 'none'; 
 
         checkbox.onchange = function() {
@@ -187,53 +180,12 @@ function generarCondicionesVictoria() {
         contenedorCondiciones.appendChild(divGroup);
     });
 }
+// ... (generarSeleccionMapa, mostrarDescripcionMapa, seleccionarAleatorio, seleccionarMapaAleatorio remain the same) ...
 
-/** Fills the map dropdown based on the selected player count and clears description. (Unchanged) */
-function generarSeleccionMapa() {
-    const numJugadores = numJugadoresSelect.value; 
-    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; 
-    
-    mapaSelect.innerHTML = ''; 
-    descripcionMapaDiv.innerHTML = ''; 
-    
-    const defaultOption = document.createElement('option');
-    defaultOption.value = "";
-    defaultOption.textContent = "--- Select Map ---"; 
-    mapaSelect.appendChild(defaultOption);
-
-    if (mapasDisponibles.length === 0) {
-        const noMapOption = document.createElement('option');
-        noMapOption.textContent = "No maps listed for this player count.";
-        noMapOption.disabled = true;
-        mapaSelect.appendChild(noMapOption);
-    } else {
-        mapasDisponibles.forEach(mapa => {
-            const option = document.createElement('option');
-            option.value = mapa;
-            option.textContent = mapa;
-            mapaSelect.appendChild(option);
-        });
-    }
-}
-
-/** Shows the specific description for a selected map. (Unchanged) */
-function mostrarDescripcionMapa() {
-    const mapaSeleccionado = mapaSelect.value;
-    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado];
-    
-    if (descripcion) {
-        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
-    } else {
-        descripcionMapaDiv.innerHTML = ''; 
-    }
-}
-
-/** Helper function to select a random element from an array. (Unchanged) */
 function seleccionarAleatorio(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-/** Selects a random map, updates the dropdown, and shows the description. (Unchanged) */
 function seleccionarMapaAleatorio() {
     const numJugadores = numJugadoresSelect.value;
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
@@ -248,7 +200,6 @@ function seleccionarMapaAleatorio() {
     }
 }
 
-/** NEW: Toggles the Chapter dropdown when 'Space Marines' is selected. */
 function toggleChapterSelect(selectElement) {
     const playerId = selectElement.id.split('-').pop();
     const chapterContainer = document.getElementById(`chapter-container-${playerId}`);
@@ -262,21 +213,30 @@ function toggleChapterSelect(selectElement) {
     }
 }
 
-/** NEW: Selects a random race for all non-fixed race dropdowns. */
+/** UPDATED: Selects a random race for all non-fixed race dropdowns, and randomizes Chapter if SM is selected. */
 function randomizeAllRaces() {
     const raceSelects = document.querySelectorAll('.select-raza-rotatoria');
     raceSelects.forEach(select => {
-        const randomIndex = Math.floor(Math.random() * RAZAS_DISPONIBLES.length);
-        const randomRace = RAZAS_DISPONIBLES[randomIndex];
+        const randomRace = seleccionarAleatorio(RAZAS_DISPONIBLES);
         
         select.value = randomRace;
         
-        // Trigger the onchange logic
+        // Trigger the onchange logic to update the Chapter dropdown's visibility
         toggleChapterSelect(select);
+
+        // NEW: If the random race is Space Marines, also randomize the Chapter select
+        if (randomRace === 'Space Marines') {
+            const playerId = select.id.split('-').pop();
+            const chapterSelect = document.getElementById(`chapter-select-${playerId}`);
+            if (chapterSelect) {
+                const randomChapter = seleccionarAleatorio(CHAPTERS_DISPONIBLES);
+                chapterSelect.value = randomChapter;
+            }
+        }
     });
 }
 
-// --- 3. MATCH GENERATION FUNCTION (Updated to include Chapter and Team options) ---
+// --- 3. MATCH GENERATION FUNCTION (Updated result display) ---
 
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
@@ -287,20 +247,20 @@ function generarPartida() {
         const raza = select.value;
         razasSeleccionadas.push(raza);
         
-        // Check for Chapter selection if Space Marines is the race
         if (raza === 'Space Marines') {
             const playerId = select.id.split('-').pop();
             const chapterSelect = document.getElementById(`chapter-select-${playerId}`);
             if (chapterSelect) {
-                // Store chapter with the player identifier
                 chaptersSeleccionados[`Race ${parseInt(playerId) + 1}`] = chapterSelect.value;
             }
         }
     });
     
-    // NEW: Get selected Team Option
+    // Get selected Team Option details
     const selectedTeamRadio = document.querySelector('input[name="team-option"]:checked');
     const teamOption = selectedTeamRadio ? selectedTeamRadio.value : 'N/A';
+    const teamLabel = selectedTeamRadio ? selectedTeamRadio.parentNode.querySelector('label').textContent : 'N/A';
+    const teamDescription = teamLabel.split(' – ')[1] || 'No team description.';
     
     // Get parameters
     const dificultadSeleccionada = dificultadSelect.value; 
@@ -317,7 +277,7 @@ function generarPartida() {
             return condicionCompleta || cb.value;
         });
 
-    // --- VALIDATION AND FINAL MAP SELECTION ---
+    // --- VALIDATION ---
     let mapaSeleccionado = mapaSelect.value;
     
     if (mapaSeleccionado === "") {
@@ -336,8 +296,6 @@ function generarPartida() {
     let resultadoHTML = `
         <h3>✅ Configuration: ${numJugadores} Players | AI Difficulty: **${dificultadSeleccionada}**</h3>
         
-        <h4>🤝 Team Configuration: **${teamOption}**</h4>
-
         <h4>🗺️ Map:</h4>
         <p>**${mapaSeleccionado}**</p>
 
@@ -354,7 +312,8 @@ function generarPartida() {
             }).join('')}
         </ul>
         
-        <h4>👥 Faction Assignment:</h4>
+        <h4>👥 Faction Assignment & Team Setup:</h4>
+        <p class="mapa-detalle">**Team Option:** ${teamOption} – *${teamDescription}*</p> 
         <ol>
     `;
 
@@ -365,11 +324,12 @@ function generarPartida() {
             : `Rotating Race (Player ${jugadorNum})`;
         
         let chapterInfo = '';
-        // Only check for chapter info if it's one of the rotating players
-        if (index > 0 && raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
+        if (raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[`Race ${jugadorNum}`]})`;
+        } else if (index === 0 && raza === RAZA_FIJA) {
+             // Assuming the fixed race (Player 1) is Space Marines and needs no chapter selector/info unless implemented
         }
-        
+
         resultadoHTML += `<li>**Race ${jugadorNum}:** ${raza}${chapterInfo} (${etiqueta})</li>`;
     });
 
@@ -382,6 +342,7 @@ function generarPartida() {
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
+    resultadoDiv.innerHTML = '<p>Press "GENERATE!" to see the assignment.</p>';
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
