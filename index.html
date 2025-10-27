@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dawn of War</title>
+    <title>⚔️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <h1>⚔️</h1>
+        <p>Dawn of War</p>
         <p>Definitive Edition</p>
     </header>
 
     <main>
         <section id="configuracion-jugadores">
-            <h2>Paso 1: Max Players</h2>
+            <h2>Max Players</h2>
             <div class="control-group">
-                <label for="num-jugadores">Max Players:</label>
                 <select id="num-jugadores" onchange="generarDesplegablesRazas()">
                     <option value="2">2</option>
                     <option value="3" selected>3</option>
@@ -27,15 +27,12 @@
                     <option value="8">8</option>
                 </select>
             </div>
-            <p class="nota-jugadores">
-                **Fixed Race:** Player 1 (AI) will always be **Space Marines**.
-            </p>
         </section>
 
         <hr>
 
         <section id="seleccion-mapa">
-            <h2>Paso 2: Map</h2>
+            <h2>Map</h2>
             <div class="control-group">
                 <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()">
                     </select>
@@ -45,21 +42,16 @@
                 </div>
             
             <div class="control-group">
-                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()">🎲 RANDOM</button>
+                <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()">RANDOM</button>
             </div>
-            
-            <p class="nota-jugadores">
-                You must select a map or use the **RANDOM** button.
-            </p>
         </section>
 
         <hr>
 
         <section id="seleccion-razas">
-            <h2>Paso 3: Players List</h2>
+            <h2>Players List</h2>
             <p id="instruccion-razas" class="instruccion-principal">
-                You are **Space Marines**. Select the race for the remaining players:
-            </p>
+                </p>
             
             <div id="contenedor-desplegables-razas" class="razas-grid">
                 </div>
@@ -68,7 +60,7 @@
         <hr>
         
         <section id="game-options">
-            <h2>Paso 4: Game Options</h2>
+            <h2>Game Options</h2>
             
             <div id="configuracion-dificultad" class="config-sub-group">
                 <h3>AI difficulty</h3>
@@ -85,7 +77,6 @@
 
             <div id="condiciones-victoria" class="config-sub-group">
                 <h3>Game rules</h3>
-                <p>Select the conditions that must be met to win the game:</p>
                 <div class="victoria-grid">
                     </div>
             </div>
@@ -110,20 +101,19 @@
         <hr>
 
         <section id="generacion-partida">
-            <button id="btn-generar" onclick="generarPartida()">🎲 Generate Match</button>
+            <button id="btn-generar" onclick="generarPartida()">GENERATE!</button>
         </section>
 
         <hr>
 
         <section id="resultado-partida">
             <div id="resultado" class="resultado-container">
-                <p>Press "Generate Match" to see the assignment.</p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© Wargame Assistant 2024</p>
+        <p>Strega</p>
     </footer>
 
     <script src="script.js"></script>

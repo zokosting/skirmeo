@@ -1,4 +1,4 @@
-// --- 1. GLOBAL DATA CONFIGURATION ---
+// --- 1. GLOBAL DATA CONFIGURATION (Remains the same) ---
 const RAZAS_DISPONIBLES = [
     "Orks", "Eldar", "Imperial Guard", "Chaos Space Marines", 
     "Space Marines", "Tau Empire", "Necrons", "Sisters Of Battle", "Dark Eldar"
@@ -45,7 +45,7 @@ const MAPAS_DESCRIPCION = {
 };
 
 
-// DOM Elements 
+// DOM Elements (Remain the same)
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
 const instruccionRazas = document.getElementById('instruccion-razas');
 const numJugadoresSelect = document.getElementById('num-jugadores');
@@ -59,7 +59,7 @@ const quickStartCheckbox = document.getElementById('quick-start');
 
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
-/** Generates race dropdowns and calls generateMapSelection. */
+/** Generates race dropdowns and calls generateMapSelection. (Updated Race Labels) */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
     
@@ -69,18 +69,17 @@ function generarDesplegablesRazas() {
     }
     
     const numRazasARotar = numJugadores - 1; 
-    // Updated instruction text
-    instruccionRazas.innerHTML = `You are **Space Marines**. Select the race for the **${numRazasARotar}** remaining players:`;
+    // Simplified instruction text
+    instruccionRazas.innerHTML = `You are **Space Marines**.`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
         const divGroup = document.createElement('div');
         divGroup.classList.add('control-group');
         
-        const label = document.createElement('label');
-        label.htmlFor = `raza-jugador-${i}`; 
-        // Updated race label
-        label.textContent = `Race ${i + 1}:`;
+        // Creating a simple span for the "Race x" text (no longer a <label>)
+        const raceLabelText = document.createElement('span');
+        raceLabelText.textContent = `Race ${i + 1}: `;
         
         const select = document.createElement('select');
         select.id = `raza-jugador-${i}`;
@@ -97,7 +96,7 @@ function generarDesplegablesRazas() {
             select.appendChild(option);
         });
 
-        divGroup.appendChild(label);
+        divGroup.appendChild(raceLabelText); 
         divGroup.appendChild(select);
         contenedorDesplegables.appendChild(divGroup);
     }
@@ -105,7 +104,7 @@ function generarDesplegablesRazas() {
     generarSeleccionMapa();
 }
 
-/** Generates victory condition checkboxes. */
+/** Generates victory condition checkboxes. (Remains the same) */
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
     CONDICIONES_VICTORIA.forEach((condicion, index) => {
@@ -140,7 +139,7 @@ function generarCondicionesVictoria() {
     });
 }
 
-/** Fills the map dropdown based on the selected player count and clears description. */
+/** Fills the map dropdown based on the selected player count and clears description. (Remains the same) */
 function generarSeleccionMapa() {
     const numJugadores = numJugadoresSelect.value; 
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; 
@@ -148,10 +147,8 @@ function generarSeleccionMapa() {
     mapaSelect.innerHTML = ''; 
     descripcionMapaDiv.innerHTML = ''; 
     
-    // Default option
     const defaultOption = document.createElement('option');
     defaultOption.value = "";
-    // Removed "Aleatorio" as it now has a button
     defaultOption.textContent = "--- Select Map ---"; 
     mapaSelect.appendChild(defaultOption);
 
@@ -170,24 +167,25 @@ function generarSeleccionMapa() {
     }
 }
 
-/** Shows the specific description for a selected map. */
+/** Shows the specific description for a selected map. (Removed Details prefix) */
 function mostrarDescripcionMapa() {
     const mapaSeleccionado = mapaSelect.value;
     const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado];
     
     if (descripcion) {
-        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">**Details:** ${descripcion}</p>`;
+        // Removed the "**Details:**" prefix
+        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
     } else {
         descripcionMapaDiv.innerHTML = ''; 
     }
 }
 
-/** Helper function to select a random element from an array. */
+/** Helper function to select a random element from an array. (Remains the same) */
 function seleccionarAleatorio(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-/** Selects a random map, updates the dropdown, and shows the description. */
+/** Selects a random map, updates the dropdown, and shows the description. (Remains the same) */
 function seleccionarMapaAleatorio() {
     const numJugadores = numJugadoresSelect.value;
     const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
@@ -203,7 +201,7 @@ function seleccionarMapaAleatorio() {
 }
 
 
-// --- 3. MATCH GENERATION FUNCTION ---
+// --- 3. MATCH GENERATION FUNCTION (Updated Error Messages) ---
 
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
@@ -213,7 +211,6 @@ function generarPartida() {
     const dificultadSeleccionada = dificultadSelect.value; 
     const resourceRateSeleccionado = resourceRateSelect.value;
     const numJugadores = parseInt(numJugadoresSelect.value);
-    // Updated quick start text
     const quickStartActivo = quickStartCheckbox.checked ? "Activated (High Starting Resources)" : "Deactivated (Standard Starting Resources)";
 
     // Get selected victory conditions
@@ -227,11 +224,10 @@ function generarPartida() {
 
     // --- VALIDATION AND FINAL MAP SELECTION ---
     let mapaSeleccionado = mapaSelect.value;
-    let fuenteMapa = "Selected";
     
     if (mapaSeleccionado === "") {
-        // Updated error message
-        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** You must select a Map or use the **RANDOM** button.</p>`;
+        // Updated error message to match the simplified flow
+        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Map selection is required.</p>`;
         return;
     }
     
@@ -242,7 +238,7 @@ function generarPartida() {
     
     const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; 
 
-    // 4. Display Result in HTML (All translated)
+    // 4. Display Result in HTML 
     let resultadoHTML = `
         <h3>✅ Configuration: ${numJugadores} Players | AI Difficulty: **${dificultadSeleccionada}**</h3>
         
@@ -268,18 +264,17 @@ function generarPartida() {
 
     partidaGenerada.forEach((raza, index) => {
         const jugadorNum = index + 1;
-        // Updated label for Player 1
         const etiqueta = (index === 0) 
             ? `**Fixed Race (AI)**` 
             : `Rotating Race (Player ${jugadorNum})`;
-        resultadoHTML += `<li>**Player ${jugadorNum}:** ${raza} (${etiqueta})</li>`;
+        resultadoHTML += `<li>**Race ${jugadorNum}:** ${raza} (${etiqueta})</li>`;
     });
 
     resultadoHTML += '</ol>';
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. APPLICATION STARTUP ---
+// --- 4. APPLICATION STARTUP (Remains the same) ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
