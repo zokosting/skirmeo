@@ -8,7 +8,7 @@ const RAZA_FIJA = "Space Marines";
 
 const CONDICIONES_VICTORIA = [
     "Annihilate – Win by destroying all of the enemy’s unit-producing buildings",
-    "Game Timer",
+    "Game Timer – El juego termina al agotar el tiempo (se puede seleccionar junto a otras condiciones)",
     "Assassinate – Win by killing the enemy commander(s)",
     "Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period",
     "Destroy HQ – Win by razing all HQ buildings of the opponent",
@@ -23,12 +23,13 @@ const instruccionRazas = document.getElementById('instruccion-razas');
 const numJugadoresSelect = document.getElementById('num-jugadores');
 const dificultadSelect = document.getElementById('ai-difficulty');
 const resultadoDiv = document.getElementById('resultado');
-const contenedorCondiciones = document.querySelector('.victoria-grid'); // Nuevo contenedor
+const contenedorCondiciones = document.querySelector('.victoria-grid');
+const quickStartCheckbox = document.getElementById('quick-start'); // ¡Nuevo!
 
-// --- 2. FUNCIONES DE INICIALIZACIÓN Y LÓGICA DE INTERFAZ ---
+// --- 2. FUNCIONES DE LÓGICA DE INTERFAZ ---
 
 /**
- * Genera el número correcto de desplegables (<select>) basado en la selección de jugadores.
+ * Genera el número correcto de desplegables (<select>) para las razas rotatorias.
  */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
@@ -39,11 +40,7 @@ function generarDesplegablesRazas() {
     }
     
     const numRazasARotar = numJugadores - 1; 
-
-    // 1. Actualizar la instrucción para el usuario
     instruccionRazas.innerHTML = `Selecciona la raza para cada uno de los **${numRazasARotar}** jugadores restantes. Por defecto es **${RAZA_FIJA}**:`;
-    
-    // 2. Limpiar y generar nuevos desplegables
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -58,13 +55,11 @@ function generarDesplegablesRazas() {
         select.id = `raza-jugador-${i}`;
         select.classList.add('select-raza-rotatoria');
 
-        // Llenar el desplegable con todas las razas disponibles
         RAZAS_DISPONIBLES.forEach(raza => {
             const option = document.createElement('option');
             option.value = raza;
             option.textContent = raza;
             
-            // ¡AJUSTE CLAVE! Space Marines es la opción por defecto, pero se puede cambiar.
             if (raza === RAZA_FIJA) {
                 option.selected = true; 
             }
@@ -78,26 +73,39 @@ function generarDesplegablesRazas() {
 }
 
 /**
- * Genera los checkboxes para las condiciones de victoria.
+ * Genera los checkboxes para las condiciones de victoria y añade el listener.
  */
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
     CONDICIONES_VICTORIA.forEach((condicion, index) => {
+        const [nombreCorto, descripcion] = condicion.split(' – ').map(s => s.trim()); // Separamos nombre y descripción
+        
         const divGroup = document.createElement('div');
-        divGroup.classList.add('raza-item'); // Reutilizamos la clase para grid styling
+        divGroup.classList.add('victoria-item'); 
         
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.id = `condicion-${index}`;
         checkbox.name = 'condicion';
-        checkbox.value = condicion;
-        
+        checkbox.value = nombreCorto; // El valor guardado es el nombre corto
+
         const label = document.createElement('label');
         label.htmlFor = checkbox.id;
-        label.textContent = condicion.split('–')[0].trim(); // Solo el nombre corto
+        label.textContent = nombreCorto;
+        
+        const descSpan = document.createElement('span'); // ¡Nuevo! Contenedor para la descripción
+        descSpan.classList.add('descripcion-victoria');
+        descSpan.textContent = ` – ${descripcion}`;
+        descSpan.style.display = 'none'; // Oculto por defecto
+
+        // Lógica para mostrar/ocultar la descripción
+        checkbox.onchange = function() {
+            descSpan.style.display = this.checked ? 'inline' : 'none';
+        };
 
         divGroup.appendChild(checkbox);
         divGroup.appendChild(label);
+        divGroup.appendChild(descSpan); // Añadimos el span de la descripción
         contenedorCondiciones.appendChild(divGroup);
     });
 }
@@ -106,54 +114,50 @@ function generarCondicionesVictoria() {
 // --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
 
 /**
- * Genera la lista final de la partida.
+ * Genera la lista final de la partida y recoge todos los parámetros.
  */
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
     const razasSeleccionadas = Array.from(selectElements).map(select => select.value);
     
-    // Obtener los valores de los checkboxes de victoria
+    // Obtener las condiciones de victoria seleccionadas
     const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
     const condicionesSeleccionadas = Array.from(checkboxesVictoria)
         .filter(cb => cb.checked)
-        .map(cb => cb.value);
+        .map(cb => {
+            // Buscamos la descripción completa en la lista original
+            const condicionCompleta = CONDICIONES_VICTORIA.find(c => c.startsWith(cb.value));
+            return condicionCompleta || cb.value; // Devolvemos la cadena completa (Nombre – Descripción)
+        });
 
-    // Obtener el valor de dificultad
+    // Obtener parámetros finales
     const dificultadSeleccionada = dificultadSelect.value; 
+    const numJugadores = parseInt(numJugadoresSelect.value);
+    const quickStartActivo = quickStartCheckbox.checked ? "Activado (Recursos Elevados)" : "Desactivado (Recursos Estándar)"; // ¡Nuevo!
 
-    // --- Validación Crítica: No debería haber opciones vacías gracias a la selección por defecto ---
-    // Mantenemos la validación solo para estar seguros.
-    const razasSinSeleccionar = razasSeleccionadas.filter(raza => raza === "");
-    
-    if (razasSinSeleccionar.length > 0) {
-         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Por favor, asegúrate de haber seleccionado una raza en todos los ${selectElements.length} desplegables.</p>`;
-         return;
-    }
-    
+    // --- Validación ---
     if (condicionesSeleccionadas.length === 0) {
          resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar al menos una Condición de Victoria.</p>`;
          return;
     }
 
-    const numJugadores = parseInt(numJugadoresSelect.value);
-    const partidaGenerada = [];
-    
-    // 1. Asignar la Raza Fija al Jugador 1
-    partidaGenerada.push(RAZA_FIJA); 
-    
-    // 2. Asignar las razas seleccionadas (incluyendo repeticiones)
-    razasSeleccionadas.forEach(raza => {
-        partidaGenerada.push(raza);
-    });
+    const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; // Jugador 1 (Raza Fija) + Razas Rotatorias
 
-    // 3. Mostrar el Resultado en el HTML
+    // 4. Mostrar el Resultado en el HTML
     let resultadoHTML = `
         <h3>✅ Configuración: ${numJugadores} Jugadores | Dificultad: **${dificultadSeleccionada}**</h3>
-        <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es).</p>
+        
+        <h4>💰 Starting Resources:</h4>
+        <p>${quickStartActivo}</p>
         
         <h4>⚙️ Condiciones de Victoria:</h4>
+        <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es):</p>
         <ul>
-            ${condicionesSeleccionadas.map(c => `<li>${c}</li>`).join('')}
+            ${condicionesSeleccionadas.map(c => {
+                // Separamos nombre y descripción para mostrar de forma legible
+                const [nombre, descripcion] = c.split(' – ').map(s => s.trim());
+                return `<li>**${nombre}** – *${descripcion}*</li>`;
+            }).join('')}
         </ul>
         
         <h4>👥 Asignación de Facciones:</h4>
@@ -176,7 +180,7 @@ function generarPartida() {
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
-    generarCondicionesVictoria(); // Llamamos a la nueva función de inicialización
+    generarCondicionesVictoria(); 
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);

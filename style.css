@@ -89,6 +89,19 @@ h2 {
     gap: 10px;
 }
 
-.victoria-grid input[type="checkbox"] {
-    margin-right: 10px;
+.victoria-item {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.victoria-item input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.descripcion-victoria {
+    font-size: 0.9em;
+    color: #555;
+    /* Esto es clave para la visualización dinámica */
+    margin-left: 10px; 
 }
