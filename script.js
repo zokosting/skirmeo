@@ -3,17 +3,29 @@ const RAZAS_DISPONIBLES = [
     "Orks", "Eldar", "Imperial Guard", "Chaos Space Marines", 
     "Space Marines", "Tau Empire", "Necrons", "Sisters Of Battle", "Dark Eldar"
 ];
-// Define la raza que siempre estará en la partida: Space Marines
+// Define la raza fija y por defecto.
 const RAZA_FIJA = "Space Marines"; 
+
+const CONDICIONES_VICTORIA = [
+    "Annihilate – Win by destroying all of the enemy’s unit-producing buildings",
+    "Game Timer",
+    "Assassinate – Win by killing the enemy commander(s)",
+    "Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period",
+    "Destroy HQ – Win by razing all HQ buildings of the opponent",
+    "Economic Victory – Win by amassing a large amount of resources (e.g., requisition & power) and holding them",
+    "Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time",
+    "Sudden Death – Win (or lose) by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
+];
 
 // Elementos del DOM 
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
 const instruccionRazas = document.getElementById('instruccion-razas');
 const numJugadoresSelect = document.getElementById('num-jugadores');
-const dificultadSelect = document.getElementById('ai-difficulty'); // ¡Nuevo!
+const dificultadSelect = document.getElementById('ai-difficulty');
 const resultadoDiv = document.getElementById('resultado');
+const contenedorCondiciones = document.querySelector('.victoria-grid'); // Nuevo contenedor
 
-// --- 2. FUNCIONES DE LÓGICA DE INTERFAZ (GENERACIÓN DE DESPLEGABLES) ---
+// --- 2. FUNCIONES DE INICIALIZACIÓN Y LÓGICA DE INTERFAZ ---
 
 /**
  * Genera el número correcto de desplegables (<select>) basado en la selección de jugadores.
@@ -46,36 +58,18 @@ function generarDesplegablesRazas() {
         select.id = `raza-jugador-${i}`;
         select.classList.add('select-raza-rotatoria');
 
-        // Añadir una opción inicial vacía, pero no seleccionada por defecto si la fija ya lo está
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.textContent = "--- Seleccionar Raza ---";
-        select.appendChild(defaultOption);
-        
         // Llenar el desplegable con todas las razas disponibles
-        let isSpaceMarineSelected = false;
-
         RAZAS_DISPONIBLES.forEach(raza => {
             const option = document.createElement('option');
             option.value = raza;
             option.textContent = raza;
             
-            // ¡AJUSTE CLAVE! Si es la raza fija, se selecciona por defecto.
+            // ¡AJUSTE CLAVE! Space Marines es la opción por defecto, pero se puede cambiar.
             if (raza === RAZA_FIJA) {
                 option.selected = true; 
-                isSpaceMarineSelected = true;
             }
             select.appendChild(option);
         });
-        
-        // Si Space Marines fue seleccionado por defecto, aseguramos que la primera opción vacía no lo esté.
-        if (isSpaceMarineSelected) {
-            defaultOption.selected = false;
-        } else {
-            // Si por alguna razón Space Marines no estaba en la lista, la opción vacía se selecciona.
-            defaultOption.selected = true; 
-        }
-
 
         divGroup.appendChild(label);
         divGroup.appendChild(select);
@@ -83,26 +77,61 @@ function generarDesplegablesRazas() {
     }
 }
 
+/**
+ * Genera los checkboxes para las condiciones de victoria.
+ */
+function generarCondicionesVictoria() {
+    contenedorCondiciones.innerHTML = '';
+    CONDICIONES_VICTORIA.forEach((condicion, index) => {
+        const divGroup = document.createElement('div');
+        divGroup.classList.add('raza-item'); // Reutilizamos la clase para grid styling
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `condicion-${index}`;
+        checkbox.name = 'condicion';
+        checkbox.value = condicion;
+        
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = condicion.split('–')[0].trim(); // Solo el nombre corto
+
+        divGroup.appendChild(checkbox);
+        divGroup.appendChild(label);
+        contenedorCondiciones.appendChild(divGroup);
+    });
+}
+
+
 // --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
 
 /**
- * Genera la lista final de la partida a partir de los valores de los desplegables.
+ * Genera la lista final de la partida.
  */
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
+    const razasSeleccionadas = Array.from(selectElements).map(select => select.value);
     
-    // Filtramos la opción por defecto ("") para la validación
-    const razasSeleccionadas = Array.from(selectElements)
-        .map(select => select.value);
+    // Obtener los valores de los checkboxes de victoria
+    const checkboxesVictoria = document.querySelectorAll('#condiciones-victoria input[type="checkbox"]');
+    const condicionesSeleccionadas = Array.from(checkboxesVictoria)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
 
     // Obtener el valor de dificultad
     const dificultadSeleccionada = dificultadSelect.value; 
 
-    // Validación Crítica: Revisamos si hay opciones vacías (la opción "--- Seleccionar Raza ---")
+    // --- Validación Crítica: No debería haber opciones vacías gracias a la selección por defecto ---
+    // Mantenemos la validación solo para estar seguros.
     const razasSinSeleccionar = razasSeleccionadas.filter(raza => raza === "");
     
     if (razasSinSeleccionar.length > 0) {
          resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Por favor, asegúrate de haber seleccionado una raza en todos los ${selectElements.length} desplegables.</p>`;
+         return;
+    }
+    
+    if (condicionesSeleccionadas.length === 0) {
+         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Debes seleccionar al menos una Condición de Victoria.</p>`;
          return;
     }
 
@@ -112,7 +141,7 @@ function generarPartida() {
     // 1. Asignar la Raza Fija al Jugador 1
     partidaGenerada.push(RAZA_FIJA); 
     
-    // 2. Asignar las razas seleccionadas (que pueden ser repetidas) a los jugadores restantes
+    // 2. Asignar las razas seleccionadas (incluyendo repeticiones)
     razasSeleccionadas.forEach(raza => {
         partidaGenerada.push(raza);
     });
@@ -120,7 +149,14 @@ function generarPartida() {
     // 3. Mostrar el Resultado en el HTML
     let resultadoHTML = `
         <h3>✅ Configuración: ${numJugadores} Jugadores | Dificultad: **${dificultadSeleccionada}**</h3>
-        <h4>Asignación de Facciones:</h4>
+        <p>El juego se gana al cumplir **${condicionesSeleccionadas.length}** condición(es).</p>
+        
+        <h4>⚙️ Condiciones de Victoria:</h4>
+        <ul>
+            ${condicionesSeleccionadas.map(c => `<li>${c}</li>`).join('')}
+        </ul>
+        
+        <h4>👥 Asignación de Facciones:</h4>
         <ol>
     `;
 
@@ -140,6 +176,7 @@ function generarPartida() {
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
+    generarCondicionesVictoria(); // Llamamos a la nueva función de inicialización
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
