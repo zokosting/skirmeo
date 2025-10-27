@@ -7,7 +7,7 @@ const RAZA_FIJA = "Space Marines";
 
 const CONDICIONES_VICTORIA = [
     "Annihilate – Win by destroying all of the enemy’s unit-producing buildings",
-    "Game Timer – The game ends when time runs out",
+    "Game Timer – The game ends when time runs out (can be selected with other conditions)",
     "Assassinate – Win by killing the enemy commander(s)",
     "Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period",
     "Destroy HQ – Win by razing all HQ buildings of the opponent",
@@ -41,8 +41,7 @@ const MAPAS_DESCRIPCION = {
     "Battle Marshes": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Blood River": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Deadman's Crossing": "Map size: 257",
-    "Edemus Gamble": "Map size: 257",
-    "Abandon All Hope": "Map size: 129"
+    "Edemus Gamble": "Map size: 257"
 };
 
 
@@ -60,7 +59,7 @@ const quickStartCheckbox = document.getElementById('quick-start');
 
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
-/** Generates race dropdowns and calls generateMapSelection. (Updated HTML structure) */
+/** Generates race dropdowns and calls generateMapSelection. (Updated Race Labels) */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
     
@@ -75,11 +74,10 @@ function generarDesplegablesRazas() {
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
-        // No div.control-group wrapper for each race, just a container for the elements
-        const raceContainer = document.createElement('div');
-        raceContainer.classList.add('race-item-container');
+        const divGroup = document.createElement('div');
+        divGroup.classList.add('control-group');
         
-        // Creating a simple span for the "Race x" text 
+        // Creating a simple span for the "Race x" text (no longer a <label>)
         const raceLabelText = document.createElement('span');
         raceLabelText.textContent = `Race ${i + 1}: `;
         
@@ -98,9 +96,9 @@ function generarDesplegablesRazas() {
             select.appendChild(option);
         });
 
-        raceContainer.appendChild(raceLabelText); 
-        raceContainer.appendChild(select);
-        contenedorDesplegables.appendChild(raceContainer);
+        divGroup.appendChild(raceLabelText); 
+        divGroup.appendChild(select);
+        contenedorDesplegables.appendChild(divGroup);
     }
     
     generarSeleccionMapa();
@@ -169,12 +167,13 @@ function generarSeleccionMapa() {
     }
 }
 
-/** Shows the specific description for a selected map. (Remains the same) */
+/** Shows the specific description for a selected map. (Removed Details prefix) */
 function mostrarDescripcionMapa() {
     const mapaSeleccionado = mapaSelect.value;
     const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado];
     
     if (descripcion) {
+        // Removed the "**Details:**" prefix
         descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
     } else {
         descripcionMapaDiv.innerHTML = ''; 
@@ -202,7 +201,7 @@ function seleccionarMapaAleatorio() {
 }
 
 
-// --- 3. MATCH GENERATION FUNCTION (Updated Faction Assignment) ---
+// --- 3. MATCH GENERATION FUNCTION (Updated Error Messages) ---
 
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
@@ -227,6 +226,7 @@ function generarPartida() {
     let mapaSeleccionado = mapaSelect.value;
     
     if (mapaSeleccionado === "") {
+        // Updated error message to match the simplified flow
         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Map selection is required.</p>`;
         return;
     }
@@ -279,8 +279,6 @@ function generarPartida() {
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
-    // Set the default text for the result area
-    resultadoDiv.innerHTML = '<p>Press "GENERATE!" to see the assignment.</p>';
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
