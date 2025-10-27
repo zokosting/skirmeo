@@ -71,7 +71,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     // Simplified instruction text
-    instruccionRazas.innerHTML = `You are **Space Marines**.`; 
+    instruccionRazas.innerHTML = `You are Space Marines.`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
