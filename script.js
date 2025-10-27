@@ -16,7 +16,7 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win (or lose) by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
-// ¡LISTA DE MAPAS AGRUPADA POR NÚMERO DE JUGADORES!
+// ¡LISTA DE MAPAS AGRUPADA POR NÚMERO DE JUGADORES! (Confirmado según tu listado)
 const MAPAS_POR_JUGADOR = {
     "2": [
         "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", 
@@ -52,7 +52,7 @@ const quickStartCheckbox = document.getElementById('quick-start');
 // --- 2. FUNCIONES DE LÓGICA DE INTERFAZ ---
 
 /**
- * Genera los desplegables de raza Y llama a generarSeleccionMapa, ya que ambos dependen de los jugadores.
+ * Genera los desplegables de raza Y llama a generarSeleccionMapa (ambos dependen de los jugadores).
  */
 function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresSelect.value);
@@ -94,12 +94,12 @@ function generarDesplegablesRazas() {
         contenedorDesplegables.appendChild(divGroup);
     }
     
-    // ¡NUEVA LLAMADA CLAVE! Actualiza los mapas después de cambiar los jugadores.
+    // Llamada clave: Actualiza los mapas después de cambiar los jugadores.
     generarSeleccionMapa();
 }
 
 /**
- * Genera los checkboxes para las condiciones de victoria (sin cambios).
+ * Genera los checkboxes para las condiciones de victoria.
  */
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
@@ -136,11 +136,12 @@ function generarCondicionesVictoria() {
 }
 
 /**
- * ¡FUNCIÓN MODIFICADA! Rellena el desplegable del mapa basándose en el número de jugadores.
+ * Rellena el desplegable del mapa basándose en el número de jugadores seleccionado.
  */
 function generarSeleccionMapa() {
-    const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; // Obtiene la lista o un array vacío
+    // CORRECCIÓN: Usamos el valor del select de jugadores
+    const numJugadores = numJugadoresSelect.value; 
+    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || []; 
     
     mapaSelect.innerHTML = ''; 
     
@@ -151,7 +152,6 @@ function generarSeleccionMapa() {
     mapaSelect.appendChild(defaultOption);
 
     if (mapasDisponibles.length === 0) {
-        // Opción si no hay mapas para esa cantidad (aunque según tu lista, siempre hay)
         const noMapOption = document.createElement('option');
         noMapOption.textContent = "No hay mapas listados para este número de jugadores.";
         noMapOption.disabled = true;
@@ -167,7 +167,7 @@ function generarSeleccionMapa() {
 }
 
 
-// --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA (Sin cambios en lógica) ---
+// --- 3. FUNCIÓN DE GENERACIÓN DE PARTIDA ---
 
 function generarPartida() {
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
@@ -239,6 +239,7 @@ function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria(); 
     // generarSeleccionMapa() se llama ahora dentro de generarDesplegablesRazas()
+    // Esto asegura que la lógica de dependencia se ejecute al inicio, usando el valor por defecto (3).
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
