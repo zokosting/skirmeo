@@ -14,19 +14,6 @@ header, footer {
     padding: 15px 0;
 }
 
-.header-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-top: -10px;
-    margin-bottom: 5px;
-}
-
-.header-edition {
-    margin-top: 0;
-    font-size: 0.9em;
-    opacity: 0.8;
-}
-
 main {
     max-width: 800px;
     margin: 20px auto;
@@ -37,92 +24,40 @@ main {
 }
 
 h2 {
-    color: #c0392b; /* Dark red for wargame touch */
+    color: #c0392b; /* Un rojo oscuro para un toque de wargame */
     border-bottom: 2px solid #ecf0f1;
     padding-bottom: 5px;
-    display: flex; /* Flex container to align title and controls */
-    justify-content: space-between; /* Pushes select/button to the right */
-    align-items: center;
 }
 
-/* Added small margin-left for separation on select/button inside H2 */
-h2 select, h2 button {
-    margin-left: 15px; /* Increased separation */
-    font-size: 0.9em;
-    padding: 5px 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-h3 {
-    color: #34495e;
-    font-size: 1.1em;
-    padding-top: 10px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-h3 select {
-    margin-left: 15px; /* Increased separation */
-}
-
-hr {
-    border: 0;
-    border-top: 1px solid #ecf0f1;
-    margin: 20px 0;
-}
-
-.section-compact {
-    margin-bottom: 5px;
-}
-
-.control-group {
-    margin-bottom: 10px;
-    /* Style for Resource Rate and Quick Start controls */
-    display: flex;
-    align-items: center;
-}
-
-.control-group label {
-    margin-right: 10px;
+.control-group, .razas-grid {
+    margin-bottom: 20px;
 }
 
 .razas-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 10px;
 }
 
-.race-item-container {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-    font-weight: bold;
+/* Estilo para los checkboxes de raza */
+.raza-item input[type="checkbox"]:disabled + label {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.select-raza-rotatoria {
-    flex-grow: 1; /* Allows the select to fill available space */
-    padding: 5px;
-    border-radius: 4px;
-}
-
-/* This is the container for the "You are Space Marines." text */
 .instruccion-principal {
     background-color: #ecf0f1;
     padding: 10px;
     border-radius: 5px;
-    font-weight: normal; /* Changed to normal, as the .mapa-detalle will handle bolding */
+    font-weight: bold;
     color: #2980b9;
-    margin-bottom: 15px;
 }
 
 #btn-generar {
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #27ae60; 
+    background-color: #27ae60; /* Verde para acción */
     color: white;
     border: none;
     border-radius: 5px;
@@ -133,18 +68,6 @@ hr {
 
 #btn-generar:hover {
     background-color: #2ecc71;
-}
-
-.btn-compact {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-compact:hover {
-    background-color: #2980b9;
 }
 
 /* Estilo para el resultado */
@@ -163,8 +86,7 @@ hr {
 .victoria-grid {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-top: 10px;
+    gap: 10px;
 }
 
 .victoria-item {
@@ -180,20 +102,19 @@ hr {
 .descripcion-victoria {
     font-size: 0.9em;
     color: #555;
+    /* Esto es clave para la visualización dinámica */
     margin-left: 10px; 
 }
 
 .mapa-info {
-    min-height: 20px;
+    min-height: 20px; /* Asegura espacio aunque esté vacío */
     margin-top: 5px;
     padding-left: 5px;
     font-style: italic;
     color: #333;
 }
-/* Style to be applied to "You are Space Marines." and map descriptions */
 .mapa-detalle {
     margin: 0;
     font-size: 0.9em;
     color: #444;
-    font-style: italic; /* Inherit the style of the original map description */
 }
