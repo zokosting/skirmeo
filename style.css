@@ -141,6 +141,10 @@ hr {
     min-width: 0;
 }
 
+.chapter-select {
+  background-color: #f1f8ff !important;
+}
+
 .chapter-select-container {
     display: flex; 
     align-items: center;
