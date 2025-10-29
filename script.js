@@ -43,7 +43,7 @@ const MAPAS_POR_JUGADOR = {
     "5": ["Red Jungle"],
     "6": [
         "Bloodshed Alley", "Crossroads", "Dread Alleu", "Jungle Walls", "Kasyr Lutien", 
-        "Mortalis", "Streets of Vogen", "Testing Grounds"
+        "Mortalis", "Streets of Vogen", "Western Barrena", "Testing Grounds"
     ],
     "8": [
         "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Penal Colony, Kierr Harrad"
@@ -55,7 +55,10 @@ const MAPAS_DESCRIPCION = {
     "Blood River": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Deadman's Crossing": "Map size: 257",
     "Edemus Gamble": "Map size: 257",
+    "Fortress": "Map size: 257",
     "Kierr Harrad": "Map size: 512",
+    "Streets of Vogen": "Map size: 513",
+    "Western Barrena": "Map size: 513",
     "Rockclaw Foothills": "Map size: 513"
 };
 
