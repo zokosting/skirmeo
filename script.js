@@ -43,7 +43,9 @@ const MAPAS_POR_JUGADOR = {
     "5": ["Red Jungle"],
     "6": [
         "Bloodshed Alley", "Crossroads", "Dread Alleu", "Jungle Walls", "Kasyr Lutien", 
-        "Mortalis", "Streets of Vogen", "Western Barrena", "Testing Grounds"
+        "Mortalis", "Streets of Vogen", "Western Barrena", "Testing Grounds", 
+        "Payne's Retribution", "Pavonis", "Principian Badlands", "Rhean Floodlands", "Shakun Coast", "Temple of Cyrene", "Tristam Plains", "Trivian Groves",
+        "Vandean Coast" , "Thargorum"
     ],
     "8": [
         "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Penal Colony, Kierr Harrad"
@@ -56,9 +58,19 @@ const MAPAS_DESCRIPCION = {
     "Deadman's Crossing": "Map size: 257",
     "Edemus Gamble": "Map size: 257",
     "Fortress": "Map size: 257",
+    "Vandean Coast": "Map size: 257",
+    "Thargorum": "Map size: 257",
     "Kierr Harrad": "Map size: 512",
     "Streets of Vogen": "Map size: 513",
     "Western Barrena": "Map size: 513",
+    "Payne's Retribution": "Map size: 513",
+    "Pavonis": "Map size: 513",
+    "Principian Badlands": "Map size: 513",
+    "Rhean Floodlands": "Map size: 513",
+    "Shakun Coast": "Map size: 513",
+    "Temple of Cyrene": "Map size: 513",
+    "Tristam Plains": "Map size: 513",
+    "Trivian Groves": "Map size: 513",
     "Rockclaw Foothills": "Map size: 513"
 };
 
