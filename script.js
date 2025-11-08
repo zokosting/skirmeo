@@ -94,7 +94,7 @@ function generarDesplegablesRazas() {
 
     // MODIFICADO (Punto 2): Si no hay un número seleccionado, solo limpia y llama a mapa
     if (numJugadoresStr === "") {
-        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are Space Marines.</p>`; 
+        instruccionRazas.innerHTML = `<p class="mapa-detalle">You were Space Marines Salamandrems. Now you are part of T'au ~ Saul't.</p>`; 
         contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
