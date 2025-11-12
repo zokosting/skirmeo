@@ -76,6 +76,19 @@ const MAPAS_DESCRIPCION = {
     "Rockclaw Foothills": "Map size: 513"
 };
 
+// --- NUEVA ESTRUCTURA DE DATOS PARA NOMBRES DE ICONO ---
+// Si un mapa tiene un icono con nombre diferente a su nombre, se mapea aquí.
+// El nombre que pondrás manualmente va a ser el VALOR.
+const MAPAS_ICONO_NOMBRE = {
+    "Battle Marshes": "battle_marshes_icon",
+    "Blood River": "blood_river_icon",
+    "Deadman's Crossing": "deadmans_icon",
+    "Oja": "oja_icon",
+    "Kierr Harrad": "kierr_harrad_icon_512",
+    "Streets of Vogen": "vogen_streets_icon",
+    "Sands of Time": "sands of time (2) v11_icon",
+};
+
 
 // DOM Elements 
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
@@ -92,9 +105,8 @@ const quickStartCheckbox = document.getElementById('quick-start');
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
 function generarDesplegablesRazas() {
-    const numJugadoresStr = numJugadoresSelect.value; // Obtiene el valor, que puede ser ""
+    const numJugadoresStr = numJugadoresSelect.value; 
 
-    // MODIFICADO (Punto 2): Si no hay un número seleccionado, solo limpia y llama a mapa
     if (numJugadoresStr === "") {
         instruccionRazas.innerHTML = `<p class="mapa-detalle">You were Space Marines Salamandrems. Now you are part of T'au ~ Saul't.</p>`; 
         contenedorDesplegables.innerHTML = ''; 
@@ -173,7 +185,6 @@ function generarSeleccionMapa() {
     
     mapaSelect.innerHTML = '';
     
-    // MODIFICADO (Punto 2): Agregar opción -Select por defecto
     const defaultOption = document.createElement('option');
     defaultOption.textContent = "-Select";
     defaultOption.value = "";
@@ -193,7 +204,6 @@ function generarSeleccionMapa() {
             option.textContent = mapa;
             mapaSelect.appendChild(option);
         });
-        // La opción -Select es la que queda seleccionada por defecto.
     }
     
     mostrarDescripcionMapa();
@@ -204,7 +214,21 @@ function mostrarDescripcionMapa() {
     const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
     
     if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
-        descripcionMapaDiv.innerHTML = `<p class="mapa-detalle">${descripcion}</p>`;
+        
+        let htmlContent = `<p class="mapa-detalle">${descripcion}</p>`;
+        
+        // --- MODIFICADO: Usa la nueva estructura de mapeo para obtener el nombre del icono ---
+        const iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
+        
+        if (iconName) {
+            // Asumiendo que la ruta es map_icons/nombre_del_icono.png
+            const imagePath = `map_icons/${iconName}.png`; 
+            
+            // Simulación de etiqueta de imagen usando la sintaxis Image of X
+            htmlContent += ``; 
+        }
+
+        descripcionMapaDiv.innerHTML = htmlContent;
     } else {
         descripcionMapaDiv.innerHTML = ''; 
     }
