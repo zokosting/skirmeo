@@ -113,10 +113,10 @@ hr {
     gap: 10px;
 }
 
-/* MODIFICADO (Punto 2): Media Query para móviles */
+/* FIX: Una sola columna para móviles */
 @media (max-width: 600px) {
     .razas-grid {
-        grid-template-columns: repeat(1, 1fr); /* Una sola columna para móviles */
+        grid-template-columns: repeat(1, 1fr); 
     }
 }
 
@@ -139,10 +139,6 @@ hr {
     padding: 5px;
     border-radius: 4px;
     min-width: 0;
-}
-
-.chapter-select {
-  background-color: #f1f8ff !important;
 }
 
 .chapter-select-container {
@@ -175,7 +171,7 @@ hr {
     margin-bottom: 15px;
 }
 
-/* Team Options Group - Now visually part of Players List */
+/* Team Options Group */
 .team-options-group {
     display: flex;
     flex-direction: column;
@@ -198,8 +194,43 @@ hr {
 }
 .team-option-item label {
     font-size: 13.3333px; 
-    font-weight: 400; /* JS handles bolding when selected */
+    font-weight: 400; 
 }
+
+/* NUEVOS ESTILOS PARA IMAGEN Y DESCRIPCIÓN DEL MAPA */
+.mapa-content-wrapper {
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen y el texto en la parte superior */
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+}
+
+.mapa-imagen-wrapper img {
+    width: 80px; /* Tamaño del icono */
+    height: 80px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.mapa-text-wrapper {
+    flex-grow: 1;
+    /* Para que el texto se alinee bien con la imagen */
+    min-width: 0;
+}
+
+@media (max-width: 450px) {
+    .mapa-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+/* FIN NUEVOS ESTILOS */
 
 .mapa-detalle {
     margin: 0;
@@ -208,7 +239,7 @@ hr {
     font-style: italic; 
 }
 
-/* Estilos de resultados (sin modificar) */
+/* Estilos de resultados */
 #btn-generar {
     display: block;
     width: 100%;
