@@ -83,10 +83,10 @@ const MAPAS_ICONO_NOMBRE = {
     "Battle Marshes": "battle_marshes_icon",
     "Blood River": "blood_river_icon",
     "Deadman's Crossing": "deadmans_icon",
-    "Oja": "oja_icon",
+    "Oja": "map_icon_oja_small", // EJEMPLO DE NOMBRE DE ICONO MANUAL
     "Kierr Harrad": "kierr_harrad_icon_512",
     "Streets of Vogen": "vogen_streets_icon",
-    "Sands of Time": "sands of time (2) v11_icon",
+    // Agrega más mapas aquí si sus iconos tienen un nombre diferente al del mapa.
 };
 
 
@@ -217,15 +217,15 @@ function mostrarDescripcionMapa() {
         
         let htmlContent = `<p class="mapa-detalle">${descripcion}</p>`;
         
-        // --- MODIFICADO: Usa la nueva estructura de mapeo para obtener el nombre del icono ---
+        // --- REPARACIÓN: Se utiliza la nueva estructura de mapeo para obtener el nombre del icono ---
         const iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
         
         if (iconName) {
             // Asumiendo que la ruta es map_icons/nombre_del_icono.png
             const imagePath = `map_icons/${iconName}.png`; 
             
-            // Simulación de etiqueta de imagen usando la sintaxis Image of X
-            htmlContent += ``; 
+            // Usamos la etiqueta <img> real para que la imagen se muestre.
+            htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaSeleccionado}" class="map-icon-display">`; 
         }
 
         descripcionMapaDiv.innerHTML = htmlContent;

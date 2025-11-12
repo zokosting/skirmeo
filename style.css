@@ -208,6 +208,22 @@ hr {
     font-style: italic; 
 }
 
+/* --- NUEVOS ESTILOS PARA EL ICONO DEL MAPA (AÑADIDOS) --- */
+.mapa-info {
+    display: flex;
+    flex-direction: column;
+}
+.map-icon-display {
+    max-width: 100%; 
+    height: auto;
+    display: block; 
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px dashed #ccc; 
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+
 /* Estilos de resultados (sin modificar) */
 #btn-generar {
     display: block;
