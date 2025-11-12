@@ -9,7 +9,7 @@ const RAZA_FIJA = "Space Marines";
 const CHAPTERS_DISPONIBLES = [
     "Ultramarines", 
     "Blood Angels", 
-    "Salamanders", // MODIFICADO (Punto 1)
+    "Salamanders",
     "Space Wolves", 
     "Dark Angels", 
     "Black Templars", 
@@ -27,18 +27,19 @@ const CONDICIONES_VICTORIA = [
     "Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time",
     "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
-// ... (MAPAS_POR_JUGADOR and MAPAS_DESCRIPCION remain the same) ...
 
 const MAPAS_POR_JUGADOR = {
     "2": [
         "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", 
         "Fallen City", "Hellfire Canyon", "Meeting of Minds", "Outer Reaches", "Railway", 
-        "Riverbed", "Tainted Pair", "Valley of Khorne"
+        "Riverbed", "Tainted Pair", "Valley of Khorne", "Sands of Time", "Short Below Zero",
+        "Oja", "Jungle Morning", "Galenas Crusade", "Dicey Ambush", "Antiga Bay"
     ],
     "3": ["Fortress"],
     "4": [
         "Biffy's Peril", "Mountain Trail", "Quatra", "Saint's Square", "Tainted Place", 
-        "Tainted soul", "Tartarus Center", "Volcanic Reaction", "Rockclaw Foothills"
+        "Tainted soul", "Tartarus Center", "Volcanic Reaction", "Rockclaw Foothills",
+        "Cold War", "Antiga Bay"
     ],
     "5": ["Red Jungle"],
     "6": [
@@ -56,6 +57,7 @@ const MAPAS_DESCRIPCION = {
     "Battle Marshes": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Blood River": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Deadman's Crossing": "Map size: 257",
+    "Sands of Time": "Map size: 257",
     "Edemus Gamble": "Map size: 257",
     "Fortress": "Map size: 257",
     "Vandean Coast": "Map size: 257",
@@ -301,7 +303,6 @@ function randomizeAllRaces() {
     });
 }
 
-/** NEW: Updates the style of the selected team option label to bold. */
 function updateTeamOptionStyle() {
     const radioButtons = document.querySelectorAll('#team-options-group input[name="team-option"]');
     radioButtons.forEach(radio => {
@@ -357,28 +358,28 @@ function generarPartida() {
     let mapaSeleccionado = mapaSelect.value;
     
     if (mapaSeleccionado === "" || mapaSeleccionado === "No maps available") {
-        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Map selection is required.</p>`;
+        resultadoDiv.innerHTML = `<p class="alerta">**Error:** Map selection is required.</p>`;
         return;
     }
     
     if (condicionesSeleccionadas.length === 0) {
-         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** You must select at least one Game Rule.</p>`;
+         resultadoDiv.innerHTML = `<p class="alerta">**Error:** You must select at least one Game Rule.</p>`;
          return;
     }
     
     const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; 
 
     let resultadoHTML = `
-        <h3>✅ Configuration: ${numJugadores} Players | AI Difficulty: **${dificultadSeleccionada}**</h3>
+        <h3>Configuration: ${numJugadores} Players | AI Difficulty: **${dificultadSeleccionada}**</h3>
         
-        <h4>🗺️ Map:</h4>
+        <h4>Map:</h4>
         <p>**${mapaSeleccionado}**</p>
 
-        <h4>💰 Starting Resources:</h4>
+        <h4>Starting Resources:</h4>
         <p>Resource Rate: **${resourceRateSeleccionado}**</p>
         <p>Quick Start: ${quickStartActivo}</p>
         
-        <h4>⚙️ Game Rules:</h4>
+        <h4>Game Rules:</h4>
         <p>The game is won by meeting **${condicionesSeleccionadas.length}** condition(s):</p>
         <ul>
             ${condicionesSeleccionadas.map(c => {
@@ -387,7 +388,7 @@ function generarPartida() {
             }).join('')}
         </ul>
         
-        <h4>👥 Faction Assignment & Team Setup:</h4>
+        <h4>Faction Assignment & Team Setup:</h4>
         <p class="mapa-detalle">**Team Option:** ${teamOption} – *${teamDescription}*</p> 
         <ol>
     `;
