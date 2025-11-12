@@ -221,8 +221,7 @@ function mostrarDescripcionMapa() {
         const iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
         
         if (iconName) {
-            // Asumiendo que la ruta es map_icons/nombre_del_icono.png
-            const imagePath = `map_icons/${iconName}.png`; 
+            const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
             
             // Usamos la etiqueta <img> real para que la imagen se muestre.
             htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaSeleccionado}" class="map-icon-display">`; 
