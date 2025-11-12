@@ -77,13 +77,6 @@ const MAPAS_DESCRIPCION = {
 };
 
 
-// NUEVO: Rutas de las imágenes de los mapas
-const MAPAS_IMAGENES = {
-    "Short Below Zero": "map_icons/short below zero (2) v14_icon.png", 
-    "Sands of Time": "map_icons/sands of time (2) v11_icon.png" 
-    // Los mapas que no estén aquí no mostrarán imagen.
-};
-
 // DOM Elements 
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
 const instruccionRazas = document.getElementById('instruccion-razas');
