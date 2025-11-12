@@ -208,20 +208,31 @@ hr {
     font-style: italic; 
 }
 
-/* --- NUEVOS ESTILOS PARA EL ICONO DEL MAPA (AÑADIDOS) --- */
+/* --- ESTILOS PARA EL ICONO DEL MAPA (Ajustados) --- */
 .mapa-info {
     display: flex;
     flex-direction: column;
 }
+
 .map-icon-display {
+    /* Por defecto: 100% de ancho del contenedor (pantallas pequeñas/móviles) */
     max-width: 100%; 
     height: auto;
     display: block; 
     margin-top: 10px;
     padding: 5px;
-    border: 1px dashed #ccc; 
+    border: 1px dashed #ccc;
+    background-color: transparent; 
     border-radius: 4px;
     box-sizing: border-box; 
+}
+
+/* Ajuste para dispositivos NO móviles (ej. PC) */
+@media (min-width: 601px) {
+    .map-icon-display {
+        /* Se muestra al 50% del ancho de su contenedor (.descripcion-mapa) */
+        max-width: 50%; 
+    }
 }
 
 /* Estilos de resultados (sin modificar) */

@@ -76,17 +76,19 @@ const MAPAS_DESCRIPCION = {
     "Rockclaw Foothills": "Map size: 513"
 };
 
-// --- NUEVA ESTRUCTURA DE DATOS PARA NOMBRES DE ICONO ---
-// Si un mapa tiene un icono con nombre diferente a su nombre, se mapea aquí.
-// El nombre que pondrás manualmente va a ser el VALOR.
+// --- ESTRUCTURA DE NOMBRES DE ICONO (Se usa clave compuesta para Antiga Bay) ---
+// El nombre del valor debe coincidir exactamente con el nombre de tu archivo PNG (sin la extensión .png)
 const MAPAS_ICONO_NOMBRE = {
-    "Battle Marshes": "battle_marshes_icon",
-    "Blood River": "blood_river_icon",
-    "Deadman's Crossing": "deadmans_icon",
-    "Oja": "oja_icon",
-    "Kierr Harrad": "kierr_harrad_icon_512",
-    "Streets of Vogen": "vogen_streets_icon",
     "Sands of Time": "sands of time (2) v11_icon",
+    "Short Below Zero": "short below zero (2) v14_icon",
+    "Oja": "oja_icon",
+    "Jungle Morning": "jungle morning(2)v2-6_icon",
+    "Galenas Crusade": "galenas crusade (2) v10_icon",
+    "Dicey Ambush": "diceyambush_icon",
+    // Claves únicas para Antiga Bay según el número de jugadores
+    "Antiga Bay_2": "antiga bay (2) v10_icon",    
+    "Antiga Bay_4": "antiga bay (4) v10_icon",
+    "Cold War": "4p_cold_war_icon",
 };
 
 
@@ -211,16 +213,24 @@ function generarSeleccionMapa() {
 
 function mostrarDescripcionMapa() {
     const mapaSeleccionado = mapaSelect.value;
+    const numJugadores = numJugadoresSelect.value; // Obtener el número de jugadores
     const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
     
     if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
         
         let htmlContent = `<p class="mapa-detalle">${descripcion}</p>`;
         
-        // --- REPARACIÓN: Se utiliza la nueva estructura de mapeo para obtener el nombre del icono ---
-        const iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
+        let iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
+        
+        // *** LÓGICA PARA RESOLVER EL NOMBRE DEL ICONO DE "Antiga Bay" ***
+        if (mapaSeleccionado === "Antiga Bay" && (numJugadores === "2" || numJugadores === "4")) {
+            // Usa la clave compuesta (MapName_PlayerCount) para el icono correcto
+            iconName = MAPAS_ICONO_NOMBRE[`Antiga Bay_${numJugadores}`];
+        }
+        // ***************************************
         
         if (iconName) {
+            // Usar la ruta RAW de GitHub, como se hizo en el paso anterior
             const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
             
             // Usamos la etiqueta <img> real para que la imagen se muestre.
