@@ -83,10 +83,10 @@ const MAPAS_ICONO_NOMBRE = {
     "Battle Marshes": "battle_marshes_icon",
     "Blood River": "blood_river_icon",
     "Deadman's Crossing": "deadmans_icon",
-    "Oja": "map_icon_oja_small", // EJEMPLO DE NOMBRE DE ICONO MANUAL
+    "Oja": "oja_icon",
     "Kierr Harrad": "kierr_harrad_icon_512",
     "Streets of Vogen": "vogen_streets_icon",
-    // Agrega más mapas aquí si sus iconos tienen un nombre diferente al del mapa.
+    "Sands of Time": "sands of time (2) v11_icon",
 };
 
 
