@@ -251,8 +251,9 @@ function mostrarDescripcionMapa() {
         
         const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
         
-        // Añadido onerror para robustez
-        htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaConfig.nombre}" class="map-icon-display" onerror="this.onerror=null; this.src='https://placehold.co/400x200/cccccc/333333?text=Icon+Not+Found'">`; 
+        // --- CAMBIO SOLICITADO ---
+        // Añadido onerror para ocultar la imagen si no se encuentra, en lugar de mostrar un placeholder
+        htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaConfig.nombre}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">`; 
 
         descripcionMapaDiv.innerHTML = htmlContent;
     } else {
