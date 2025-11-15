@@ -52,7 +52,8 @@ const MAPAS_CONFIG = {
         { nombre: "Sands of Time", descripcion: "Map size: 257" },
         { nombre: "Short Below Zero" },
         { nombre: "Tainted Pair" },
-        { nombre: "Valley of Khorne" }
+        { nombre: "Valley of Khorne" },
+        { nombre: "Velvet Duress", descripcion: "Map size: 257" }
     ],
     "3": [
         { nombre: "Fortress", descripcion: "Map size: 257" }
@@ -96,6 +97,7 @@ const MAPAS_CONFIG = {
     ],
     "8": [
         { nombre: "Burial Grounds" },
+        { nombre: "Cerulea", descripcion: "Map size: 513" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
