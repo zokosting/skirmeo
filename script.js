@@ -49,7 +49,7 @@ const MAPAS_POR_JUGADOR = {
         "Vandean Coast" , "Thargorum"
     ],
     "8": [
-        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Penal Colony, Kierr Harrad"
+        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Rhean Jungle", "Penal Colony, Kierr Harrad"
     ]
 };
 
@@ -58,10 +58,12 @@ const MAPAS_DESCRIPCION = {
     "Blood River": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
     "Deadman's Crossing": "Map size: 257",
     "Sands of Time": "Map size: 257",
+    "Outer Reaches": "Map size: 257",
     "Edemus Gamble": "Map size: 257",
     "Fortress": "Map size: 257",
     "Vandean Coast": "Map size: 257",
     "Thargorum": "Map size: 257",
+    "Jungle Morning": "Map size: 257",
     "Kierr Harrad": "Map size: 512",
     "Streets of Vogen": "Map size: 513",
     "Western Barrena": "Map size: 513",
@@ -73,11 +75,10 @@ const MAPAS_DESCRIPCION = {
     "Temple of Cyrene": "Map size: 513",
     "Tristam Plains": "Map size: 513",
     "Trivian Groves": "Map size: 513",
+    "Rhean Jungle": "Map size: 513",
     "Rockclaw Foothills": "Map size: 513"
 };
 
-// --- ESTRUCTURA DE NOMBRES DE ICONO (Se usa clave compuesta para Antiga Bay) ---
-// El nombre del valor debe coincidir exactamente con el nombre de tu archivo PNG (sin la extensión .png)
 const MAPAS_ICONO_NOMBRE = {
     "Sands of Time": "sands of time (2) v11_icon",
     "Short Below Zero": "short below zero (2) v14_icon",
@@ -85,10 +86,11 @@ const MAPAS_ICONO_NOMBRE = {
     "Jungle Morning": "jungle morning(2)v2-6_icon",
     "Galenas Crusade": "galenas crusade (2) v10_icon",
     "Dicey Ambush": "diceyambush_icon",
-    // Claves únicas para Antiga Bay según el número de jugadores
     "Antiga Bay_2": "antiga bay (2) v10_icon",    
     "Antiga Bay_4": "antiga bay (4) v10_icon",
     "Cold War": "4p_cold_war_icon",
+    "Outer Reaches": "Outer Reaches",
+    "Rhean Jungle": "Rhean Jungle",
 };
 
 
