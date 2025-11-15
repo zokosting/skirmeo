@@ -49,7 +49,7 @@ const MAPAS_POR_JUGADOR = {
         "Vandean Coast" , "Thargorum"
     ],
     "8": [
-        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Rhean Jungle", "Penal Colony, Kierr Harrad"
+        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Rhean Jungle", "Penal Colony", "Kierr Harrad"
     ]
 };
 
