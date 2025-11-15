@@ -28,70 +28,83 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
-const MAPAS_POR_JUGADOR = {
+// --- REFACTORIZACIÓN DE MAPAS ---
+// Las variables MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE se han consolidado aquí.
+// Para añadir un mapa, simplemente añada un objeto al array del número de jugadores correspondiente.
+const MAPAS_CONFIG = {
     "2": [
-        "Battle Marshes", "Blood River", "Deadman's Crossing", "Edemus Gamble", "Faceoff", 
-        "Fallen City", "Hellfire Canyon", "Meeting of Minds", "Outer Reaches", "Railway", 
-        "Riverbed", "Tainted Pair", "Valley of Khorne", "Sands of Time", "Short Below Zero",
-        "Oja", "Jungle Morning", "Galenas Crusade", "Dicey Ambush", "Antiga Bay"
+        { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
+        { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
+        { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
+        { nombre: "Edemus Gamble", descripcion: "Map size: 257" },
+        { nombre: "Faceoff" },
+        { nombre: "Fallen City" },
+        { nombre: "Hellfire Canyon" },
+        { nombre: "Meeting of Minds" },
+        { nombre: "Outer Reaches", descripcion: "Map size: 257" },
+        { nombre: "Railway" },
+        { nombre: "Riverbed" },
+        { nombre: "Tainted Pair" },
+        { nombre: "Valley of Khorne" },
+        { nombre: "Sands of Time", descripcion: "Map size: 257" },
+        { nombre: "Short Below Zero" },
+        { nombre: "Oja" },
+        { nombre: "Jungle Morning", descripcion: "Map size: 257" },
+        { nombre: "Galenas Crusade" },
+        { nombre: "Dicey Ambush" },
+        { nombre: "Antiga Bay" }
     ],
-    "3": ["Fortress"],
+    "3": [
+        { nombre: "Fortress", descripcion: "Map size: 257" }
+    ],
     "4": [
-        "Biffy's Peril", "Mountain Trail", "Quatra", "Saint's Square", "Tainted Place", 
-        "Tainted soul", "Tartarus Center", "Volcanic Reaction", "Rockclaw Foothills",
-        "Cold War", "Antiga Bay"
+        { nombre: "Biffy's Peril" },
+        { nombre: "Mountain Trail" },
+        { nombre: "Quatra" },
+        { nombre: "Saint's Square" },
+        { nombre: "Tainted Place" },
+        { nombre: "Tainted soul" },
+        { nombre: "Tartarus Center" },
+        { nombre: "Volcanic Reaction" },
+        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
+        { nombre: "Cold War" },
+        { nombre: "Antiga Bay" }
     ],
-    "5": ["Red Jungle"],
+    "5": [
+        { nombre: "Red Jungle" }
+    ],
     "6": [
-        "Bloodshed Alley", "Crossroads", "Dread Alleu", "Jungle Walls", "Kasyr Lutien", 
-        "Mortalis", "Streets of Vogen", "Western Barrena", "Testing Grounds", 
-        "Payne's Retribution", "Pavonis", "Principian Badlands", "Rhean Floodlands", "Shakun Coast", "Temple of Cyrene", "Tristam Plains", "Trivian Groves",
-        "Vandean Coast" , "Thargorum"
+        { nombre: "Bloodshed Alley" },
+        { nombre: "Crossroads" },
+        { nombre: "Dread Alleu" },
+        { nombre: "Jungle Walls" },
+        { nombre: "Kasyr Lutien" },
+        { nombre: "Mortalis" },
+        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
+        { nombre: "Western Barrena", descripcion: "Map size: 513" },
+        { nombre: "Testing Grounds" },
+        { nombre: "Payne's Retribution", descripcion: "Map size: 513" },
+        { nombre: "Pavonis", descripcion: "Map size: 513" },
+        { nombre: "Principian Badlands", descripcion: "Map size: 513" },
+        { nombre: "Rhean Floodlands", descripcion: "Map size: 513" },
+        { nombre: "Shakun Coast", descripcion: "Map size: 513" },
+        { nombre: "Temple of Cyrene", descripcion: "Map size: 513" },
+        { nombre: "Tristam Plains", descripcion: "Map size: 513" },
+        { nombre: "Trivian Groves", descripcion: "Map size: 513" },
+        { nombre: "Vandean Coast", descripcion: "Map size: 257" },
+        { nombre: "Thargorum", descripcion: "Map size: 257" }
     ],
     "8": [
-        "Burial Grounds", "Daturias Pits", "Doom Chamber", "Lost Hope", "Rhean Jungle", "Penal Colony", "Kierr Harrad"
+        { nombre: "Burial Grounds" },
+        { nombre: "Daturias Pits" },
+        { nombre: "Doom Chamber" },
+        { nombre: "Lost Hope" },
+        { nombre: "Rhean Jungle", descripcion: "Map size: 513" },
+        { nombre: "Penal Colony" },
+        { nombre: "Kierr Harrad", descripcion: "Map size: 512" }
     ]
 };
-
-const MAPAS_DESCRIPCION = {
-    "Battle Marshes": "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0",
-    "Blood River": "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0",
-    "Deadman's Crossing": "Map size: 257",
-    "Sands of Time": "Map size: 257",
-    "Outer Reaches": "Map size: 257",
-    "Edemus Gamble": "Map size: 257",
-    "Fortress": "Map size: 257",
-    "Vandean Coast": "Map size: 257",
-    "Thargorum": "Map size: 257",
-    "Jungle Morning": "Map size: 257",
-    "Kierr Harrad": "Map size: 512",
-    "Streets of Vogen": "Map size: 513",
-    "Western Barrena": "Map size: 513",
-    "Payne's Retribution": "Map size: 513",
-    "Pavonis": "Map size: 513",
-    "Principian Badlands": "Map size: 513",
-    "Rhean Floodlands": "Map size: 513",
-    "Shakun Coast": "Map size: 513",
-    "Temple of Cyrene": "Map size: 513",
-    "Tristam Plains": "Map size: 513",
-    "Trivian Groves": "Map size: 513",
-    "Rhean Jungle": "Map size: 513",
-    "Rockclaw Foothills": "Map size: 513"
-};
-
-const MAPAS_ICONO_NOMBRE = {
-    "Sands of Time": "sands of time (2) v11_icon",
-    "Short Below Zero": "short below zero (2) v14_icon",
-    "Oja": "oja_icon",
-    "Jungle Morning": "jungle morning(2)v2-6_icon",
-    "Galenas Crusade": "galenas crusade (2) v10_icon",
-    "Dicey Ambush": "diceyambush_icon",
-    "Antiga Bay_2": "antiga bay (2) v10_icon",    
-    "Antiga Bay_4": "antiga bay (4) v10_icon",
-    "Cold War": "4p_cold_war_icon",
-    "Outer Reaches": "Outer Reaches",
-    "Rhean Jungle": "Rhean Jungle",
-};
+// Las constantes MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE originales han sido eliminadas.
 
 
 // DOM Elements 
@@ -183,9 +196,10 @@ function generarDesplegablesRazas() {
     generarSeleccionMapa();
 }
 
+// ACTUALIZADO: Usa MAPAS_CONFIG
 function generarSeleccionMapa() {
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
+    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; // Usa la nueva estructura
     
     mapaSelect.innerHTML = '';
     
@@ -202,10 +216,10 @@ function generarSeleccionMapa() {
         option.value = "";
         mapaSelect.appendChild(option);
     } else {
-        mapasDisponibles.forEach(mapa => {
+        mapasDisponibles.forEach(mapaObj => { // Itera sobre objetos
             const option = document.createElement('option');
-            option.value = mapa;
-            option.textContent = mapa;
+            option.value = mapaObj.nombre; // El valor es el nombre
+            option.textContent = mapaObj.nombre; // El texto es el nombre
             mapaSelect.appendChild(option);
         });
     }
@@ -213,31 +227,32 @@ function generarSeleccionMapa() {
     mostrarDescripcionMapa();
 }
 
+// ACTUALIZADO: Usa MAPAS_CONFIG y la nueva lógica de iconos
 function mostrarDescripcionMapa() {
     const mapaSeleccionado = mapaSelect.value;
-    const numJugadores = numJugadoresSelect.value; // Obtener el número de jugadores
-    const descripcion = MAPAS_DESCRIPCION[mapaSeleccionado]; 
+    const numJugadores = numJugadoresSelect.value;
     
-    if (mapaSeleccionado && mapaSeleccionado !== "No maps available" && descripcion) {
+    // Encontrar el objeto del mapa desde la nueva estructura
+    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
+    const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
+
+    if (mapaConfig) {
+        let htmlContent = '';
         
-        let htmlContent = `<p class="mapa-detalle">${descripcion}</p>`;
-        
-        let iconName = MAPAS_ICONO_NOMBRE[mapaSeleccionado];
-        
-        // *** LÓGICA PARA RESOLVER EL NOMBRE DEL ICONO DE "Antiga Bay" ***
-        if (mapaSeleccionado === "Antiga Bay" && (numJugadores === "2" || numJugadores === "4")) {
-            // Usa la clave compuesta (MapName_PlayerCount) para el icono correcto
-            iconName = MAPAS_ICONO_NOMBRE[`Antiga Bay_${numJugadores}`];
+        // Añadir descripción si existe
+        if (mapaConfig.descripcion) {
+            htmlContent += `<p class="mapa-detalle">${mapaConfig.descripcion}</p>`;
         }
-        // ***************************************
         
-        if (iconName) {
-            // Usar la ruta RAW de GitHub, como se hizo en el paso anterior
-            const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
-            
-            // Usamos la etiqueta <img> real para que la imagen se muestre.
-            htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaSeleccionado}" class="map-icon-display">`; 
-        }
+        // --- NUEVA LÓGICA DE ICONOS ---
+        // Según la instrucción: "haz que el nombre del archivo de icono sea el nombre del mapa"
+        // Se elimina la lógica de MAPAS_ICONO_NOMBRE y el caso especial "Antiga Bay".
+        const iconName = mapaConfig.nombre; // Ej: "Blood River"
+        
+        const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
+        
+        // Añadido onerror para robustez
+        htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaConfig.nombre}" class="map-icon-display" onerror="this.onerror=null; this.src='https://placehold.co/400x200/cccccc/333333?text=Icon+Not+Found'">`; 
 
         descripcionMapaDiv.innerHTML = htmlContent;
     } else {
@@ -290,13 +305,14 @@ function seleccionarAleatorio(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
+// ACTUALIZADO: Usa MAPAS_CONFIG
 function seleccionarMapaAleatorio() {
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_POR_JUGADOR[numJugadores] || [];
+    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; // Usa la nueva estructura
     
     if (mapasDisponibles.length > 0) {
-        const mapaElegido = seleccionarAleatorio(mapasDisponibles);
-        mapaSelect.value = mapaElegido; 
+        const mapaObj = seleccionarAleatorio(mapasDisponibles); // Selecciona un objeto
+        mapaSelect.value = mapaObj.nombre; // Asigna el nombre
         mostrarDescripcionMapa(); 
     } else {
         descripcionMapaDiv.innerHTML = '<p class="alerta">No maps available for this player count to select randomly.</p>';
