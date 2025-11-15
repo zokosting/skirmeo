@@ -33,42 +33,42 @@ const CONDICIONES_VICTORIA = [
 // Para añadir un mapa, simplemente añada un objeto al array del número de jugadores correspondiente.
 const MAPAS_CONFIG = {
     "2": [
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" } // <--- CAMBIO AQUÍ
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
+        { nombre: "Dicey Ambush" },
         { nombre: "Edemus Gamble", descripcion: "Map size: 257" },
         { nombre: "Faceoff" },
         { nombre: "Fallen City" },
+        { nombre: "Galenas Crusade" },
         { nombre: "Hellfire Canyon" },
+        { nombre: "Jungle Morning", descripcion: "Map size: 257" },
         { nombre: "Meeting of Minds" },
+        { nombre: "Oja" },
         { nombre: "Outer Reaches", descripcion: "Map size: 257" },
         { nombre: "Railway" },
         { nombre: "Riverbed" },
-        { nombre: "Tainted Pair" },
-        { nombre: "Valley of Khorne" },
         { nombre: "Sands of Time", descripcion: "Map size: 257" },
         { nombre: "Short Below Zero" },
-        { nombre: "Oja" },
-        { nombre: "Jungle Morning", descripcion: "Map size: 257" },
-        { nombre: "Galenas Crusade" },
-        { nombre: "Dicey Ambush" },
-        { nombre: "Antiga Bay" }
+        { nombre: "Tainted Pair" },
+        { nombre: "Valley of Khorne" }
     ],
     "3": [
         { nombre: "Fortress", descripcion: "Map size: 257" }
     ],
     "4": [
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" } // <--- CAMBIO AQUÍ
         { nombre: "Biffy's Peril" },
+        { nombre: "Cold War" },
         { nombre: "Mountain Trail" },
         { nombre: "Quatra" },
+        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
         { nombre: "Saint's Square" },
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
         { nombre: "Tartarus Center" },
-        { nombre: "Volcanic Reaction" },
-        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
-        { nombre: "Cold War" },
-        { nombre: "Antiga Bay" }
+        { nombre: "Volcanic Reaction" }
     ],
     "5": [
         { nombre: "Red Jungle" }
@@ -80,28 +80,28 @@ const MAPAS_CONFIG = {
         { nombre: "Jungle Walls" },
         { nombre: "Kasyr Lutien" },
         { nombre: "Mortalis" },
-        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
-        { nombre: "Western Barrena", descripcion: "Map size: 513" },
-        { nombre: "Testing Grounds" },
         { nombre: "Payne's Retribution", descripcion: "Map size: 513" },
         { nombre: "Pavonis", descripcion: "Map size: 513" },
         { nombre: "Principian Badlands", descripcion: "Map size: 513" },
         { nombre: "Rhean Floodlands", descripcion: "Map size: 513" },
         { nombre: "Shakun Coast", descripcion: "Map size: 513" },
+        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
+        { nombre: "Targorum", descripcion: "Map size: 257" },
         { nombre: "Temple of Cyrene", descripcion: "Map size: 513" },
+        { nombre: "Testing Grounds" },
         { nombre: "Tristam Plains", descripcion: "Map size: 513" },
         { nombre: "Trivian Groves", descripcion: "Map size: 513" },
         { nombre: "Vandean Coast", descripcion: "Map size: 257" },
-        { nombre: "Thargorum", descripcion: "Map size: 257" }
+        { nombre: "Western Barrena", descripcion: "Map size: 513" }
     ],
     "8": [
         { nombre: "Burial Grounds" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
+        { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
         { nombre: "Lost Hope" },
-        { nombre: "Rhean Jungle", descripcion: "Map size: 513" },
         { nombre: "Penal Colony" },
-        { nombre: "Kierr Harrad", descripcion: "Map size: 512" }
+        { nombre: "Rhean Jungle", descripcion: "Map size: 513" }
     ]
 };
 // Las constantes MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE originales han sido eliminadas.
@@ -246,8 +246,10 @@ function mostrarDescripcionMapa() {
         
         // --- NUEVA LÓGICA DE ICONOS ---
         // Según la instrucción: "haz que el nombre del archivo de icono sea el nombre del mapa"
-        // Se elimina la lógica de MAPAS_ICONO_NOMBRE y el caso especial "Antiga Bay".
-        const iconName = mapaConfig.nombre; // Ej: "Blood River"
+        // Y la nueva regla: "Antiga Bay" usa un nombre especial.
+        
+        // Lógica de icono: Usa 'iconoNombre' si existe, si no, usa 'nombre'
+        const iconName = mapaConfig.iconoNombre || mapaConfig.nombre; 
         
         const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
         
