@@ -54,8 +54,8 @@ const MAPAS_POR_JUGADOR = {
 };
 
 const MAPAS_DESCRIPCION = {
-    "Battle Marshes": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
-    "Blood River": "Map size: 257 - Strat. points: 8 - Relics: 2 - Slag depos: 0",
+    "Battle Marshes": "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0",
+    "Blood River": "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0",
     "Deadman's Crossing": "Map size: 257",
     "Sands of Time": "Map size: 257",
     "Outer Reaches": "Map size: 257",
