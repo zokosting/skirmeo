@@ -33,7 +33,7 @@ const CONDICIONES_VICTORIA = [
 // Para añadir un mapa, simplemente añada un objeto al array del número de jugadores correspondiente.
 const MAPAS_CONFIG = {
     "2": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" } // <--- CAMBIO AQUÍ
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" }, // <--- CAMBIO AQUÍ
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
@@ -58,7 +58,7 @@ const MAPAS_CONFIG = {
         { nombre: "Fortress", descripcion: "Map size: 257" }
     ],
     "4": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" } // <--- CAMBIO AQUÍ
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" }, // <--- CAMBIO AQUÍ
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War" },
         { nombre: "Mountain Trail" },
