@@ -54,7 +54,7 @@ const MAPAS_CONFIG = {
         { nombre: "Velvet Duress", descripcion: "Map size: 257" }
     ],
     "3": [
-        { nombre: "Fortress", descripcion: "Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" }
+        { nombre: "Fortress", descripcion: "Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
         { nombre: "Coral Reef", descripcion: "Map size: 257" }
     ],
     "4": [
@@ -68,7 +68,7 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
         { nombre: "Tartarus Center" },
-        { nombre: "Apocalypse Later", descripcion: "Map size: 513 | Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" }
+        { nombre: "Apocalypse Later", descripcion: "Map size: 513 | Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
