@@ -28,12 +28,10 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
-// --- REFACTORIZACIÓN DE MAPAS ---
-// Las variables MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE se han consolidado aquí.
-// Para añadir un mapa, simplemente añada un objeto al array del número de jugadores correspondiente.
+// REFACTORIZACIÓN DE MAPAS: Las variables MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE se han consolidado aquí.
 const MAPAS_CONFIG = {
     "2": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" }, // <--- CAMBIO AQUÍ
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" }, 
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
@@ -56,10 +54,11 @@ const MAPAS_CONFIG = {
         { nombre: "Velvet Duress", descripcion: "Map size: 257" }
     ],
     "3": [
-        { nombre: "Fortress", descripcion: "Map size: 257" }
+        { nombre: "Fortress", descripcion: "Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" }
+        { nombre: "Coral Reef", descripcion: "Map size: 257" }
     ],
     "4": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" }, // <--- CAMBIO AQUÍ
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" },
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War" },
         { nombre: "Mountain Trail" },
@@ -69,6 +68,7 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
         { nombre: "Tartarus Center" },
+        { nombre: "Apocalypse Later", descripcion: "Map size: 513 | Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" }
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
@@ -103,10 +103,10 @@ const MAPAS_CONFIG = {
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
-        { nombre: "Rhean Jungle", descripcion: "Map size: 513" }
+        { nombre: "Rhean Jungle", descripcion: "Map size: 513" },
+        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025. This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than in your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." }
     ]
 };
-// Las constantes MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE originales han sido eliminadas.
 
 
 // DOM Elements 
@@ -247,15 +247,12 @@ function mostrarDescripcionMapa() {
         }
         
         // --- NUEVA LÓGICA DE ICONOS ---
-        // Según la instrucción: "haz que el nombre del archivo de icono sea el nombre del mapa"
-        // Y la nueva regla: "Antiga Bay" usa un nombre especial.
         
         // Lógica de icono: Usa 'iconoNombre' si existe, si no, usa 'nombre'
         const iconName = mapaConfig.iconoNombre || mapaConfig.nombre; 
         
         const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
         
-        // --- CAMBIO SOLICITADO ---
         // Añadido onerror para ocultar la imagen si no se encuentra, en lugar de mostrar un placeholder
         htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaConfig.nombre}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">`; 
 
