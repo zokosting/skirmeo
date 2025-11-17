@@ -54,11 +54,13 @@ const MAPAS_CONFIG = {
         { nombre: "Velvet Duress", descripcion: "Map size: 257" }
     ],
     "3": [
+        { nombre: "Coral Reef", descripcion: "Map size: 257" },
         { nombre: "Fortress", descripcion: "Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
-        { nombre: "Coral Reef", descripcion: "Map size: 257" }
+        { nombre: "Inquisitors Fortress", descripcion: "Map size: 513 | Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
     ],
     "4": [
         { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" },
+        { nombre: "Apocalypse Later", descripcion: "Map size: 513 | Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War" },
         { nombre: "Mountain Trail" },
@@ -68,10 +70,10 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
         { nombre: "Tartarus Center" },
-        { nombre: "Apocalypse Later", descripcion: "Map size: 513 | Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
+        { nombre: "Istvaan V", descripcion: "Map size: 1025" },
         { nombre: "Red Jungle" }
     ],
     "6": [
@@ -97,14 +99,14 @@ const MAPAS_CONFIG = {
     ],
     "8": [
         { nombre: "Burial Grounds" },
+        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025.<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than in your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
         { nombre: "Cerulea", descripcion: "Map size: 513" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
-        { nombre: "Rhean Jungle", descripcion: "Map size: 513" },
-        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025. This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than in your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." }
+        { nombre: "Rhean Jungle", descripcion: "Map size: 513" }
     ]
 };
 
