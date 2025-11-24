@@ -64,6 +64,7 @@ const MAPAS_CONFIG = {
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War" },
         { nombre: "Mountain Trail" },
+        { nombre: "Panrea Lowlands", descripcion: "Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra" },
         { nombre: "Refinery", descripcion: "Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
         { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
@@ -75,7 +76,8 @@ const MAPAS_CONFIG = {
     ],
     "5": [
         { nombre: "Istvaan V", descripcion: "Map size: 1025" },
-        { nombre: "Red Jungle" }
+        { nombre: "Red Jungle", descripcion: "Map size: 513" },
+        { nombre: "Vyasastan", descripcion: "Map size: 513" }
     ],
     "6": [
         { nombre: "Bloodshed Alley" },
@@ -96,7 +98,7 @@ const MAPAS_CONFIG = {
         { nombre: "Tristam Plains", descripcion: "Map size: 513" },
         { nombre: "Trivian Groves", descripcion: "Map size: 513" },
         { nombre: "Vandean Coast", descripcion: "Map size: 257" },
-        { nombre: "Western Barrena", descripcion: "Map size: 513" }
+        { nombre: "Western Barrens", descripcion: "Map size: 513" }
     ],
     "8": [
         { nombre: "Burial Grounds" },
