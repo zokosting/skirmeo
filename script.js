@@ -75,8 +75,9 @@ const MAPAS_CONFIG = {
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
+        { nombre: "Aceria Forests", descripcion: "Map size: 257 | Strat. points: 17" },
         { nombre: "Istvaan V", descripcion: "Map size: 1025" },
-        { nombre: "Red Jungle", descripcion: "Map size: 513" },
+        { nombre: "Red Jungle", descripcion: "Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
         { nombre: "Vyasastan", descripcion: "Map size: 513" }
     ],
     "6": [
