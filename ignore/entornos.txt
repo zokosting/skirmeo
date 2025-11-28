@@ -1,0 +1,11 @@
+Soul Forge Psy.png: Mapa industrial/interior altamente estructurado y simétrico, sin terreno natural.
+Water Station.png: Entorno urbano/industrial en ruinas con grandes áreas de lodo/pantano y bosque.
+Necrontyr Rising.png: Bosque denso y estrecho con vegetación oscura y áreas abiertas de tierra.
+Jungle Assault.png: Bosque y vegetación verde con terreno irregular, caminos de tierra y pantanos.
+Marinus.png: Mapa interior/industrial simétrico con pasillos y plataformas alrededor de un centro.
+Gates of Ultramar.png: Fortaleza industrial nevada con un río helado y terreno rocoso en invierno.
+Desiderata Highlands.png: Tierras altas rocosas con una zona central de pradera verde y caminos de tierra.
+Imperial_Starport 013.png: Base industrial/espaciopuerto urbano, rodeado de vegetación y canales.
+Abbot's Hill.png: Colina central de hierba y roca rodeada de bosque, caminos y lagos pequeños.
+Arx Haustrum.png: Fortaleza cuadrada central en ruinas rodeada de bosque denso y oscuro.
+Abandoned Faith.png: Terreno montañoso rocoso con zona central de vegetación y bordes arenosos.

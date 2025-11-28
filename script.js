@@ -31,43 +31,42 @@ const CONDICIONES_VICTORIA = [
 // REFACTORIZACIÓN DE MAPAS: Las variables MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE se han consolidado aquí.
 const MAPAS_CONFIG = {
     "2": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)" }, 
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)", descripcion: "Bosque denso y pantanoso que rodea una bahía con cráteres de impacto." },
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
-        { nombre: "Dicey Ambush" },
+        { nombre: "Dicey Ambush", descripcion: "Zona boscosa densa dividida por un río serpenteante y rodeada de montañas." },
         { nombre: "Edemus Gamble", descripcion: "Map size: 257" },
         { nombre: "Faceoff" },
         { nombre: "Fallen City" },
-        { nombre: "Galenas Crusade" },
+        { nombre: "Galenas Crusade", descripcion: "Terreno ártico o polar, grandes extensiones de nieve con parches oscuros." },
         { nombre: "Hellfire Canyon" },
-        { nombre: "Jungle Morning", descripcion: "Map size: 257" },
+        { nombre: "Jungle Morning", descripcion: "Pastizales y bosque, grandes áreas de pantano/lodo oscuro y formaciones rocosas.<br/>Map size: 257" },
         { nombre: "Meeting of Minds" },
-        { nombre: "Oja" },
-        { nombre: "Outer Reaches", descripcion: "Map size: 257" },
+        { nombre: "Oja", descripcion: "Jungla/bosque denso con ríos serpenteantes, puentes y caminos de tierra." },
+        { nombre: "Outer Reaches", descripcion: "Terreno rocoso y montañoso con matorrales, caminos de tierra y ruinas.<br/>Map size: 257" },
         { nombre: "Railway" },
         { nombre: "Riverbed" },
-        { nombre: "Sands of Time", descripcion: "Map size: 257 | Strat. points: 7 | Relics: 2 | Critical loc.: 3" },
-        { nombre: "Short Below Zero" },
+        { nombre: "Sands of Time", descripcion: "Desierto de arena con ruinas de pirámides y un pequeño río o arroyo.<br/>Map size: 257 | Strat. points: 7 | Relics: 2 | Critical loc.: 3" },
+        { nombre: "Short Below Zero", descripcion: "Ártico/glacial de islas con nieve y hielo fragmentado, lleno de cráteres." },
         { nombre: "Tainted Pair" },
         { nombre: "Valley of Khorne" },
-        { nombre: "Velvet Duress", descripcion: "Map size: 257" }
+        { nombre: "Velvet Duress", descripcion: "Archipiélago de islas estrechas con arena y vegetación en un mar abierto.<br/>Map size: 257" }
     ],
     "3": [
-        { nombre: "Coral Reef", descripcion: "Map size: 257" },
-        { nombre: "Fortress", descripcion: "Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
-        { nombre: "Inquisitors Fortress", descripcion: "Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
+        { nombre: "Coral Reef", descripcion: "Isla de arrecife coralino y arena blanca, rodeada de mar azul claro.<br/>Map size: 257" },
+        { nombre: "Fortress", descripcion: "Entorno urbano en ruinas con grandes parches de escombros y caminos asfaltados.<br/>Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
+        { nombre: "Inquisitors Fortress", descripcion: "Montañoso y rocoso oscuro; fortaleza y estructuras militares en barrancos.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
     ],
     "4": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)" },
-        { nombre: "Apocalypse Later", descripcion: "Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
+        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)", descripcion: "Bahía pantanosa en zona boscosa con numerosos cráteres de impacto y playas." },
+        { nombre: "Apocalypse Later", descripcion: "Zona boscosa densa dividida por un canal/río estrecho y borde de arena.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Biffy's Peril" },
-        { nombre: "Cold War" },
+        { nombre: "Cold War", descripcion: "Paisaje nevado y helado con cuerpos de agua congelada y estructuras militares." },
         { nombre: "Mountain Trail" },
-        { nombre: "Panrea Lowlands", descripcion: "Map size: 257 | Strat. points: 16 | Relics: 2" },
+        { nombre: "Panrea Lowlands", descripcion: "Tierras bajas y pastizales con colinas suaves y múltiples ríos o canales de agua.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra" },
-        { nombre: "Refinery", descripcion: "Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
-        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
+        { nombre: "Refinery", descripcion: "Entorno industrial y desértico estructurado con una instalación central fortificada.<br/>Map size: 257 / Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
         { nombre: "Saint's Square" },
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
@@ -75,10 +74,11 @@ const MAPAS_CONFIG = {
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
-        { nombre: "Aceria Forests", descripcion: "Map size: 257 | Strat. points: 17" },
-        { nombre: "Istvaan V", descripcion: "Map size: 1025" },
-        { nombre: "Red Jungle", descripcion: "Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
-        { nombre: "Vyasastan", descripcion: "Map size: 513" }
+        { nombre: "Aceria Forests", descripcion: "Pastizales con gran colina central rocosa y áreas de bosque/lago.<br/>Map size: 257 | Strat. points: 17" },
+        { nombre: "Istvaan V", descripcion: "Paisaje sombrío y desolado de ceniza oscura, rocas y terreno accidentado.<br/>Map size: 1025" },
+        { nombre: "Red Jungle", descripcion: "Gran isla cubierta de bosque denso y matorrales, rodeada de agua y tierra abierta.<br/>Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
+        { nombre: "The Eye of Gorgon", descripcion: "Terreno polar y nevado con múltiples lagos circulares y grandes cuerpos de agua.<br/>Map size: 513" },
+        { nombre: "Vyasastan", descripcion: "Ciudad en ruinas (urbano) con edificios destruidos, calles y un pequeño río.<br/>Map size: 513" }
     ],
     "6": [
         { nombre: "Bloodshed Alley" },
@@ -94,23 +94,23 @@ const MAPAS_CONFIG = {
         { nombre: "Shakun Coast", descripcion: "Map size: 513" },
         { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
         { nombre: "Targorum", descripcion: "Map size: 257" },
-        { nombre: "Temple of Cyrene", descripcion: "Map size: 513" },
+        { nombre: "Temple of Cyrene", descripcion: "Ruinas de templo/fortificación en terreno desértico/polvoriento con colinas.<br/>Map size: 513" },
         { nombre: "Testing Grounds" },
         { nombre: "Tristam Plains", descripcion: "Map size: 513" },
         { nombre: "Trivian Groves", descripcion: "Map size: 513" },
         { nombre: "Vandean Coast", descripcion: "Map size: 257" },
-        { nombre: "Western Barrens", descripcion: "Map size: 513" }
+        { nombre: "Western Barrens", descripcion: "Desierto árido y abierto con formación rocosa central, oasis y terreno arenoso.<br/>Map size: 513" }
     ],
     "8": [
         { nombre: "Burial Grounds" },
-        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025.<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than in your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
-        { nombre: "Cerulea", descripcion: "Map size: 513" },
+        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025 | Strat. points: 40 | Critical loc.: 6 | Relics: 8 | Slag depos: 9<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than in your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
+        { nombre: "Cerulea", descripcion: "Terreno verde y rocoso con ríos que fluyen y una gran montaña/colina central.<br/>Map size: 513" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
-        { nombre: "Rhean Jungle", descripcion: "Map size: 513" }
+        { nombre: "Rhean Jungle", descripcion: "Jungla/bosque denso con caminos abiertos de tierra, pequeñas colinas y rocas.<br/>Map size: 513" }
     ]
 };
 
