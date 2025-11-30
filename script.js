@@ -50,6 +50,7 @@ const MAPAS_CONFIG = {
         { nombre: "Sands of Time", descripcion: "Desierto de arena con pirámides y un pequeño río.<br/>Map size: 257 | Strat. points: 7 | Relics: 2 | Critical loc.: 3" },
         { nombre: "Short Below Zero", descripcion: "Ártico, islas con nieve, hielo fragmentado y cráteres." },
         { nombre: "Tainted Pair" },
+        { nombre: "Tash'Var City", descripcion: "Una ciudad Tau. You'll get some help here.<br/>Map size: 1025" },
         { nombre: "Valley of Khorne" },
         { nombre: "Velvet Duress", descripcion: "Archipiélago de arena y vegetación en un mar abierto.<br/>Map size: 257" }
     ],
@@ -60,13 +61,14 @@ const MAPAS_CONFIG = {
     ],
     "4": [
         { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)", descripcion: "Bahía pantanosa en zona boscosa con numerosos cráteres y playas." },
-        { nombre: "Apocalypse Later", descripcion: "Tierras bajas boscosa densa dividida por una ría y borde de arena.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
+        { nombre: "Apocalypse Later", descripcion: "Zona boscosa densa dividida por una ría y borde de arena.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War", descripcion: "Paisaje helado con cuerpos de agua congelada y estructuras militares." },
         { nombre: "Mountain Trail" },
         { nombre: "Panrea Lowlands", descripcion: "Pastizales con colinas suaves y múltiples ríos o canales de agua.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra" },
-        { nombre: "Refinery", descripcion: "Entorno industrial y desértico estructurado con una refinería central.<br/>Map size: 257 / Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
+        { nombre: "Refinery", descripcion: "Entorno industrial y desértico estructurado con una refinería central.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
+        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
         { nombre: "Saint's Square" },
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
@@ -94,7 +96,8 @@ const MAPAS_CONFIG = {
         { nombre: "Shakun Coast", descripcion: "Map size: 513" },
         { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
         { nombre: "Targorum", descripcion: "Map size: 257" },
-        { nombre: "Temple of Cyrene", descripcion: "Ruinas de templo/fortificación en terreno con colinas.<br/>Map size: 513" },
+        { nombre: "Temple of Change", descripcion: "The worst scenario you will face. Some weird temple." },
+        { nombre: "Temple of Cyrene", descripcion: "Ruinas de templo-fortificación en terreno con cráteres.<br/>Map size: 513<br/>Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5" },
         { nombre: "Testing Grounds" },
         { nombre: "Tristam Plains", descripcion: "Map size: 513" },
         { nombre: "Trivian Groves", descripcion: "Map size: 513" },
@@ -133,7 +136,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        instruccionRazas.innerHTML = `<p class="mapa-detalle">You were Space Marines Salamandrems. Now you are part of T'au ~ Saul't.</p>`; 
+        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of T'au ~ Shi'yen.</p>`; 
         contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
