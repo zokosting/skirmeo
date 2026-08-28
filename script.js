@@ -498,7 +498,7 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. SEARCH FUNCTIONS (MODIFICADO: búsqueda global en todos los mapas) ---
+// --- 4. SEARCH FUNCTIONS (búsqueda global y selección de resultados) ---
 
 function toggleSearchInput() {
     const container = document.getElementById('busqueda-mapa-container');
@@ -544,10 +544,28 @@ function filtrarMapas() {
     } else {
         let html = '';
         coincidencias.forEach(item => {
-            html += `<div class="resultado-busqueda-item">${item.nombre} (${item.jugadores} players)</div>`;
+            // Añadimos data attributes y evento onclick para seleccionar el mapa
+            html += `<div class="resultado-busqueda-item" data-jugadores="${item.jugadores}" data-nombre="${item.nombre}" onclick="seleccionarMapaDesdeBusqueda('${item.nombre}', '${item.jugadores}')">${item.nombre} (${item.jugadores} players)</div>`;
         });
         resultadosDiv.innerHTML = html;
     }
+}
+
+// Función para seleccionar un mapa desde los resultados de búsqueda
+function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
+    // Cambiar el número de jugadores
+    numJugadoresSelect.value = numJugadores;
+    // Regenerar toda la interfaz (razas y mapa)
+    generarDesplegablesRazas();
+    // Ahora el select de mapas está poblado, seleccionamos el mapa
+    mapaSelect.value = nombre;
+    // Mostrar descripción e icono
+    mostrarDescripcionMapa();
+    // Cerrar la búsqueda
+    const container = document.getElementById('busqueda-mapa-container');
+    container.style.display = 'none';
+    document.getElementById('busqueda-mapa-input').value = '';
+    document.getElementById('resultados-busqueda-mapa').innerHTML = '';
 }
 
 // --- 5. APPLICATION STARTUP (Updated) ---
