@@ -31,9 +31,16 @@
             <h2>Map
                 <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()"></select>
                 <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()" class="btn-compact">RANDOM</button>
+                <button id="btn-mapa-buscar" onclick="toggleSearchInput()" class="btn-compact">SEARCH</button>
             </h2>
             
             <div id="descripcion-mapa" class="mapa-info">
+            </div>
+
+            <!-- Contenedor de búsqueda (oculto por defecto) -->
+            <div id="busqueda-mapa-container" style="display:none;">
+                <input type="text" id="busqueda-mapa-input" placeholder="Search map descriptions..." oninput="filtrarMapas()">
+                <div id="resultados-busqueda-mapa"></div>
             </div>
         </section>
 

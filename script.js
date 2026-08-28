@@ -140,6 +140,14 @@ const quickStartCheckbox = document.getElementById('quick-start');
 // --- 2. INTERFACE LOGIC FUNCTIONS ---
 
 function generarDesplegablesRazas() {
+    // Resetear búsqueda al cambiar el número de jugadores
+    const searchContainer = document.getElementById('busqueda-mapa-container');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+        document.getElementById('busqueda-mapa-input').value = '';
+        document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+    }
+
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
@@ -482,7 +490,43 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. APPLICATION STARTUP (Updated) ---
+// --- 4. SEARCH FUNCTIONS (AÑADIDO) ---
+
+function toggleSearchInput() {
+    const container = document.getElementById('busqueda-mapa-container');
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+        document.getElementById('busqueda-mapa-input').focus();
+    } else {
+        container.style.display = 'none';
+        document.getElementById('busqueda-mapa-input').value = '';
+        document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+    }
+}
+
+function filtrarMapas() {
+    const input = document.getElementById('busqueda-mapa-input');
+    const term = input.value.trim().toLowerCase();
+    const resultadosDiv = document.getElementById('resultados-busqueda-mapa');
+    const numJugadores = numJugadoresSelect.value;
+    if (!numJugadores || term === '') {
+        resultadosDiv.innerHTML = '';
+        return;
+    }
+    const mapas = MAPAS_CONFIG[numJugadores] || [];
+    const coincidencias = mapas.filter(m => m.descripcion && m.descripcion.toLowerCase().includes(term));
+    if (coincidencias.length === 0) {
+        resultadosDiv.innerHTML = '<div class="sin-resultados">No matches found.</div>';
+    } else {
+        let html = '';
+        coincidencias.forEach(m => {
+            html += `<div class="resultado-busqueda-item">${m.nombre}</div>`;
+        });
+        resultadosDiv.innerHTML = html;
+    }
+}
+
+// --- 5. APPLICATION STARTUP (Updated) ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();

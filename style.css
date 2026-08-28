@@ -235,6 +235,37 @@ hr {
     }
 }
 
+/* Estilos para el contenedor de búsqueda de mapas */
+#busqueda-mapa-container {
+    margin-top: 10px;
+}
+#busqueda-mapa-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#resultados-busqueda-mapa {
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 5px;
+    background: #fafafa;
+}
+.resultado-busqueda-item {
+    padding: 4px 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.resultado-busqueda-item:last-child {
+    border-bottom: none;
+}
+.sin-resultados {
+    color: #999;
+    font-style: italic;
+}
+
 /* Estilos de resultados (sin modificar) */
 #btn-generar {
     display: block;
