@@ -253,8 +253,16 @@ function generarSeleccionMapa() {
     mostrarDescripcionMapa();
 }
 
-// ACTUALIZADO: Usa MAPAS_CONFIG y la nueva lógica de iconos
+// ACTUALIZADO: Usa MAPAS_CONFIG y la nueva lógica de iconos, y además oculta la búsqueda al seleccionar un mapa
 function mostrarDescripcionMapa() {
+    // Ocultar búsqueda al seleccionar un mapa del desplegable
+    const searchContainer = document.getElementById('busqueda-mapa-container');
+    if (searchContainer) {
+        searchContainer.style.display = 'none';
+        document.getElementById('busqueda-mapa-input').value = '';
+        document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+    }
+
     const mapaSeleccionado = mapaSelect.value;
     const numJugadores = numJugadoresSelect.value;
     
@@ -490,7 +498,7 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. SEARCH FUNCTIONS (AÑADIDO) ---
+// --- 4. SEARCH FUNCTIONS (MODIFICADO: búsqueda global en todos los mapas) ---
 
 function toggleSearchInput() {
     const container = document.getElementById('busqueda-mapa-container');
@@ -508,19 +516,35 @@ function filtrarMapas() {
     const input = document.getElementById('busqueda-mapa-input');
     const term = input.value.trim().toLowerCase();
     const resultadosDiv = document.getElementById('resultados-busqueda-mapa');
-    const numJugadores = numJugadoresSelect.value;
-    if (!numJugadores || term === '') {
+    
+    if (term === '') {
         resultadosDiv.innerHTML = '';
         return;
     }
-    const mapas = MAPAS_CONFIG[numJugadores] || [];
-    const coincidencias = mapas.filter(m => m.descripcion && m.descripcion.toLowerCase().includes(term));
+
+    // Recorremos TODAS las categorías de jugadores
+    const todasLasCategorias = Object.keys(MAPAS_CONFIG); // ["2","3","4","5","6","8"]
+    const coincidencias = [];
+
+    todasLasCategorias.forEach(numJug => {
+        const mapas = MAPAS_CONFIG[numJug] || [];
+        mapas.forEach(mapa => {
+            // Buscamos en la descripción (si existe)
+            if (mapa.descripcion && mapa.descripcion.toLowerCase().includes(term)) {
+                coincidencias.push({
+                    nombre: mapa.nombre,
+                    jugadores: numJug
+                });
+            }
+        });
+    });
+
     if (coincidencias.length === 0) {
         resultadosDiv.innerHTML = '<div class="sin-resultados">No matches found.</div>';
     } else {
         let html = '';
-        coincidencias.forEach(m => {
-            html += `<div class="resultado-busqueda-item">${m.nombre}</div>`;
+        coincidencias.forEach(item => {
+            html += `<div class="resultado-busqueda-item">${item.nombre} (${item.jugadores} players)</div>`;
         });
         resultadosDiv.innerHTML = html;
     }
