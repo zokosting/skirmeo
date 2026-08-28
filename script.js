@@ -66,7 +66,6 @@ const MAPAS_CONFIG = {
         { nombre: "Apocalypse Later", descripcion: "Dense wooded area divided by an estuary and a sandy edge.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War", descripcion: "Frozen landscape with bodies of frozen water and military structures." },
-        { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
         { nombre: "Mountain Trail" },
         { nombre: "Panrea Lowlands", descripcion: "Grasslands with gentle hills and multiple rivers or water channels.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra" },
@@ -89,7 +88,7 @@ const MAPAS_CONFIG = {
     "6": [
         { nombre: "Bloodshed Alley" },
         { nombre: "Crossroads" },
-        { nombre: "Dread Alleu" },
+        { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
         { nombre: "Jungle Walls" },
         { nombre: "Kasyr Lutien" },
         { nombre: "Mortalis" },
