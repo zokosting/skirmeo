@@ -91,6 +91,7 @@ const MAPAS_CONFIG = {
         { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
         { nombre: "Jungle Walls" },
         { nombre: "Kasyr Lutien" },
+        { nombre: "Kaurav City", descripcion: "Gritty urban warfare in a dense Imperial city.<br/>Map size: 513" },
         { nombre: "Mortalis" },
         { nombre: "Payne's Retribution", descripcion: "Map size: 513" },
         { nombre: "Pavonis", descripcion: "Map size: 513" },
@@ -119,6 +120,7 @@ const MAPAS_CONFIG = {
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
         { nombre: "Rhean Jungle", descripcion: "Dense jungle with open dirt paths and hills.<br/>Map size: 513" },
+        { nombre: "Strovinivich River Front", descripcion: "Snowy city in this urban scenario.<br/>Map size: 513" },
         { nombre: "The Razor Ridge", descripcion: "Rocky highlands with numerous narrow passes and vertical rock formations." },
         { nombre: "Wetlands", descripcion: "The dense growth and treacherous vapors of Strank provides lethal negative-cover zones." }
     ]
