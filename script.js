@@ -151,7 +151,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of T'au ~ Shi'yen.</p>`; 
+        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul't T'au Sept.</p>`; 
         contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
@@ -522,9 +522,7 @@ function filtrarMapas() {
         return;
     }
 
-    // Dividir el término en palabras individuales
     const palabras = term.split(/\s+/).filter(p => p.length > 0);
-
     const todasLasCategorias = Object.keys(MAPAS_CONFIG);
     const coincidencias = [];
 
@@ -533,7 +531,6 @@ function filtrarMapas() {
         mapas.forEach(mapa => {
             if (mapa.descripcion) {
                 const descLower = mapa.descripcion.toLowerCase();
-                // Verificar que todas las palabras estén en la descripción
                 const todasPresentes = palabras.every(palabra => descLower.includes(palabra));
                 if (todasPresentes) {
                     coincidencias.push({
@@ -550,7 +547,8 @@ function filtrarMapas() {
     } else {
         let html = '';
         coincidencias.forEach(item => {
-            html += `<div class="resultado-busqueda-item" data-jugadores="${item.jugadores}" data-nombre="${item.nombre}" onclick="seleccionarMapaDesdeBusqueda('${item.nombre}', '${item.jugadores}')">${item.nombre} (${item.jugadores} players)</div>`;
+            // Usamos data-* attributes en lugar de onclick
+            html += `<div class="resultado-busqueda-item" data-jugadores="${item.jugadores}" data-nombre="${item.nombre}">${item.nombre} (${item.jugadores} players)</div>`;
         });
         resultadosDiv.innerHTML = html;
     }
@@ -577,11 +575,21 @@ function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
-    generarCondicionesVictoria(); 
-    
-    updateTeamOptionStyle(); 
-
+    generarCondicionesVictoria();
+    updateTeamOptionStyle();
     resultadoDiv.innerHTML = '';
+
+    // Delegación de eventos para los resultados de búsqueda
+    document.getElementById('resultados-busqueda-mapa').addEventListener('click', function(e) {
+        const target = e.target.closest('.resultado-busqueda-item');
+        if (target) {
+            const nombre = target.dataset.nombre;
+            const jugadores = target.dataset.jugadores;
+            if (nombre && jugadores) {
+                seleccionarMapaDesdeBusqueda(nombre, jugadores);
+            }
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
