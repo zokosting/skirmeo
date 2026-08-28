@@ -166,7 +166,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    instruccionRazas.innerHTML = `<p class="mapa-detalle">You were Space Marines Salamandrems. Now you are part of T'au ~ Saul't.</p>`; 
+    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul't T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -522,19 +522,25 @@ function filtrarMapas() {
         return;
     }
 
-    // Recorremos TODAS las categorías de jugadores
-    const todasLasCategorias = Object.keys(MAPAS_CONFIG); // ["2","3","4","5","6","8"]
+    // Dividir el término en palabras individuales
+    const palabras = term.split(/\s+/).filter(p => p.length > 0);
+
+    const todasLasCategorias = Object.keys(MAPAS_CONFIG);
     const coincidencias = [];
 
     todasLasCategorias.forEach(numJug => {
         const mapas = MAPAS_CONFIG[numJug] || [];
         mapas.forEach(mapa => {
-            // Buscamos en la descripción (si existe)
-            if (mapa.descripcion && mapa.descripcion.toLowerCase().includes(term)) {
-                coincidencias.push({
-                    nombre: mapa.nombre,
-                    jugadores: numJug
-                });
+            if (mapa.descripcion) {
+                const descLower = mapa.descripcion.toLowerCase();
+                // Verificar que todas las palabras estén en la descripción
+                const todasPresentes = palabras.every(palabra => descLower.includes(palabra));
+                if (todasPresentes) {
+                    coincidencias.push({
+                        nombre: mapa.nombre,
+                        jugadores: numJug
+                    });
+                }
             }
         });
     });
@@ -544,7 +550,6 @@ function filtrarMapas() {
     } else {
         let html = '';
         coincidencias.forEach(item => {
-            // Añadimos data attributes y evento onclick para seleccionar el mapa
             html += `<div class="resultado-busqueda-item" data-jugadores="${item.jugadores}" data-nombre="${item.nombre}" onclick="seleccionarMapaDesdeBusqueda('${item.nombre}', '${item.jugadores}')">${item.nombre} (${item.jugadores} players)</div>`;
         });
         resultadosDiv.innerHTML = html;
