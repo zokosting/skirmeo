@@ -62,14 +62,15 @@ const MAPAS_CONFIG = {
         { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." }
     ],
     "4": [
+        { nombre: "Abandoned Origin", descripcion: "Desert at the outside of a Tau city with a center CP.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 1 | Relics: 4" },
         { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)", descripcion: "Swampy bay in a forested area with numerous craters and beaches." },
-        { nombre: "Apocalypse Later", descripcion: "Dense wooded area divided by an estuary and a sandy edge.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
+        { nombre: "Apocalypse Later", descripcion: "Dense wooded area split by an estuary and a single CP.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
         { nombre: "Biffy's Peril" },
         { nombre: "Cold War", descripcion: "Frozen landscape with bodies of frozen water and military structures." },
         { nombre: "Mountain Trail" },
         { nombre: "Panrea Lowlands", descripcion: "Grasslands with gentle hills and multiple rivers or water channels.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra" },
-        { nombre: "Refinery", descripcion: "Industrial and desert environment structured around a central refinery.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
+        { nombre: "Refinery", descripcion: "Industrial and desert environment structured a central refinery.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
         { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
         { nombre: "Saint's Square" },
         { nombre: "Tainted Place" },
@@ -79,7 +80,7 @@ const MAPAS_CONFIG = {
         { nombre: "Volcanic Reaction" }
     ],
     "5": [
-        { nombre: "Aceria Forests", descripcion: "Field with forest and a central hill next to a lake.<br/>Map size: 257 | Strat. points: 17" },
+        { nombre: "Aceria Forests", descripcion: "Field with forest and a central hill near to a lake.<br/>Map size: 257 | Strat. points: 17" },
         { nombre: "Istvaan V", descripcion: "Desolate landscape of ash, rocks and rugged terrain.<br/>Map size: 1025" },
         { nombre: "Red Jungle", descripcion: "Large island covered by dense forest and paths.<br/>Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
         { nombre: "The Eye of Gorgon", descripcion: "Polar snowy terrain with multiple lakes and large bodies of water.<br/>Map size: 513" },
@@ -153,7 +154,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul't T'au Sept.</p>`; 
+        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept.</p>`; 
         contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
@@ -168,7 +169,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul't T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
+    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
     contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {

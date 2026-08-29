@@ -34,12 +34,12 @@
                 <button id="btn-mapa-buscar" onclick="toggleSearchInput()" class="btn-compact" aria-label="Search maps">🔍</button>
             </h2>
             
-            <div id="descripcion-mapa" class="mapa-info">
-            </div>
-
             <div id="busqueda-mapa-container" style="display:none;">
                 <input type="text" id="busqueda-mapa-input" placeholder="Search maps..." oninput="filtrarMapas()">
                 <div id="resultados-busqueda-mapa"></div>
+            </div>
+
+            <div id="descripcion-mapa" class="mapa-info">
             </div>
         </section>
 
@@ -80,7 +80,7 @@
                 <h3>AI difficulty
                     <select id="ai-difficulty">
                         <option value="Easy">Easy</option>
-                        <option value="Standard/Normal" selected>Standard/Normal</option>
+                        <option value="Standard" selected>Standard/Normal</option>
                         <option value="Hard">Hard</option>
                         <option value="Harder">Harder</option>
                         <option value="Insane">Insane</option>
@@ -111,9 +111,9 @@
             </div>
         </section>
 
-        <section id="generacion-partida">
+        <!--<section id="generacion-partida">
             <button id="btn-generar" onclick="generarPartida()">GENERATE!</button>
-        </section>
+        </section>-->
 
         <section id="resultado-partida">
             <div id="resultado" class="resultado-container">
