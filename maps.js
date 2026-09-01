@@ -58,7 +58,7 @@ const MAPAS_CONFIG = {
         { nombre: "Vyasastan", descripcion: "Urban environment with destroyed streets and buildings.<br/>Map size: 513" }
     ],
     "6": [
-        { nombre: "Agamar Desert", descripcion: "Several burgs dot the arid inland around the Tau capital.<br/>Map size: 513" },
+        { nombre: "Agamar Desert", descripcion: "Several burgs dot the arid inland outside the Tau capital.<br/>Map size: 513" },
         { nombre: "Bloodshed Alley" },
         { nombre: "Crossroads" },
         { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
