@@ -28,111 +28,6 @@ const CONDICIONES_VICTORIA = [
     "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
 ];
 
-// REFACTORIZACIÓN DE MAPAS: Las variables MAPAS_POR_JUGADOR, MAPAS_DESCRIPCION, y MAPAS_ICONO_NOMBRE se han consolidado aquí.
-const MAPAS_CONFIG = {
-    "2": [
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)", descripcion: "Dense forest surrounding a bay with craters." },
-        { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
-        { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
-        { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
-        { nombre: "Dicey Ambush", descripcion: "Wooded valley divided by a river and surrounded by mountains." },
-        { nombre: "Ecstasy's Peril", descripcion: "A Chaos war temple in an artic terrain.<br/>Map size: 257" },
-        { nombre: "Edemus Gamble", descripcion: "Map size: 257" },
-        { nombre: "Faceoff" },
-        { nombre: "Fallen City" },
-        { nombre: "Galenas Crusade", descripcion: "Arctic terrain, with large snowfields with craters." },
-        { nombre: "Hellfire Canyon" },
-        { nombre: "Jungle Morning", descripcion: "Grasslands, forest and rocks, large swamp areas.<br/>Map size: 257" },
-        { nombre: "Meeting of Minds" },
-        { nombre: "Oja", descripcion: "Paths through dense jungle with bridges over rivers." },
-        { nombre: "Outer Reaches", descripcion: "Mountainous terrain with paths, shrubs and ruins.<br/>Map size: 257" },
-        { nombre: "Railway" },
-        { nombre: "Riverbed" },
-        { nombre: "Sands of Time", descripcion: "Sand desert with pyramids and a small river.<br/>Map size: 257 | Strat. points: 7 | Relics: 2 | Critical loc.: 3" },
-        { nombre: "Short Below Zero", descripcion: "Arctic, islands with snow, broken ice and craters." },
-        { nombre: "Tainted Pair" },
-        { nombre: "Tainted Soul", descripcion: "Map size: 257" },
-        { nombre: "Tash'Var City", descripcion: "A Tau city. You'll get some help here.<br/>Map size: 1025" },
-        { nombre: "Valley of Khorne" },
-        { nombre: "Velvet Duress", descripcion: "Archipelago of sand and vegetation in an open sea.<br/>Map size: 257" }
-    ],
-    "3": [
-        { nombre: "Coral Reef", descripcion: "Coral reef island with white sand, surrounded by sea.<br/>Map size: 257" },
-        { nombre: "Fortress", descripcion: "Urban ruined environment with large craters, debris and streets.<br/>Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
-        { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." }
-    ],
-    "4": [
-        { nombre: "Abandoned Origin", descripcion: "Desert at the outside of a Tau city with a center CP.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 1 | Relics: 4" },
-        { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (4)", descripcion: "Swampy bay in a forested area with numerous craters and beaches." },
-        { nombre: "Apocalypse Later", descripcion: "Dense wooded area split by an estuary and a single CP.<br/>Map size: 513<br/>Strat. points: 16 | Critical loc.: 1 | Relics: 2 | Slag depos: 2" },
-        { nombre: "Biffy's Peril" },
-        { nombre: "Cris Nocturnes", descripcion: "Jungle ends in bridges to a temple in the night.<br/>Map size: 513<br/>Critical loc.: 3" },
-        { nombre: "Cold War", descripcion: "Frozen landscape with bodies of frozen water and military structures." },
-        { nombre: "Mountain Trail" },
-        { nombre: "Panrea Lowlands", descripcion: "Grasslands with gentle hills and multiple rivers or water channels.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
-        { nombre: "Quatra" },
-        { nombre: "Refinery", descripcion: "Industrial and desert environment structured a central refinery.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
-        { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
-        { nombre: "Saint's Square" },
-        { nombre: "Tainted Place" },
-        { nombre: "Tainted soul" },
-        { nombre: "Tartarus Center" },
-        { nombre: "The Skerries", descripcion: "Dense string of small islands.<br/>Map size: 257" },
-        { nombre: "Volcanic Reaction" }
-    ],
-    "5": [
-        { nombre: "Aceria Forests", descripcion: "Field with forest and a central hill near to a lake.<br/>Map size: 257 | Strat. points: 17" },
-        { nombre: "Istvaan V", descripcion: "Desolate landscape of ash, rocks and rugged terrain.<br/>Map size: 1025" },
-        { nombre: "Red Jungle", descripcion: "Large island covered by dense forest and paths.<br/>Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
-        { nombre: "The Eye of Gorgon", descripcion: "Polar snowy terrain with multiple lakes and large bodies of water.<br/>Map size: 513" },
-        { nombre: "Vyasastan", descripcion: "Urban environment with destroyed streets and buildings.<br/>Map size: 513" }
-    ],
-    "6": [
-        { nombre: "Agamar Desert", descripcion: "Several burgs dot the arid inland around the Tau capital.<br/>Map size: 513" },
-        { nombre: "Bloodshed Alley" },
-        { nombre: "Crossroads" },
-        { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
-        { nombre: "Iknar", descripcion: "Remains of a Nekron temple in a desert scenario.<br/>Map size: 257<br/>Strat. points: 16 | Critical loc.: 2 | Relics: 1 | Slag depos: 1" },
-        { nombre: "Jungle Walls" },
-        { nombre: "Kasyr Lutien" },
-        { nombre: "Kaurav City", descripcion: "Gritty urban warfare in a dense Imperial city.<br/>Map size: 513" },
-        { nombre: "Marine Selection", descripcion: "Enourmous paved laberyinth made for Control Area.<br/>Map size: 1025" },
-        { nombre: "Mortalis" },
-        { nombre: "Payne's Retribution", descripcion: "Map size: 513" },
-        { nombre: "Pavonis", descripcion: "Map size: 513" },
-        { nombre: "Principian Badlands", descripcion: "Map size: 513" },
-        { nombre: "Rhean Floodlands", descripcion: "Treacherous, winding paths, sharp ridges, and sudden gullies.<br/>Map size: 513" },
-        { nombre: "Shakun Coast", descripcion: "Map size: 513" },
-        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
-        { nombre: "Targorum", descripcion: "Map size: 257" },
-        { nombre: "Temple of Change", descripcion: "The worst scenario you will face. Some weird temple." },
-        { nombre: "Temple of Cyrene", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513<br/>Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5" },
-        { nombre: "Testing Grounds", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513" },
-        { nombre: "Tristam Plains", descripcion: "Live combat fighting for Space Marines.<br/>Map size: 513" },
-        { nombre: "Trivian Groves", descripcion: "Map size: 513" },
-        { nombre: "Vandean Coast", descripcion: "Map size: 257" },
-        { nombre: "Western Barrens", descripcion: "Arid rocky desert with a central plateau.<br/>Map size: 513" }
-    ],
-    "8": [
-        { nombre: "Burial Grounds" },
-        { nombre: "Canyon Break", descripcion: "Deep within the canyons of Rynn's World’s arid plateaus, rivers serve as the only natural supply routes." },
-        { nombre: "Castle Ruostestein", descripcion: "Map size: 1025<br/>Strat. points: 40 | Critical loc.: 6 | Relics: 8 | Slag depos: 9<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
-        { nombre: "Cerulea", descripcion: "Green and rocky terrain with a large central mountain and flowing rivers.<br/>Map size: 513" },
-        { nombre: "Cursed Forpost" },
-        { nombre: "Daturias Pits" },
-        { nombre: "Doom Chamber" },
-        { nombre: "Jalaganda Lowlands", descripcion: "Intricate lattice of canals in this humit industrial wasteland.<br/>Map size: 513" },
-        { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
-        { nombre: "Lost Hope" },
-        { nombre: "Penal Colony" },
-        { nombre: "Rhean Jungle", descripcion: "Dense jungle with open dirt paths and hills.<br/>Map size: 513" },
-        { nombre: "Strovinivich River Front", descripcion: "Snowy city in this urban scenario.<br/>Map size: 513" },
-        { nombre: "The Razor Ridge", descripcion: "Rocky highlands with numerous narrow passes and vertical rock formations." },
-        { nombre: "Wetlands", descripcion: "The dense growth and treacherous vapors of Strank provides lethal negative-cover zones." }
-    ]
-};
-
-
 // DOM Elements 
 const contenedorDesplegables = document.getElementById('contenedor-desplegables-razas');
 const instruccionRazas = document.getElementById('instruccion-razas');
@@ -230,10 +125,9 @@ function generarDesplegablesRazas() {
     generarSeleccionMapa();
 }
 
-// ACTUALIZADO: Usa MAPAS_CONFIG
 function generarSeleccionMapa() {
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; // Usa la nueva estructura
+    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; 
     
     mapaSelect.innerHTML = '';
     
@@ -250,10 +144,10 @@ function generarSeleccionMapa() {
         option.value = "";
         mapaSelect.appendChild(option);
     } else {
-        mapasDisponibles.forEach(mapaObj => { // Itera sobre objetos
+        mapasDisponibles.forEach(mapaObj => { 
             const option = document.createElement('option');
-            option.value = mapaObj.nombre; // El valor es el nombre
-            option.textContent = mapaObj.nombre; // El texto es el nombre
+            option.value = mapaObj.nombre; 
+            option.textContent = mapaObj.nombre; 
             mapaSelect.appendChild(option);
         });
     }
@@ -261,7 +155,6 @@ function generarSeleccionMapa() {
     mostrarDescripcionMapa();
 }
 
-// ACTUALIZADO: Usa MAPAS_CONFIG y la nueva lógica de iconos, y además oculta la búsqueda al seleccionar un mapa
 function mostrarDescripcionMapa() {
     // Ocultar búsqueda al seleccionar un mapa del desplegable
     const searchContainer = document.getElementById('busqueda-mapa-container');
@@ -274,26 +167,20 @@ function mostrarDescripcionMapa() {
     const mapaSeleccionado = mapaSelect.value;
     const numJugadores = numJugadoresSelect.value;
     
-    // Encontrar el objeto del mapa desde la nueva estructura
     const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
 
     if (mapaConfig) {
         let htmlContent = '';
         
-        // Añadir descripción si existe
         if (mapaConfig.descripcion) {
             htmlContent += `<p class="mapa-detalle">${mapaConfig.descripcion}</p>`;
         }
         
-        // --- NUEVA LÓGICA DE ICONOS ---
-        
-        // Lógica de icono: Usa 'iconoNombre' si existe, si no, usa 'nombre'
         const iconName = mapaConfig.iconoNombre || mapaConfig.nombre; 
         
         const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`; 
         
-        // Añadido onerror para ocultar la imagen si no se encuentra, en lugar de mostrar un placeholder
         htmlContent += `<img src="${imagePath}" alt="Icono del mapa ${mapaConfig.nombre}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">`; 
 
         descripcionMapaDiv.innerHTML = htmlContent;
@@ -301,7 +188,6 @@ function mostrarDescripcionMapa() {
         descripcionMapaDiv.innerHTML = ''; 
     }
 }
-
 
 function generarCondicionesVictoria() {
     contenedorCondiciones.innerHTML = '';
@@ -342,19 +228,17 @@ function generarCondicionesVictoria() {
     });
 }
 
-
 function seleccionarAleatorio(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
 
-// ACTUALIZADO: Usa MAPAS_CONFIG
 function seleccionarMapaAleatorio() {
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; // Usa la nueva estructura
+    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; 
     
     if (mapasDisponibles.length > 0) {
-        const mapaObj = seleccionarAleatorio(mapasDisponibles); // Selecciona un objeto
-        mapaSelect.value = mapaObj.nombre; // Asigna el nombre
+        const mapaObj = seleccionarAleatorio(mapasDisponibles); 
+        mapaSelect.value = mapaObj.nombre; 
         mostrarDescripcionMapa(); 
     } else {
         descripcionMapaDiv.innerHTML = '<p class="alerta">No maps available for this player count to select randomly.</p>';
@@ -375,7 +259,6 @@ function toggleChapterSelect(selectElement) {
     }
 }
 
-/** Selects a random race for all non-fixed race dropdowns, and randomizes Chapter if SM is selected. */
 function randomizeAllRaces() {
     const raceSelects = document.querySelectorAll('.select-raza-rotatoria');
     raceSelects.forEach(select => {
@@ -404,10 +287,9 @@ function updateTeamOptionStyle() {
     });
 }
 
-// --- 3. MATCH GENERATION FUNCTION (Updated result display) ---
+// --- 3. MATCH GENERATION FUNCTION ---
 
 function generarPartida() {
-    // Validación inicial para -Select
     if (numJugadoresSelect.value === "") {
         resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Max Players selection is required.</p>`;
         return;
@@ -495,8 +377,6 @@ function generarPartida() {
         let chapterInfo = '';
         if (raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[`Race ${jugadorNum}`]})`;
-        } else if (index === 0 && raza === RAZA_FIJA) {
-             // Logic for Fixed Race Chapter could be added here if needed
         }
 
         resultadoHTML += `<li>**Race ${jugadorNum}:** ${raza}${chapterInfo} (${etiqueta})</li>`;
@@ -506,7 +386,7 @@ function generarPartida() {
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. SEARCH FUNCTIONS (búsqueda global y selección de resultados) ---
+// --- 4. SEARCH FUNCTIONS ---
 
 function toggleSearchInput() {
     const container = document.getElementById('busqueda-mapa-container');
@@ -555,31 +435,25 @@ function filtrarMapas() {
     } else {
         let html = '';
         coincidencias.forEach(item => {
-            // Usamos data-* attributes en lugar de onclick
             html += `<div class="resultado-busqueda-item" data-jugadores="${item.jugadores}" data-nombre="${item.nombre}">${item.nombre} (${item.jugadores} players)</div>`;
         });
         resultadosDiv.innerHTML = html;
     }
 }
 
-// Función para seleccionar un mapa desde los resultados de búsqueda
 function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
-    // Cambiar el número de jugadores
     numJugadoresSelect.value = numJugadores;
-    // Regenerar toda la interfaz (razas y mapa)
     generarDesplegablesRazas();
-    // Ahora el select de mapas está poblado, seleccionamos el mapa
     mapaSelect.value = nombre;
-    // Mostrar descripción e icono
     mostrarDescripcionMapa();
-    // Cerrar la búsqueda
+    
     const container = document.getElementById('busqueda-mapa-container');
     container.style.display = 'none';
     document.getElementById('busqueda-mapa-input').value = '';
     document.getElementById('resultados-busqueda-mapa').innerHTML = '';
 }
 
-// --- 5. APPLICATION STARTUP (Updated) ---
+// --- 5. APPLICATION STARTUP ---
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
@@ -587,7 +461,6 @@ function iniciarAplicacion() {
     updateTeamOptionStyle();
     resultadoDiv.innerHTML = '';
 
-    // Delegación de eventos para los resultados de búsqueda
     document.getElementById('resultados-busqueda-mapa').addEventListener('click', function(e) {
         const target = e.target.closest('.resultado-busqueda-item');
         if (target) {
