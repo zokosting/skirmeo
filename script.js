@@ -88,6 +88,7 @@ const MAPAS_CONFIG = {
         { nombre: "Vyasastan", descripcion: "Urban environment with destroyed streets and buildings.<br/>Map size: 513" }
     ],
     "6": [
+        { nombre: "Agamar Desert", descripcion: "Several burgs dot the arid inland around the Tau capital.<br/>Map size: 513" },
         { nombre: "Bloodshed Alley" },
         { nombre: "Crossroads" },
         { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
@@ -117,6 +118,7 @@ const MAPAS_CONFIG = {
         { nombre: "Canyon Break", descripcion: "Deep within the canyons of Rynn's World’s arid plateaus, rivers serve as the only natural supply routes." },
         { nombre: "Castle Ruostestein", descripcion: "Map size: 1025<br/>Strat. points: 40 | Critical loc.: 6 | Relics: 8 | Slag depos: 9<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
         { nombre: "Cerulea", descripcion: "Green and rocky terrain with a large central mountain and flowing rivers.<br/>Map size: 513" },
+        { nombre: "Cursed Forpost" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
         { nombre: "Jalaganda Lowlands", descripcion: "Intricate lattice of canals in this humit industrial wasteland.<br/>Map size: 513" },
