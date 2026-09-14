@@ -288,3 +288,33 @@ hr {
     color: #e74c3c;
     font-weight: bold;
 }
+
+.report-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    box-sizing: border-box;
+    margin-top: 5px;
+    resize: vertical;
+}
+
+.btn-save-report {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-save-report:hover {
+    background-color: #219653;
+}

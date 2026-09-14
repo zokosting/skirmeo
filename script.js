@@ -313,30 +313,55 @@ function updateTeamOptionStyle() {
     });
 }
 
-// --- 3. SOCIAL LORE GENERATION FUNCTION ---
+// --- 3. BACKGROUND SECTION & REPORT SAVING ---
 
-function generarHistoriaSocial(mapaNombre, partidaGenerada) {
-    const tramasSociales = [
-        "una disputa crítica por los permisos de importación de purificadores de agua y tecnología aeropónica en los distritos comerciales mixtos.",
-        "un profundo malentendido diplomático tras la negativa del puesto local a ceder espacio comunal para los nuevos altares de persuasión ideológica del Bien Supremo.",
-        "el colapso paulatino de las negociaciones sobre las rutas comerciales estacionales, tras descubrirse el contrabando sistemático de especias y reliquias menores.",
-        "una tensa asamblea vecinal motivada por las quejas ciudadanas ante el constante zumbido de los reactores de plasma y la saturación del tráfico de transportes civiles.",
-        "la inesperada huelga indefinida de los gremios de operarios locales en protesta por las estrictas exigencias de optimización laboral impuestas por los emisarios visitantes."
-    ];
-    
-    const tramaElegida = tramasSociales[Math.floor(Math.random() * tramasSociales.length)];
-
+function generarSeccionBackground() {
     return `
         <h3>Background:</h3>
-        <div style="background: #1e1e1e; color: #d4d4d4; padding: 12px; border-left: 4px solid #1b365d; border-radius: 4px; font-style: italic;">
-            <p style="margin: 0 0 8px 0;">
-                En los arrabales y zonas de tránsito civil del enclave de <strong>${mapaNombre}</strong>, la convivencia pacífica se ha desmoronado debido a <strong>${tramaElegida}</strong>
-            </p>
-            <p style="margin: 0;">
-                Los representantes del <strong>T'au Empire (Saul'tn Sept)</strong> intentaron inicialmente mediar a través de comités de conciliación y mesas de diálogo comunitario. Sin embargo, la inflexibilidad y las agudas fricciones culturales con las delegaciones de <strong>${partidaGenerada.slice(1).join(', ')}</strong> han convertido la convivencia en insostenible, transformando un simple desacuerdo administrativo en una tensa crisis social a punto de estallar en las calles.
-            </p>
-        </div>
+        <textarea id="background-text" class="report-textarea" placeholder="Escribe aquí tus notas, lore o contexto de la partida..."></textarea>
+        <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">Save Report (.txt)</button>
     `;
+}
+
+function guardarReporteTxt() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const fechaStr = `${year}-${month}-${day}`;
+
+    // Recopilamos el contenido principal del resultado (excluyendo el botón de guardar y el textarea para procesar texto limpio)
+    const resultadoContainer = document.getElementById('resultado');
+    
+    // Obtenemos los elementos de texto clave
+    let contenidoTexto = "=== DAWN OF WAR - MATCH REPORT ===\n\n";
+    
+    // Extraemos texto relevante del contenedor de resultado
+    const headers = resultadoContainer.querySelectorAll('h3');
+    headers.forEach(h3 => {
+        if (h3.textContent.includes('Background:')) {
+            contenidoTexto += "\n[Background]\n";
+            const textareaVal = document.getElementById('background-text').value;
+            contenidoTexto += (textareaVal ? textareaVal : "(Sin notas adicionales)") + "\n\n";
+        } else {
+            contenidoTexto += `\n[${h3.textContent}] \n`;
+            let nextEl = h3.nextElementSibling;
+            while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('btn-save-report')) {
+                contenidoTexto += nextEl.innerText + "\n";
+                nextEl = nextEl.nextElementSibling;
+            }
+        }
+    });
+
+    const blob = new Blob([contenidoTexto], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Report - ${fechaStr}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 // --- 4. MATCH GENERATION FUNCTION ---
@@ -386,7 +411,6 @@ function generarPartida() {
          return;
     }
     
-    // Lista completa incluyendo al jugador fijo (T'au Empire) y las razas válidas filtradas
     const partidaGenerada = ["T'au Empire (Saul'tn Sept)", ...razasValidasSeleccionadas]; 
     const numJugadoresEfectivos = partidaGenerada.length;
     
@@ -439,7 +463,7 @@ function generarPartida() {
         </ul>
     `;
 
-    resultadoHTML += generarHistoriaSocial(mapaSeleccionado, partidaGenerada);
+    resultadoHTML += generarSeccionBackground();
 
     resultadoDiv.innerHTML = resultadoHTML;
 }
