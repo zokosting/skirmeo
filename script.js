@@ -277,7 +277,33 @@ function updateTeamOptionStyle() {
     });
 }
 
-// --- 3. MATCH GENERATION FUNCTION ---
+// --- 3. SOCIAL LORE GENERATION FUNCTION ---
+
+function generarHistoriaSocial(mapaNombre, partidaGenerada) {
+    const tramasSociales = [
+        "una disputa crítica por los permisos de importación de purificadores de agua y tecnología aeropónica en los distritos comerciales mixtos.",
+        "un profundo malentendido diplomático tras la negativa del puesto local a ceder espacio comunal para los nuevos altares de persuasión ideológica del Bien Supremo.",
+        "el colapso paulatino de las negociaciones sobre las rutas comerciales estacionales, tras descubrirse el contrabando sistemático de especias y reliquias menores.",
+        "una tensa asamblea vecinal motivada por las quejas ciudadanas ante el constante zumbido de los reactores de plasma y la saturación del tráfico de transportes civiles.",
+        "la inesperada huelga indefinida de los gremios de operarios locales en protesta por las estrictas exigencias de optimización laboral impuestas por los emisarios visitantes."
+    ];
+    
+    const tramaElegida = tramasSociales[Math.floor(Math.random() * tramasSociales.length)];
+
+    return `
+        <h3>Background & Social Context:</h3>
+        <div style="background: #1e1e1e; color: #d4d4d4; padding: 12px; border-left: 4px solid #1b365d; border-radius: 4px; font-style: italic;">
+            <p style="margin: 0 0 8px 0;">
+                En los arrabales y zonas de tránsito civil del enclave de <strong>${mapaNombre}</strong>, la convivencia pacífica se ha desmoronado debido a <strong>${tramaElegida}</strong>
+            </p>
+            <p style="margin: 0;">
+                Los representantes del <strong>Sept Saul'tn de los T'au</strong> intentaron inicialmente mediar a través de comités de conciliación y mesas de diálogo comunitario. Sin embargo, la inflexibilidad y las agudas fricciones culturales con las delegaciones de <strong>${partidaGenerada.slice(1).join(', ')}</strong> han convertido la convivencia en insostenible, transformando un simple desacuerdo administrativo en una tensa crisis social a punto de estallar en las calles.
+            </p>
+        </div>
+    `;
+}
+
+// --- 4. MATCH GENERATION FUNCTION ---
 
 function generarPartida() {
     if (numJugadoresSelect.value === "") {
@@ -322,7 +348,7 @@ function generarPartida() {
          return;
     }
     
-    const partidaGenerada = [RAZA_FIJA, ...razasSeleccionadas]; 
+    const partidaGenerada = ["Saul'tn T'au", ...razasSeleccionadas]; 
     const numJugadores = parseInt(numJugadoresSelect.value);
     const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
@@ -361,10 +387,13 @@ function generarPartida() {
         </ul>
     `;
 
+    // Añadimos el bloque de historia social tras las reglas de juego
+    resultadoHTML += generarHistoriaSocial(mapaSeleccionado, partidaGenerada);
+
     resultadoDiv.innerHTML = resultadoHTML;
 }
 
-// --- 4. SEARCH FUNCTIONS ---
+// --- 5. SEARCH FUNCTIONS ---
 
 function toggleSearchInput() {
     const container = document.getElementById('busqueda-mapa-container');
@@ -431,12 +460,25 @@ function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
     document.getElementById('resultados-busqueda-mapa').innerHTML = '';
 }
 
-// --- 5. APPLICATION STARTUP ---
+// --- 6. APPLICATION STARTUP & STYLING ---
+
+function aplicarEstiloBotónGenerar() {
+    // Busca el botón principal de generar partida (por su texto, onclick o clase) y le asigna el azul petróleo (#1b365d)
+    const botones = document.querySelectorAll('button');
+    botones.forEach(btn => {
+        if (btn.getAttribute('onclick')?.includes('generarPartida') || btn.textContent.toLowerCase().includes('generar')) {
+            btn.style.backgroundColor = '#1b365d';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#1b365d';
+        }
+    });
+}
 
 function iniciarAplicacion() {
     generarDesplegablesRazas();
     generarCondicionesVictoria();
     updateTeamOptionStyle();
+    aplicarEstiloBotónGenerar();
     resultadoDiv.innerHTML = '';
 
     document.getElementById('resultados-busqueda-mapa').addEventListener('click', function(e) {
