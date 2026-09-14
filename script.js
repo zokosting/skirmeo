@@ -1,5 +1,6 @@
 // --- 1. GLOBAL DATA CONFIGURATION ---
 const RAZAS_DISPONIBLES = [
+    " ",
     "- Tyranids",
     "Space Marines",
     "Imperial Guard",
@@ -41,7 +42,7 @@ const CHAPTERS_DISPONIBLES = [
     "Imperial Fists", 
     "others (White Scars, Iron Hands, Crimson Fists)",
     "- Alpha Legion",
-    "- Grey Knights Ordo Malleus (Daemon Hunters)",
+    "- Grey Knights - Ordo Malleus (Daemon Hunters)",
     "- Legion of the Damned",
     "- Raven Guard",
     "- Salamandrems",
@@ -347,18 +348,20 @@ function generarPartida() {
     }
     
     const selectElements = document.querySelectorAll('.select-raza-rotatoria');
-    const razasSeleccionadas = [];
+    const razasValidasSeleccionadas = [];
     const chaptersSeleccionados = {};
 
-    selectElements.forEach(select => {
+    selectElements.forEach((select) => {
         const raza = select.value;
-        razasSeleccionadas.push(raza);
-        
-        if (raza === 'Space Marines') {
-            const playerId = select.id.split('-').pop();
-            const chapterSelect = document.getElementById(`chapter-select-${playerId}`);
-            if (chapterSelect) {
-                chaptersSeleccionados[`Race ${parseInt(playerId) + 1}`] = chapterSelect.value;
+        if (raza && raza.trim() !== "") {
+            razasValidasSeleccionadas.push(raza);
+            
+            if (raza === 'Space Marines') {
+                const playerId = select.id.split('-').pop();
+                const chapterSelect = document.getElementById(`chapter-select-${playerId}`);
+                if (chapterSelect) {
+                    chaptersSeleccionados[razasValidasSeleccionadas.length] = chapterSelect.value;
+                }
             }
         }
     });
@@ -383,9 +386,12 @@ function generarPartida() {
          return;
     }
     
-    const partidaGenerada = ["T'au Empire (Saul'tn Sept)", ...razasSeleccionadas]; 
-    const numJugadores = parseInt(numJugadoresSelect.value);
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
+    // Lista completa incluyendo al jugador fijo (T'au Empire) y las razas válidas filtradas
+    const partidaGenerada = ["T'au Empire (Saul'tn Sept)", ...razasValidasSeleccionadas]; 
+    const numJugadoresEfectivos = partidaGenerada.length;
+    
+    const numMaxConfigurado = parseInt(numJugadoresSelect.value);
+    const mapasDisponibles = MAPAS_CONFIG[numMaxConfigurado] || [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
     const iconName = mapaConfig ? (mapaConfig.iconoNombre || mapaConfig.nombre) : mapaSeleccionado;
     const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`;
@@ -394,20 +400,19 @@ function generarPartida() {
     const resourceRateValue = resourceRateSelect ? resourceRateSelect.options[resourceRateSelect.selectedIndex].text : "Standard";
     const dificultadValue = dificultadSelect ? dificultadSelect.options[dificultadSelect.selectedIndex].text : "";
 
-    // Detección robusta de la opción Free for All seleccionada
     const checkedTeamOption = document.querySelector('input[name="team-option"]:checked');
     const isFreeForAll = checkedTeamOption && (checkedTeamOption.value === "free-for-all" || checkedTeamOption.id.toLowerCase().includes("free") || (checkedTeamOption.nextElementSibling && checkedTeamOption.nextElementSibling.textContent.toLowerCase().includes("free")));
 
     let resultadoHTML = `
-        <h3 style="margin-bottom: 4px;">${numJugadores} Players:</h3>
+        <h3 style="margin-bottom: 4px;">${numJugadoresEfectivos} Players:</h3>
         <ul style="list-style-type: none; padding-left: 0; margin-top: 0;">
     `;
 
     partidaGenerada.forEach((raza, index) => {
         const jugadorNum = index + 1;
         let chapterInfo = '';
-        if (raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
-            chapterInfo = ` (Chapter: ${chaptersSeleccionados[`Race ${jugadorNum}`]})`;
+        if (raza === 'Space Marines' && index > 0) {
+            chapterInfo = ` (Chapter: ${chaptersSeleccionados[index] || CHAPTERS_DISPONIBLES[0]})`;
         }
         resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${raza}${chapterInfo}</li>`;
     });
