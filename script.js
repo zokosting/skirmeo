@@ -326,7 +326,7 @@ function generarHistoriaSocial(mapaNombre, partidaGenerada) {
     const tramaElegida = tramasSociales[Math.floor(Math.random() * tramasSociales.length)];
 
     return `
-        <h3>Background & Social Context:</h3>
+        <h3>Background:</h3>
         <div style="background: #1e1e1e; color: #d4d4d4; padding: 12px; border-left: 4px solid #1b365d; border-radius: 4px; font-style: italic;">
             <p style="margin: 0 0 8px 0;">
                 En los arrabales y zonas de tránsito civil del enclave de <strong>${mapaNombre}</strong>, la convivencia pacífica se ha desmoronado debido a <strong>${tramaElegida}</strong>
