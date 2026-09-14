@@ -84,7 +84,7 @@ const MAPAS_CONFIG = {
         { nombre: "Western Barrens", descripcion: "Arid rocky desert with a central plateau.<br/>Map size: 513" }
     ],
     "8": [
-        { nombre: "Black Fortress", descripcion: "A big fortress in a vast desert mountain area.<br/>Map size: 1025" },
+        { nombre: "Black Fortress", descripcion: "A big fortress in a vast desert mountain area.<br/>Map size: 1025<br/>Strat. points: 44 | Critical loc.: 43 | Relics: 4 + 1" },
         { nombre: "Burial Grounds" },
         { nombre: "Canyon Break", descripcion: "Deep within the canyons of Rynn's World’s arid plateaus, rivers serve as the only natural supply routes." },
         { nombre: "Castle Ruostestein", descripcion: "Map size: 1025<br/>Strat. points: 40 | Critical loc.: 6 | Relics: 8 | Slag depos: 9<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
