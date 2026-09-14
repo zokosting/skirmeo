@@ -1,11 +1,36 @@
 // --- 1. GLOBAL DATA CONFIGURATION ---
 const RAZAS_DISPONIBLES = [
-    "Orks", "Eldar", "Imperial Guard", "Chaos Space Marines", 
-    "Space Marines", "Tau Empire", "Necrons", "Sisters Of Battle", "Dark Eldar"
+    "- Tyranids",
+    "Space Marines",
+    "Imperial Guard",
+    "- Death Korps of Krieg",
+    "- Steel Legion",
+    "- Praetorian Guard", 
+    "- Vostroyan Firstborn", 
+    "Sisters Of Battle",
+    "- Adeptus Mechanicus Explorators",
+    "- Ordo Hereticus (Witch Hunters)",
+    "Chaos Space Marines",
+    "- Death Guard",
+    "- Emperor's Children",
+    "- Fallen Angels",
+    "- Night Lords",
+    "- Thousand Sons",
+    "- World Eaters",
+    "- Renegade Guard (Tekarn Shogunate)",
+    "- Renegade Guard (Vraksian Renegade Militia)",
+    "- Daemons", 
+    "Eldar",
+    "- Harlequins",
+    "- Ynnari",
+    "Dark Eldar",
+    "Necrons",
+    "Orks",
+    "Tau Empire",
+    "- Farsight Enclaves"
 ];
 const RAZA_FIJA = "Space Marines"; 
 
-// Space Marines Chapters
 const CHAPTERS_DISPONIBLES = [
     "Ultramarines", 
     "Blood Angels", 
@@ -14,7 +39,15 @@ const CHAPTERS_DISPONIBLES = [
     "Dark Angels", 
     "Black Templars", 
     "Imperial Fists", 
-    "others (White Scars, Iron Hands, Crimson Fists)"
+    "others (White Scars, Iron Hands, Crimson Fists)",
+    "- Alpha Legion",
+    "- Grey Knights Ordo Malleus (Daemon Hunters)",
+    "- Legion of the Damned",
+    "- Raven Guard",
+    "- Salamandrems",
+    "- 13th Company Space Wolves",
+    "- Emperor's Children",
+    "- Iron Warriors"
 ];
 
 const CONDICIONES_VICTORIA = [
@@ -270,10 +303,12 @@ function randomizeAllRaces() {
 }
 
 function updateTeamOptionStyle() {
-    const radioButtons = document.querySelectorAll('#team-options-group input[name="team-option"]');
+    const radioButtons = document.querySelectorAll('input[name="team-option"]');
     radioButtons.forEach(radio => {
         const label = radio.nextElementSibling;
-        label.style.fontWeight = radio.checked ? 'bold' : '400'; 
+        if (label) {
+            label.style.fontWeight = radio.checked ? 'bold' : '400'; 
+        }
     });
 }
 
@@ -297,7 +332,7 @@ function generarHistoriaSocial(mapaNombre, partidaGenerada) {
                 En los arrabales y zonas de tránsito civil del enclave de <strong>${mapaNombre}</strong>, la convivencia pacífica se ha desmoronado debido a <strong>${tramaElegida}</strong>
             </p>
             <p style="margin: 0;">
-                Los representantes del <strong>Sept Saul'tn de los T'au</strong> intentaron inicialmente mediar a través de comités de conciliación y mesas de diálogo comunitario. Sin embargo, la inflexibilidad y las agudas fricciones culturales con las delegaciones de <strong>${partidaGenerada.slice(1).join(', ')}</strong> han convertido la convivencia en insostenible, transformando un simple desacuerdo administrativo en una tensa crisis social a punto de estallar en las calles.
+                Los representantes del <strong>T'au Empire (Saul'tn Sept)</strong> intentaron inicialmente mediar a través de comités de conciliación y mesas de diálogo comunitario. Sin embargo, la inflexibilidad y las agudas fricciones culturales con las delegaciones de <strong>${partidaGenerada.slice(1).join(', ')}</strong> han convertido la convivencia en insostenible, transformando un simple desacuerdo administrativo en una tensa crisis social a punto de estallar en las calles.
             </p>
         </div>
     `;
@@ -307,7 +342,7 @@ function generarHistoriaSocial(mapaNombre, partidaGenerada) {
 
 function generarPartida() {
     if (numJugadoresSelect.value === "") {
-        resultadoDiv.innerHTML = `<p class="alerta">🚨 **Error:** Max Players selection is required.</p>`;
+        resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Max Players selection is required.</p>`;
         return;
     }
     
@@ -339,25 +374,33 @@ function generarPartida() {
     let mapaSeleccionado = mapaSelect.value;
     
     if (mapaSeleccionado === "" || mapaSeleccionado === "No maps available") {
-        resultadoDiv.innerHTML = `<p class="alerta">**Error:** Map selection is required.</p>`;
+        resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Map selection is required.</p>`;
         return;
     }
     
     if (condicionesSeleccionadas.length === 0) {
-         resultadoDiv.innerHTML = `<p class="alerta">**Error:** You must select at least one Game Rule.</p>`;
+         resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> You must select at least one Game Rule.</p>`;
          return;
     }
     
-    const partidaGenerada = ["Saul'tn T'au", ...razasSeleccionadas]; 
+    const partidaGenerada = ["T'au Empire (Saul'tn Sept)", ...razasSeleccionadas]; 
     const numJugadores = parseInt(numJugadoresSelect.value);
     const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
     const iconName = mapaConfig ? (mapaConfig.iconoNombre || mapaConfig.nombre) : mapaSeleccionado;
     const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`;
+    const descripcionMapaTexto = mapaConfig && mapaConfig.descripcion ? mapaConfig.descripcion : '';
+    
+    const resourceRateValue = resourceRateSelect ? resourceRateSelect.options[resourceRateSelect.selectedIndex].text : "Standard";
+    const dificultadValue = dificultadSelect ? dificultadSelect.options[dificultadSelect.selectedIndex].text : "";
+
+    // Detección robusta de la opción Free for All seleccionada
+    const checkedTeamOption = document.querySelector('input[name="team-option"]:checked');
+    const isFreeForAll = checkedTeamOption && (checkedTeamOption.value === "free-for-all" || checkedTeamOption.id.toLowerCase().includes("free") || (checkedTeamOption.nextElementSibling && checkedTeamOption.nextElementSibling.textContent.toLowerCase().includes("free")));
 
     let resultadoHTML = `
-        <h3>Selected Races:</h3>
-        <ol>
+        <h3 style="margin-bottom: 4px;">${numJugadores} Players:</h3>
+        <ul style="list-style-type: none; padding-left: 0; margin-top: 0;">
     `;
 
     partidaGenerada.forEach((raza, index) => {
@@ -366,28 +409,31 @@ function generarPartida() {
         if (raza === 'Space Marines' && chaptersSeleccionados[`Race ${jugadorNum}`]) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[`Race ${jugadorNum}`]})`;
         }
-        resultadoHTML += `<li>**Player ${jugadorNum}:** ${raza}${chapterInfo}</li>`;
+        resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${raza}${chapterInfo}</li>`;
     });
 
     resultadoHTML += `
-        </ol>
+        </ul>
+        ${isFreeForAll ? `<p style="font-style: italic; margin-top: 4px; margin-bottom: 12px;">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins.</p>` : ''}
 
         <h3>Map:</h3>
-        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-            <p style="margin: 0;">**${mapaSeleccionado}**</p>
-            <img src="${imagePath}" alt="${mapaSeleccionado}" style="max-width: 200px; height: auto; border: 1px dashed #ccc; border-radius: 4px;" onerror="this.style.display='none'">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <p style="margin: 0;"><strong>${mapaSeleccionado}</strong></p>
+            ${descripcionMapaTexto ? `<p class="mapa-detalle" style="margin: 0 0 4px 0; font-style: italic;">${descripcionMapaTexto}</p>` : ''}
+            <img src="${imagePath}" alt="${mapaSeleccionado}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">
         </div>
 
-        <h3>Game Rules:</h3>
+        <h3>Configuration:</h3>
         <ul>
             ${condicionesSeleccionadas.map(c => {
                 const [nombre, descripcion] = c.split(' – ').map(s => s.trim());
-                return `<li>**${nombre}** – *${descripcion}*</li>`;
+                return `<li><strong>${nombre}</strong> – <em>${descripcion}</em></li>`;
             }).join('')}
+            <li><strong>Resource Rate:</strong> ${resourceRateValue}</li>
+            <li><strong>${dificultadValue}</strong></li>
         </ul>
     `;
 
-    // Añadimos el bloque de historia social tras las reglas de juego
     resultadoHTML += generarHistoriaSocial(mapaSeleccionado, partidaGenerada);
 
     resultadoDiv.innerHTML = resultadoHTML;
@@ -463,15 +509,29 @@ function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
 // --- 6. APPLICATION STARTUP & STYLING ---
 
 function aplicarEstiloBotónGenerar() {
-    // Busca el botón principal de generar partida (por su texto, onclick o clase) y le asigna el azul petróleo (#1b365d)
     const botones = document.querySelectorAll('button');
     botones.forEach(btn => {
         if (btn.getAttribute('onclick')?.includes('generarPartida') || btn.textContent.toLowerCase().includes('generar')) {
+            btn.style.marginTop = '15px';
             btn.style.backgroundColor = '#1b365d';
             btn.style.color = '#ffffff';
-            btn.style.borderColor = '#1b365d';
+            btn.style.border = '1px solid #1b365d';
+            btn.style.transition = 'background-color 0.2s ease';
+
+            btn.onmouseover = function() {
+                this.style.backgroundColor = '#142847';
+            };
+            btn.onmouseout = function() {
+                this.style.backgroundColor = '#1b365d';
+            };
         }
     });
+}
+
+function ajustarContenedorResultado() {
+    if (resultadoDiv) {
+        resultadoDiv.style.padding = '0 15px';
+    }
 }
 
 function iniciarAplicacion() {
@@ -479,6 +539,7 @@ function iniciarAplicacion() {
     generarCondicionesVictoria();
     updateTeamOptionStyle();
     aplicarEstiloBotónGenerar();
+    ajustarContenedorResultado();
     resultadoDiv.innerHTML = '';
 
     document.getElementById('resultados-busqueda-mapa').addEventListener('click', function(e) {

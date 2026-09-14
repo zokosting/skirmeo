@@ -261,12 +261,10 @@ hr {
     font-style: italic;
 }
 
-/* Estilos de resultados */
 #btn-generar {
     display: block;
     width: 100%;
     padding: 15px;
-    background-color: #e74c3c;
     color: white;
     border: none;
     border-radius: 5px;
