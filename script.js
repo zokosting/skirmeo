@@ -318,8 +318,8 @@ function updateTeamOptionStyle() {
 function generarSeccionBackground() {
     return `
         <h3>Background:</h3>
-        <textarea id="background-text" class="report-textarea" placeholder="Escribe aquí tus notas, lore o contexto de la partida..."></textarea>
-        <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">Save Report (.txt)</button>
+        <textarea id="background-text" class="report-textarea" placeholder="Lore background"></textarea>
+        <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">save report</button>
     `;
 }
 
@@ -334,7 +334,7 @@ function guardarReporteTxt() {
     const resultadoContainer = document.getElementById('resultado');
     
     // Obtenemos los elementos de texto clave
-    let contenidoTexto = "=== DAWN OF WAR - MATCH REPORT ===\n\n";
+    let contenidoTexto = "=== REPORT ===\n\n";
     
     // Extraemos texto relevante del contenedor de resultado
     const headers = resultadoContainer.querySelectorAll('h3');

@@ -302,7 +302,7 @@ hr {
 }
 
 .btn-save-report {
-    background-color: #27ae60;
+    background-color: #004d40;
     color: white;
     border: none;
     padding: 12px;
@@ -316,5 +316,9 @@ hr {
 }
 
 .btn-save-report:hover {
-    background-color: #219653;
+    background-color: #00695c;
 }
+
+.btn-save-report:active {
+            transform: scale(0.98);
+        }
