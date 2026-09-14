@@ -88,18 +88,18 @@ const MAPAS_CONFIG = {
         { nombre: "Burial Grounds" },
         { nombre: "Canyon Break", descripcion: "Deep within the canyons of Rynn's World’s arid plateaus, rivers serve as the only natural supply routes." },
         { nombre: "Castle Ruostestein", descripcion: "Map size: 1025<br/>Strat. points: 40 | Critical loc.: 6 | Relics: 8 | Slag depos: 9<br/>This map is thought for a single player with two AI allies, you will defend a castle against 5 AI attackers. The two sides are connected by a small bridge. And two tunnels that can be used by the player 1 only. Don't let the innocent look of that bridge fool you; most of the fight will take place there. Albeit, if you use the tunnels correctly, you will fight in the enemies bases rather than your own. Orks will get 4 Titan cannons and Astra Militarum will get 2 (A key)." },
-        { nombre: "Cerulea", descripcion: "Green and rocky terrain with a large central mountain and flowing rivers.<br/>Map size: 513" },
+        { nombre: "Cerulea", descripcion: "Green rocky terrain bordering a mountain and rivers.<br/>Map size: 513" },
         { nombre: "Cursed Forpost" },
         { nombre: "Daturias Pits" },
         { nombre: "Doom Chamber" },
         { nombre: "Istvaan V", descripcion: "Map size: 1025" },
-        { nombre: "Jalaganda Lowlands", descripcion: "Intricate lattice of canals in this humit industrial wasteland.<br/>Map size: 513" },
+        { nombre: "Jalaganda Lowlands", descripcion: "A boundary canal in a humid industrial city wasteland.<br/>Map size: 513" },
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
         { nombre: "Rhean Jungle", descripcion: "Dense jungle with open dirt paths and hills.<br/>Map size: 513" },
         { nombre: "Strovinivich River Front", descripcion: "Snowy city in this urban scenario.<br/>Map size: 513" },
-        { nombre: "The Razor Ridge", descripcion: "Rocky highlands with numerous narrow passes and vertical rock formations." },
+        { nombre: "The Razor Ridge", descripcion: "Vertical rocky highlands with several narrow passes." },
         { nombre: "Wetlands", descripcion: "The dense growth and treacherous vapors of Strank provides lethal negative-cover zones." }
     ]
 };
