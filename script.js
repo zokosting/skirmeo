@@ -348,11 +348,23 @@ function guardarReporteTxt() {
             contenidoTexto += `\n[${h3.textContent}] \n`;
             let nextEl = h3.nextElementSibling;
             while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('btn-save-report')) {
-                let textLine = nextEl.innerText;
-                if (nextEl.classList.contains('mapa-detalle')) {
-                    textLine = textLine.replace(/\s+/g, ' ').trim();
+                let textLine = nextEl.innerText ? nextEl.innerText.trim() : "";
+                
+                // Si el elemento contiene bloques internos (como el div del mapa con nombre y descripción)
+                if (nextEl.tagName === 'DIV' && nextEl.id !== 'background-text') {
+                    const lineasInternas = nextEl.innerText
+                        .split('\n')
+                        .map(l => l.trim())
+                        .filter(l => l.length > 0);
+                    
+                    contenidoTexto += lineasInternas.join('\n') + "\n";
+                } else if (textLine !== "") {
+                    if (nextEl.classList.contains('mapa-detalle')) {
+                        textLine = textLine.replace(/\s+/g, ' ').trim();
+                    }
+                    contenidoTexto += textLine + "\n";
                 }
-                contenidoTexto += textLine + "\n";
+                
                 nextEl = nextEl.nextElementSibling;
             }
         }
@@ -450,10 +462,9 @@ function generarPartida() {
         </ul>
         ${isFreeForAll ? `<p style="font-style: italic; margin-top: 4px; margin-bottom: 12px;">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins.</p>` : ''}
 
-        <h3>Map:</h3>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <p style="margin: 0;"><strong>${mapaSeleccionado}</strong></p>
-            ${descripcionMapaTexto ? `<p class="mapa-detalle" style="margin: 0 0 4px 0; font-style: italic;">${descripcionMapaTexto}</p>` : ''}
+<h3>Map:</h3>
+        <div>
+            <p style="margin: 0; line-height: 1.2;"><strong>${mapaSeleccionado}</strong></p>${descripcionMapaTexto ? `<p class="mapa-detalle" style="margin: 0; font-style: italic; line-height: 1.2;">${descripcionMapaTexto}</p>` : ''}
             <img src="${imagePath}" alt="${mapaSeleccionado}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">
         </div>
 
