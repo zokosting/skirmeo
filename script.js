@@ -330,11 +330,12 @@ function guardarReporteTxt() {
     const day = String(now.getDate()).padStart(2, '0');
     const fechaStr = `${year}-${month}-${day}`;
 
-    // Recopilamos el contenido principal del resultado (excluyendo el botón de guardar y el textarea para procesar texto limpio)
+    const mapaSeleccionado = mapaSelect.value ? mapaSelect.value : "Unknown Map";
+    // Recopilamos el contenido principal del resultado
     const resultadoContainer = document.getElementById('resultado');
     
     // Obtenemos los elementos de texto clave
-    let contenidoTexto = "=== REPORT ===\n\n";
+    let contenidoTexto = "=== EVENT REPORT ===\n\n";
     
     // Extraemos texto relevante del contenedor de resultado
     const headers = resultadoContainer.querySelectorAll('h3');
@@ -347,7 +348,11 @@ function guardarReporteTxt() {
             contenidoTexto += `\n[${h3.textContent}] \n`;
             let nextEl = h3.nextElementSibling;
             while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('btn-save-report')) {
-                contenidoTexto += nextEl.innerText + "\n";
+                let textLine = nextEl.innerText;
+                if (nextEl.classList.contains('mapa-detalle')) {
+                    textLine = textLine.replace(/\s+/g, ' ').trim();
+                }
+                contenidoTexto += textLine + "\n";
                 nextEl = nextEl.nextElementSibling;
             }
         }
@@ -357,7 +362,7 @@ function guardarReporteTxt() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Report - ${fechaStr}.txt`;
+    a.download = `${mapaSeleccionado} - ${fechaStr}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

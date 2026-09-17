@@ -1,0 +1,39 @@
+=== EVENT REPORT ===
+
+
+[4 Players:] 
+1. T'au Empire (Saul'tn Sept)
+2. Imperial Guard
+3. - Tyranids
+4. - Farsight Enclaves (Sault'n Farsight Post)
+
+[Map:] 
+Jalaganda Lowlands
+A boundary canal in a humid industrial city wasteland.
+Map size: 513
+
+[Configuration:] 
+Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period
+Resource Rate: Standard
+Hard
+
+[Background]
+En las extensiones industriales de la húmeda Jalaganda, los canales artificiales no llevan agua limpia desde hace milenios. 
+Ante el degradado canal principal se alza la vieja metrópolis industrial: una selva de metal corroído y chimeneas muertas desde donde se aproxima una amenaza silenciosa. Los monstruos tiránidos no vienen de la jungla, sino de la propia ciudad: han consumido los niveles inferiores y ahora emergen por las rejillas de ventilación urbana, arrastrándose hacia el exterior.
+Entre las compuertas de filtración abandonadas y las salidas de vertido que vomitan fango químico, el Enjambre Tiránido emerge no por planificación, sino por puro desborde y atracción orgánica. Una miríada de enjambres menores convergen saliendo de la ciudad, atraídos por las inmensas piscinas de procesamiento de residuos y los bio-desechos acumulados en las instalaciones de las tierras bajas; y también por las formas de vida que se amontonan al otro lado del canal principal. Refugiados.
+
+Los canales de filtración abandonados y las compuertas de desagüe ya no transportan agua, sino los vestigios de una civilización que se apagó. Fuera de los muros de la gran ciudad industrial, en el páramo, se acumula una enorme aglomeración de refugiados desesperados; un punto de reunión provisional de seres vivos huídos, amparados por la presencia del Sector Saul'tn.
+Los T'au no suelen inmiscuirse bélicamente. Sin embargo, es un símbolo vivo de cómo entiende el Sector Saul'tn el Bien Supremo: una red de apoyo mutuo para lograr un bien superior. Esta vasta área a la intemperie alberga entre otros a miles de humanos desplazados, familias enteras de súbditos del imperio de la humanidad, trabajadores o artesanos que han huído del colapso de las zonas urbanas centrales.
+En el límite de la devastación, la oposición T'au no se desencadena por el control de recursos ni para tomar militarmente las ruinas de la ciudad industrial, sino por identidad y cohesión dentro de las castas. La victoria no consiste en exterminar a los devoradores, tampoco en defender Gue'vesas, sino en asegurar y sellar los puntos de acceso y salida.
+Frente a ellos, los Tiránidos representan el reverso tenebroso de la unidad. La Mente Enjambre ofrece una "armonía" absoluta, pero absoluta en la aniquilación de la individualidad.
+
+Pero mientras los enjambres emergen del lodo y las aguas negras, y las garras de los hormagantes mellan las estructuras de aleación, la tensión se vive también en la retaguardia de las facciones T'au.
+Saul'tn encuentra en los Enclaves unos aliados inesperados que arriesgan la vida por ellos sin exigir sumisión ideológica. La salvaguarda de la identidad T'au. Ven con fascinación y temor a los guerreros de los Enclaves Visionarios, que luchan a su lado sin intermediarios espirituales, guiados únicamente por el honor de la conquista.
+El mando de los Enclaves Visionarios sin embargo no llega para ser admirado. Desde sus armaduras de combate en el páramo frente a la ciudad, los oficiales Farsight observan a las tropas de Saul'tn moverse como piezas de un reloj. No ven en ellos obediencia ciega, sino una organización con una capacidad de disciplina y sacrificio colectivo implacables.
+Al ver cómo las castas de Saul'tn arriesgan la vida en la linde del canal principal para evitar la destrucción del Bien Supremo, el comandante de los Enclaves toma la decisión de intervenir militarmente. No lo hacen por un orden superior ni por estrategia territorial, sino porque consideran que los T'au y la memoria de Saul'tn merecen sobrevivir. Valoran que esta forma genuina de entender el Bien Supremo como apoyo común merece perdurar.
+
+Los enjambres tiránidos serpentean por los colectores de la metrópolis y las antiguas tuberías de desagüe, usando los estrechos puentes derruidos como embudos para arrojar miles de organismos hacia el exterior de la ciudad cómo una interminable marea tóxica.
+Entre las últimas compuertas de filtración de la ciudad y el suelo seco del páramo se encuentra la línea de transición.
+La victoria no se medirá en metros de cemento conservados, sino en la preservación del tejido social del Sector Saul'tn: la certeza de que, en medio de la voracidad de la galaxia, el Bien Supremo se fortalece con actos solidarios, justo en la frontera donde acaba la ciudad y empieza el páramo.
+
+Al cumplirse el tiempo necesario para que los T'au dominen y sellen los puntos estratégicos, las rutas de saluda hacia el páramo se cierran con éxito. Los tiránidos, incapaces de quebrar el control de la zona, quedan aislados en la ciudad industrial vacía. Y el destacamento de los Enclaves Visionarios se retiran a las dunas.
