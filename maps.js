@@ -62,7 +62,7 @@ const MAPAS_CONFIG = {
     "6": [
         { nombre: "Agamar Desert", descripcion: "Several burgs dot the arid inland outside the Tau capital.<br/>Map size: 513" },
         { nombre: "Bloodshed Alley" },
-        { nombre: "Countryside Confrontation", descripcion: "Ambush in a countryside of a post.<br&>Map size: 513" },
+        { nombre: "Countryside Confrontation", descripcion: "Ambush in a countryside of an Imperial post.<br/>Map size: 513 | Strat. points: 21 | Critical loc.: 2 | Relics: 1" },
         { nombre: "Crossroads" },
         { nombre: "Dread Alley", descripcion: "Rife with gangers and muties, every twist and turn in this tovel is dangerous.<br/>Map size: 513" },
         { nombre: "Iknar", descripcion: "Remains of a Nekron temple in a desert scenario.<br/>Map size: 257<br/>Strat. points: 16 | Critical loc.: 2 | Relics: 1 | Slag depos: 1" },
