@@ -384,7 +384,7 @@ hr {
 
 #contenedor-lista-reportes {
     flex: 1;
-    background: white;
+    background-color: #f1f8ff;
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 4px;
