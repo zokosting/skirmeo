@@ -1,0 +1,29 @@
+=== EVENT REPORT ===
+
+
+[5 Players:] 
+1. T'au Empire (Saul'tn Sept)
+2. Tau Empire
+3. - Farsight Enclaves
+4. - Tyranids
+5. - Tyranids
+
+[Map:] 
+Temple of Cyrene
+Ruins of a temple-fortification in cratered terrain.
+Map size: 513
+Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5
+
+[Configuration:] 
+Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
+Resource Rate: Standard
+Hard
+
+[Background]
+Miles de gue'las huyeron de la virulenta erupción tiránida con el Tempo de Cirene como destino final de este éxodo, algunos buscando escapar del control rígido de los mundos imperiales. Pero no todos.
+
+Situado a los pies de las tierras altas, tras los riscos profundos, este antiguo templo no es sólo un simple santuario de la antigua religión del Emperador, es también una fortaleza instalada en el imaginario local. Y ahora una base militar donde se congregan las primeras fuerzas de Marines Espaciales que acuden al planeta para hacer frente a la múltiple amenaza xeno y aplicar la sentencia del Emperador.
+
+La rigidez ideológica colisiona en el templo de manera implacable: la coalición combinada de Sectores T'au junto a los refugiados gue'vesas que les ayudaron a defender los campos y comunas agrarias (y que ahora conviven en igualdad social con ellos) deben ser rechazados, expulsados y purgados; muchos humanos que también lograron evacuar se unen a la Guardia Imperial para ayudar a los Marines a exterminar cualquier rastro de disidencia.
+
+Mientras para los guerreros Tau de la casta del fuego y los refugiados que han caminado junto a ellos desde las ruinas industriales, el páramo y los campos, bloquear a los fanáticos imperiales las salidas naturales del valle del templo representa la prueba definitiva de su defensa del Bien Superior. Por primera vez, los sectores Tau se ven obligados a atacar militarmente, antes de que la presencia de los marines en el planeta sea mayor.
