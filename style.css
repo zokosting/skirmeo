@@ -327,7 +327,6 @@ hr {
 
 .btn-upload-report,
 .btn-reports-list {
-    background-color: #1b365d;
     color: white;
     border: none;
     padding: 12px;
@@ -344,20 +343,22 @@ hr {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-
+.btn-upload-report {
+    background-color: #2d918c; 
+}
 .btn-reports-list {
     background-color: #f39c12;
     color: #1a1a1a;
 }
 .btn-reports-list svg {
-    stroke: white;
+    stroke: #1a1a1a;
 }
 
 .btn-save-report:hover {
     background-color: #00695c;
 }
 .btn-upload-report:hover {
-    background-color: #142847;
+    background-color: #2d7091;
 }
 .btn-reports-list:hover {
     background-color: #d68910;

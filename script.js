@@ -331,23 +331,24 @@ function generarSeccionBackground() {
     `;
 }
 
-function guardarReporteTxt() {
+function obtenerDatosReporte() {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     const fechaStr = `${year}-${month}-${day}`;
 
-    const mapaSeleccionado = mapaSelect.value ? mapaSelect.value : "Unknown Map";
+    const mapaSeleccionado = mapaSelect && mapaSelect.value ? mapaSelect.value : "Unknown Map";
     const resultadoContainer = document.getElementById('resultado');
     
+    if (!resultadoContainer) return null;
+
     let contenidoTexto = "=== EVENT REPORT ===\n\n";
-    
     const headers = resultadoContainer.querySelectorAll('h3');
     headers.forEach(h3 => {
         if (h3.textContent.includes('Background:')) {
             contenidoTexto += "\n[Background]\n";
-            const textareaVal = document.getElementById('background-text').value;
+            const textareaVal = document.getElementById('background-text') ? document.getElementById('background-text').value : "";
             contenidoTexto += (textareaVal ? textareaVal : "(Sin notas adicionales)") + "\n\n";
         } else {
             contenidoTexto += `\n[${h3.textContent}] \n`;
@@ -374,19 +375,101 @@ function guardarReporteTxt() {
         }
     });
 
-    const blob = new Blob([contenidoTexto], { type: 'text/plain;charset=utf-8' });
+    return {
+        filename: `${mapaSeleccionado} - ${fechaStr}.txt`,
+        content: contenidoTexto
+    };
+}
+
+function guardarReporteTxt() {
+    const report = obtenerDatosReporte();
+    if (!report) {
+        alert("Error: Primero debes generar un reporte.");
+        return;
+    }
+
+    const blob = new Blob([report.content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${mapaSeleccionado} - ${fechaStr}.txt`;
+    a.download = report.filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
 
-function subirReporteGithub() {
-    alert("Función para subir el reporte a la carpeta 'reports' de GitHub configurada.");
+async function subirReporteGithub() {
+    const report = obtenerDatosReporte();
+    if (!report) {
+        alert("Error: Primero debes generar un reporte.");
+        return;
+    }
+
+    let token = localStorage.getItem('gh_pat_token');
+    if (!token) {
+        token = prompt("Para subir directamente a la carpeta 'reports' de GitHub, introduce tu Personal Access Token (PAT):");
+        if (!token) return; 
+        token = token.trim();
+        localStorage.setItem('gh_pat_token', token);
+    }
+
+    const repoOwner = "zokosting";
+    const repoName = "skirmeo";
+    const folderPath = "reports";
+    const filePath = `${folderPath}/${report.filename}`;
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+    const btnUpload = document.getElementById('btn-upload-report');
+    if (btnUpload) btnUpload.disabled = true;
+
+    try {
+        let sha = null;
+        const checkRes = await fetch(apiUrl, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
+        if (checkRes.ok) {
+            const fileData = await checkRes.json();
+            sha = fileData.sha;
+        } else if (checkRes.status === 401 || checkRes.status === 403) {
+            localStorage.removeItem('gh_pat_token');
+            alert("El Token de GitHub no es válido o ha caducado. Se ha eliminado de la memoria local, por favor pulsa de nuevo e introduce un token válido con permisos de escritura.");
+            if (btnUpload) btnUpload.disabled = false;
+            return;
+        }
+
+        const base64Content = btoa(unescape(encodeURIComponent(report.content)));
+
+        const requestBody = {
+            message: `Upload report: ${report.filename}`,
+            content: base64Content
+        };
+        if (sha) {
+            requestBody.sha = sha;
+        }
+
+        const putRes = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (putRes.ok) {
+            alert(`¡Reporte "${report.filename}" subido con éxito a la carpeta 'reports' de GitHub!`);
+        } else {
+            const errData = await putRes.json();
+            alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Ocurrió un error al intentar subir el reporte a GitHub.");
+    } finally {
+        if (btnUpload) btnUpload.disabled = false;
+    }
 }
 
 // --- 4. MATCH GENERATION FUNCTION ---
