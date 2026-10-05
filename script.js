@@ -319,7 +319,15 @@ function generarSeccionBackground() {
     return `
         <h3>Background:</h3>
         <textarea id="background-text" class="report-textarea" placeholder="Lore background"></textarea>
-        <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">save report</button>
+        <div class="report-buttons-container">
+            <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">save report</button>
+            <button id="btn-upload-report" class="btn-upload-report" onclick="subirReporteGithub()" title="Upload to GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            </button>
+            <button id="btn-reports-list" class="btn-reports-list" onclick="window.location.href='reports.html'" title="Reports List">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </button>
+        </div>
     `;
 }
 
@@ -331,13 +339,10 @@ function guardarReporteTxt() {
     const fechaStr = `${year}-${month}-${day}`;
 
     const mapaSeleccionado = mapaSelect.value ? mapaSelect.value : "Unknown Map";
-    // Recopilamos el contenido principal del resultado
     const resultadoContainer = document.getElementById('resultado');
     
-    // Obtenemos los elementos de texto clave
     let contenidoTexto = "=== EVENT REPORT ===\n\n";
     
-    // Extraemos texto relevante del contenedor de resultado
     const headers = resultadoContainer.querySelectorAll('h3');
     headers.forEach(h3 => {
         if (h3.textContent.includes('Background:')) {
@@ -347,10 +352,9 @@ function guardarReporteTxt() {
         } else {
             contenidoTexto += `\n[${h3.textContent}] \n`;
             let nextEl = h3.nextElementSibling;
-            while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('btn-save-report')) {
+            while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('report-buttons-container')) {
                 let textLine = nextEl.innerText ? nextEl.innerText.trim() : "";
                 
-                // Si el elemento contiene bloques internos (como el div del mapa con nombre y descripción)
                 if (nextEl.tagName === 'DIV' && nextEl.id !== 'background-text') {
                     const lineasInternas = nextEl.innerText
                         .split('\n')
@@ -379,6 +383,10 @@ function guardarReporteTxt() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+function subirReporteGithub() {
+    alert("Función para subir el reporte a la carpeta 'reports' de GitHub configurada.");
 }
 
 // --- 4. MATCH GENERATION FUNCTION ---
@@ -462,7 +470,7 @@ function generarPartida() {
         </ul>
         ${isFreeForAll ? `<p style="font-style: italic; margin-top: 4px; margin-bottom: 12px;">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins.</p>` : ''}
 
-<h3>Map:</h3>
+        <h3>Map:</h3>
         <div>
             <p style="margin: 0; line-height: 1.2;"><strong>${mapaSeleccionado}</strong></p>${descripcionMapaTexto ? `<p class="mapa-detalle" style="margin: 0; font-style: italic; line-height: 1.2;">${descripcionMapaTexto}</p>` : ''}
             <img src="${imagePath}" alt="${mapaSeleccionado}" class="map-icon-display" onerror="this.onerror=null; this.style.display='none'">

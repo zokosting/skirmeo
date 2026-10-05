@@ -5,6 +5,9 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header, footer {
@@ -25,11 +28,13 @@ header p {
 
 main {
     max-width: 800px;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 h2 {
@@ -97,6 +102,10 @@ hr {
     border-color: #888;
 }
 
+.btn-right {
+    margin-left: auto;
+}
+
 .players-list-controls {
     display: flex;
     justify-content: flex-end;
@@ -106,15 +115,13 @@ hr {
 
 .razas-grid {
     display: grid;
-    /* Por defecto, 2 columnas para escritorio */
     grid-template-columns: repeat(2, 1fr); 
     gap: 10px;
 }
 
-/* Media Query para móviles */
 @media (max-width: 600px) {
     .razas-grid {
-        grid-template-columns: repeat(1, 1fr); /* Una sola columna para móviles */
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
@@ -195,7 +202,7 @@ hr {
 }
 .team-option-item label {
     font-size: 13.3333px; 
-    font-weight: 400; /* JS handles bolding when selected */
+    font-weight: 400; 
 }
 
 .mapa-detalle {
@@ -205,7 +212,6 @@ hr {
     font-style: italic; 
 }
 
-/* --- ESTILOS PARA EL ICONO DEL MAPA --- */
 .mapa-info {
     display: flex;
     flex-direction: column;
@@ -223,14 +229,12 @@ hr {
     box-sizing: border-box; 
 }
 
-/* Ajuste para PC */
 @media (min-width: 601px) {
     .map-icon-display {
         max-width: 50%; 
     }
 }
 
-/* Estilos para el contenedor de búsqueda de mapas */
 #busqueda-mapa-container {
     margin-top: 10px;
 }
@@ -300,6 +304,13 @@ hr {
     resize: vertical;
 }
 
+.report-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    margin-top: 15px;
+}
+
 .btn-save-report {
     background-color: #004d40;
     color: white;
@@ -307,17 +318,101 @@ hr {
     padding: 12px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 15px;
-    width: 100%;
+    width: 50%;
     font-size: 1em;
     font-weight: bold;
+    text-align: center;
     transition: background-color 0.3s;
+}
+
+.btn-upload-report,
+.btn-reports-list {
+    background-color: #1b365d;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 24%;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.btn-reports-list {
+    background-color: #f39c12;
+    color: #1a1a1a;
+}
+.btn-reports-list svg {
+    stroke: white;
 }
 
 .btn-save-report:hover {
     background-color: #00695c;
 }
+.btn-upload-report:hover {
+    background-color: #142847;
+}
+.btn-reports-list:hover {
+    background-color: #d68910;
+}
 
-.btn-save-report:active {
-            transform: scale(0.98);
-        }
+.btn-save-report:active,
+.btn-upload-report:active,
+.btn-reports-list:active {
+    transform: scale(0.98);
+}
+
+
+.main-reports {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#lista-reportes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#contenedor-lista-reportes {
+    flex: 1;
+    background: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-y: auto;
+}
+
+#loading-text {
+    font-style: italic;
+    color: #666;
+}
+
+#reports-ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.report-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.report-link {
+    color: #1b365d;
+    text-decoration: none;
+}
+
+.report-link:hover {
+    text-decoration: underline;
+}

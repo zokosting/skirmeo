@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚔️ Event Reports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>⚔️<br/>DAWN OF WAR</h1>
+        <p>Definitive Edition</p>
+    </header>
+
+    <main class="main-reports">
+        <section id="lista-reportes">
+            <h2>Generated Reports 
+                <button onclick="window.location.href='index.html'" class="btn-compact btn-right">< Back to Generator</button>
+            </h2>
+            
+            <div id="contenedor-lista-reportes">
+                <p id="loading-text">Loading reports from GitHub...</p>
+                <ul id="reports-ul"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Strega</p>
+    </footer>
+
+    <script>
+        async function cargarReportesGitHub() {
+            const repoOwner = "zokosting";
+            const repoName = "skirmeo";
+            const folderPath = "reports";
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+
+            const ulElement = document.getElementById('reports-ul');
+            const loadingText = document.getElementById('loading-text');
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error("Could not fetch repository contents.");
+                }
+
+                const files = await response.json();
+                const txtFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.txt'));
+
+                if (txtFiles.length === 0) {
+                    loadingText.textContent = "No text reports found in the 'reports' folder.";
+                    return;
+                }
+
+                function extraerFecha(nombreArchivo) {
+                    const match = nombreArchivo.match(/(\d{4}-\d{2}-\d{2})/);
+                    return match ? match[1] : '0000-00-00';
+                }
+
+                function extraerNombreMapa(nombreArchivo) {
+                    return nombreArchivo.replace(/\s*-\s*\d{4}-\d{2}-\d{2}\.txt$/i, '').replace(/\.txt$/i, '').trim();
+                }
+
+                txtFiles.sort((a, b) => {
+                    const fechaA = extraerFecha(a.name);
+                    const fechaB = extraerFecha(b.name);
+                    return fechaA.localeCompare(fechaB);
+                });
+
+                loadingText.style.display = 'none';
+                ulElement.innerHTML = '';
+
+                txtFiles.forEach(file => {
+                    const li = document.createElement('li');
+                    li.classList.add('report-item');
+
+                    const a = document.createElement('a');
+                    a.href = file.download_url || file.html_url;
+                    a.target = "_blank";
+                    a.classList.add('report-link');
+                    
+                    const nombreMapa = extraerNombreMapa(file.name);
+                    const fechaCreacion = extraerFecha(file.name);
+
+                    a.textContent = `📄 ${nombreMapa} (Created: ${fechaCreacion})`;
+
+                    li.appendChild(a);
+                    ulElement.appendChild(li);
+                });
+
+            } catch (error) {
+                console.error(error);
+                loadingText.textContent = "Error loading reports. Make sure the 'reports' folder exists in the GitHub repository.";
+                loadingText.style.color = '#e74c3c';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarReportesGitHub);
+    </script>
+</body>
+</html>
