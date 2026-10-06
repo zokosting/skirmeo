@@ -103,7 +103,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
     if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -329,7 +329,7 @@ function generarSeccionBackground() {
         <textarea id="background-text" class="report-textarea" placeholder="Lore background"></textarea>
         <div class="report-buttons-container">
             <button id="btn-save-report" class="btn-save-report" onclick="guardarReporteTxt()">save report</button>
-            <button id="btn-upload-report" class="btn-upload-report" onclick="subirReporteGithub()" title="Upload to GitHub">
+            <button id="btn-upload-report" class="btn-upload-report" onclick="subirReporteGithub()" title="Upload File to GitHub">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             </button>
             <button id="btn-reports-list" class="btn-reports-list" onclick="window.location.href='reports.html'" title="Reports List">
@@ -408,76 +408,97 @@ function guardarReporteTxt() {
 }
 
 async function subirReporteGithub() {
-    const report = obtenerDatosReporte();
-    if (!report) {
-        alert("Error: Primero debes generar un reporte.");
-        return;
-    }
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.txt';
 
-    let token = localStorage.getItem('gh_pat_token');
-    if (!token) {
-        token = prompt("Para subir directamente a la carpeta 'reports' de GitHub, introduce tu Personal Access Token (PAT):");
-        if (!token) return; 
-        token = token.trim();
-        localStorage.setItem('gh_pat_token', token);
-    }
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
 
-    const repoOwner = "zokosting";
-    const repoName = "skirmeo";
-    const folderPath = "reports";
-    const filePath = `${folderPath}/${report.filename}`;
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-
-    const btnUpload = document.getElementById('btn-upload-report');
-    if (btnUpload) btnUpload.disabled = true;
-
-    try {
-        let sha = null;
-        const checkRes = await fetch(apiUrl, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        
-        if (checkRes.ok) {
-            const fileData = await checkRes.json();
-            sha = fileData.sha;
-        } else if (checkRes.status === 401 || checkRes.status === 403) {
-            localStorage.removeItem('gh_pat_token');
-            alert("El Token de GitHub no es válido o ha caducado. Se ha eliminado de la memoria local, por favor pulsa de nuevo e introduce un token válido con permisos de escritura.");
-            if (btnUpload) btnUpload.disabled = false;
+        if (!file.name.toLowerCase().endsWith('.txt')) {
+            alert("Por favor, selecciona un archivo con extensión .txt");
             return;
         }
 
-        const base64Content = btoa(unescape(encodeURIComponent(report.content)));
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const content = event.target.result;
+            const filename = file.name;
 
-        const requestBody = {
-            message: `Upload report: ${report.filename}`,
-            content: base64Content
+            let token = localStorage.getItem('gh_pat_token');
+            if (!token) {
+                token = prompt("Para subir directamente a la carpeta 'reports' de GitHub, introduce tu Personal Access Token (PAT):");
+                if (!token) return; 
+                token = token.trim();
+                localStorage.setItem('gh_pat_token', token);
+            }
+
+            const repoOwner = "zokosting";
+            const repoName = "skirmeo";
+            const folderPath = "reports";
+            const filePath = `${folderPath}/${filename}`;
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+            const btnUpload = document.getElementById('btn-upload-report');
+            if (btnUpload) btnUpload.disabled = true;
+
+            try {
+                let sha = null;
+                const checkRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                if (checkRes.ok) {
+                    const fileData = await checkRes.json();
+                    sha = fileData.sha;
+                } else if (checkRes.status === 401 || checkRes.status === 403) {
+                    localStorage.removeItem('gh_pat_token');
+                    alert("El Token de GitHub no es válido o ha caducado. Se ha eliminado de la memoria local. Por favor, pulsa de nuevo e introduce un token válido.");
+                    if (btnUpload) btnUpload.disabled = false;
+                    return;
+                }
+
+                const base64Content = btoa(unescape(encodeURIComponent(content)));
+
+                const requestBody = {
+                    message: `Upload report: ${filename}`,
+                    content: base64Content
+                };
+                if (sha) {
+                    requestBody.sha = sha;
+                }
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (putRes.ok) {
+                    alert(`¡Reporte "${filename}" subido con éxito a la carpeta 'reports' de GitHub!`);
+                    if (document.getElementById('reports-ul')) {
+                        cargarReportesGitHub();
+                    }
+                } else {
+                    const errData = await putRes.json();
+                    alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Ocurrió un error al intentar subir el reporte a GitHub.");
+            } finally {
+                if (btnUpload) btnUpload.disabled = false;
+            }
         };
-        if (sha) {
-            requestBody.sha = sha;
-        }
 
-        const putRes = await fetch(apiUrl, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });
+        reader.readAsText(file, 'UTF-8');
+    };
 
-        if (putRes.ok) {
-            alert(`¡Reporte "${report.filename}" subido con éxito a la carpeta 'reports' de GitHub!`);
-        } else {
-            const errData = await putRes.json();
-            alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
-        }
-    } catch (err) {
-        console.error(err);
-        alert("Ocurrió un error al intentar subir el reporte a GitHub.");
-    } finally {
-        if (btnUpload) btnUpload.disabled = false;
-    }
+    fileInput.click();
 }
 
 // --- 4. MATCH GENERATION FUNCTION ---
