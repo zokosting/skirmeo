@@ -1,0 +1,23 @@
+=== EVENT REPORT ===
+
+
+[5 Players:] 
+1. T'au Empire (Saul'tn Sept)
+2. Space Marines (Chapter: Dark Angels)
+3. - Farsight Enclaves
+4. - Tyranids
+5. Space Marines (Chapter: Dark Angels)
+
+[Map:] 
+Dread Alley
+Rife with gangers and muties, every twist and turn in this tovel is dangerous.
+Map size: 513
+
+[Configuration:] 
+Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
+Resource Rate: Standard
+Hard
+
+[Background]
+(Sin notas adicionales)
+
