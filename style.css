@@ -351,7 +351,7 @@ hr {
     color: #1a1a1a;
 }
 .btn-reports-list svg {
-    stroke: #1a1a1a;
+    stroke: white;
 }
 
 .btn-save-report:hover {
