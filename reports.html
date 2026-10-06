@@ -19,6 +19,8 @@
                 <button onclick="window.location.href='index.html'" class="btn-compact btn-right">< Back to Generator</button>
             </h2>
             
+            <p class="mapa-detalle" style="margin-bottom: 15px;">You are part of Saul'tn T'au Sept.</p>
+
             <div id="contenedor-lista-reportes">
                 <p id="loading-text">Loading reports from GitHub...</p>
                 <ul id="reports-ul"></ul>
@@ -29,6 +31,12 @@
     <footer>
         <p>Strega</p>
     </footer>
+
+    <!-- Modal para el mapa -->
+    <div id="map-modal" class="modal" onclick="this.style.display='none'">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
 
     <script>
         async function cargarReportesGitHub() {
@@ -72,38 +80,41 @@
                 loadingText.style.display = 'none';
                 ulElement.innerHTML = '';
 
-txtFiles.forEach(file => {
-    const li = document.createElement('li');
-    li.classList.add('report-item');
-    
-    li.style.display = 'flex';
-    li.style.justifyContent = 'space-between';
-    li.style.alignItems = 'center';
+                txtFiles.forEach(file => {
+                    const li = document.createElement('li');
+                    li.classList.add('report-item');
 
-    const a = document.createElement('a');
-    a.href = file.download_url || file.html_url;
-    a.target = "_blank";
-    a.classList.add('report-link');
-    
-    const nombreMapa = extraerNombreMapa(file.name);
-    const fechaCreacion = extraerFecha(file.name);
+                    const a = document.createElement('a');
+                    a.href = file.download_url || file.html_url;
+                    a.target = "_blank";
+                    a.classList.add('report-link');
+                    
+                    const nombreMapa = extraerNombreMapa(file.name);
+                    const fechaCreacion = extraerFecha(file.name);
 
-    a.textContent = `📄 ${nombreMapa} (Created: ${fechaCreacion})`;
+                    // Sólo el título del mapa en negrita
+                    a.innerHTML = `📄 <strong>${nombreMapa}</strong> (Created: ${fechaCreacion})`;
 
-    const img = document.createElement('img');
-    img.src = `map_icons/${nombreMapa}.png`;
-    img.alt = `Mapa ${nombreMapa}`;
-    
-    img.style.height = '1.2em'; 
-    img.style.marginLeft = '10px';
-    img.style.objectFit = 'contain';
-    
-    img.onerror = function() { this.style.display = 'none'; };
+                    const img = document.createElement('img');
+                    img.src = `map_icons/${nombreMapa}.png`;
+                    img.alt = `Mapa ${nombreMapa}`;
+                    img.classList.add('report-map-img');
+                    
+                    img.onerror = function() { this.style.display = 'none'; };
+                    
+                    // Lógica del popup
+                    img.onclick = function(e) {
+                        e.preventDefault();
+                        const modal = document.getElementById('map-modal');
+                        const modalImg = document.getElementById('modal-img');
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                    };
 
-    li.appendChild(a);
-    li.appendChild(img);
-    ulElement.appendChild(li);
-});
+                    li.appendChild(a);
+                    li.appendChild(img);
+                    ulElement.appendChild(li);
+                });
 
             } catch (error) {
                 console.error(error);
