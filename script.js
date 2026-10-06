@@ -103,7 +103,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
     if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -739,7 +739,7 @@ async function cargarReportesGitHub() {
             const nombreMapa = extraerNombreMapa(file.name);
             const fechaCreacion = extraerFecha(file.name);
 
-            a.innerHTML = `📄 <strong>${nombreMapa}</strong> (Created: ${fechaCreacion})`;
+            a.innerHTML = `📄 <strong>${nombreMapa}</strong> (${fechaCreacion})`;
 
             const img = document.createElement('img');
             img.src = `map_icons/${nombreMapa}.png`;
