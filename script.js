@@ -84,11 +84,12 @@ function generarDesplegablesRazas() {
         document.getElementById('resultados-busqueda-mapa').innerHTML = '';
     }
 
+    if (!numJugadoresSelect) return;
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept.</p>`; 
-        contenedorDesplegables.innerHTML = ''; 
+        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept.</p>`; 
+        if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
     }
@@ -96,14 +97,14 @@ function generarDesplegablesRazas() {
     const numJugadores = parseInt(numJugadoresStr);
     
     if (isNaN(numJugadores) || numJugadores < 2) {
-        contenedorDesplegables.innerHTML = '<p class="alerta">Error reading player count.</p>';
+        if (contenedorDesplegables) contenedorDesplegables.innerHTML = '<p class="alerta">Error reading player count.</p>';
         return; 
     }
     
     const numRazasARotar = numJugadores - 1; 
     
-    instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
-    contenedorDesplegables.innerHTML = ''; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
+    if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
         const playerId = i;
@@ -151,15 +152,16 @@ function generarDesplegablesRazas() {
         chapterContainer.innerHTML = chapterHTML;
         
         raceWrapper.appendChild(chapterContainer);
-        contenedorDesplegables.appendChild(raceWrapper);
+        if (contenedorDesplegables) contenedorDesplegables.appendChild(raceWrapper);
     }
     
     generarSeleccionMapa();
 }
 
 function generarSeleccionMapa() {
+    if (!numJugadoresSelect || !mapaSelect) return;
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; 
+    const mapasDisponibles = typeof MAPAS_CONFIG !== 'undefined' ? (MAPAS_CONFIG[numJugadores] || []) : []; 
     
     mapaSelect.innerHTML = '';
     
@@ -191,14 +193,18 @@ function mostrarDescripcionMapa() {
     const searchContainer = document.getElementById('busqueda-mapa-container');
     if (searchContainer) {
         searchContainer.style.display = 'none';
-        document.getElementById('busqueda-mapa-input').value = '';
-        document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+        const searchInput = document.getElementById('busqueda-mapa-input');
+        if (searchInput) searchInput.value = '';
+        const searchResults = document.getElementById('resultados-busqueda-mapa');
+        if (searchResults) searchResults.innerHTML = '';
     }
+
+    if (!mapaSelect || !numJugadoresSelect || !descripcionMapaDiv) return;
 
     const mapaSeleccionado = mapaSelect.value;
     const numJugadores = numJugadoresSelect.value;
     
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || [];
+    const mapasDisponibles = typeof MAPAS_CONFIG !== 'undefined' ? (MAPAS_CONFIG[numJugadores] || []) : [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
 
     if (mapaConfig) {
@@ -216,6 +222,7 @@ function mostrarDescripcionMapa() {
 }
 
 function generarCondicionesVictoria() {
+    if (!contenedorCondiciones) return;
     contenedorCondiciones.innerHTML = '';
     CONDICIONES_VICTORIA.forEach((condicion, index) => {
         const [nombreCorto, descripcion] = condicion.split(' – ').map(s => s.trim()); 
@@ -259,8 +266,9 @@ function seleccionarAleatorio(array) {
 }
 
 function seleccionarMapaAleatorio() {
+    if (!numJugadoresSelect || !mapaSelect || !descripcionMapaDiv) return;
     const numJugadores = numJugadoresSelect.value;
-    const mapasDisponibles = MAPAS_CONFIG[numJugadores] || []; 
+    const mapasDisponibles = typeof MAPAS_CONFIG !== 'undefined' ? (MAPAS_CONFIG[numJugadores] || []) : []; 
     
     if (mapasDisponibles.length > 0) {
         const mapaObj = seleccionarAleatorio(mapasDisponibles); 
@@ -475,8 +483,8 @@ async function subirReporteGithub() {
 // --- 4. MATCH GENERATION FUNCTION ---
 
 function generarPartida() {
-    if (numJugadoresSelect.value === "") {
-        resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Max Players selection is required.</p>`;
+    if (!numJugadoresSelect || numJugadoresSelect.value === "") {
+        if (resultadoDiv) resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Max Players selection is required.</p>`;
         return;
     }
     
@@ -507,23 +515,23 @@ function generarPartida() {
             return condicionCompleta || cb.value;
         });
 
-    let mapaSeleccionado = mapaSelect.value;
+    let mapaSeleccionado = mapaSelect ? mapaSelect.value : "";
     
     if (mapaSeleccionado === "" || mapaSeleccionado === "No maps available") {
-        resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Map selection is required.</p>`;
+        if (resultadoDiv) resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> Map selection is required.</p>`;
         return;
     }
     
     if (condicionesSeleccionadas.length === 0) {
-         resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> You must select at least one Game Rule.</p>`;
-         return;
+        if (resultadoDiv) resultadoDiv.innerHTML = `<p class="alerta"><b>Error:</b> You must select at least one Game Rule.</p>`;
+        return;
     }
     
     const partidaGenerada = ["T'au Empire (Saul'tn Sept)", ...razasValidasSeleccionadas]; 
     const numJugadoresEfectivos = partidaGenerada.length;
     
     const numMaxConfigurado = parseInt(numJugadoresSelect.value);
-    const mapasDisponibles = MAPAS_CONFIG[numMaxConfigurado] || [];
+    const mapasDisponibles = typeof MAPAS_CONFIG !== 'undefined' ? (MAPAS_CONFIG[numMaxConfigurado] || []) : [];
     const mapaConfig = mapasDisponibles.find(m => m.nombre === mapaSeleccionado);
     const iconName = mapaConfig ? (mapaConfig.iconoNombre || mapaConfig.nombre) : mapaSeleccionado;
     const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconName}.png`;
@@ -572,32 +580,40 @@ function generarPartida() {
 
     resultadoHTML += generarSeccionBackground();
 
-    resultadoDiv.innerHTML = resultadoHTML;
+    if (resultadoDiv) resultadoDiv.innerHTML = resultadoHTML;
 }
 
 // --- 5. SEARCH FUNCTIONS ---
 
 function toggleSearchInput() {
     const container = document.getElementById('busqueda-mapa-container');
+    if (!container) return;
     if (container.style.display === 'none') {
         container.style.display = 'block';
-        document.getElementById('busqueda-mapa-input').focus();
+        const searchInput = document.getElementById('busqueda-mapa-input');
+        if (searchInput) searchInput.focus();
     } else {
         container.style.display = 'none';
-        document.getElementById('busqueda-mapa-input').value = '';
-        document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+        const searchInput = document.getElementById('busqueda-mapa-input');
+        if (searchInput) searchInput.value = '';
+        const searchResults = document.getElementById('resultados-busqueda-mapa');
+        if (searchResults) searchResults.innerHTML = '';
     }
 }
 
 function filtrarMapas() {
     const input = document.getElementById('busqueda-mapa-input');
+    if (!input) return;
     const term = input.value.trim().toLowerCase();
     const resultadosDiv = document.getElementById('resultados-busqueda-mapa');
+    if (!resultadosDiv) return;
     
     if (term === '') {
         resultadosDiv.innerHTML = '';
         return;
     }
+
+    if (typeof MAPAS_CONFIG === 'undefined') return;
 
     const palabras = term.split(/\s+/).filter(p => p.length > 0);
     const todasLasCategorias = Object.keys(MAPAS_CONFIG);
@@ -631,18 +647,111 @@ function filtrarMapas() {
 }
 
 function seleccionarMapaDesdeBusqueda(nombre, numJugadores) {
+    if (!numJugadoresSelect || !mapaSelect) return;
     numJugadoresSelect.value = numJugadores;
     generarDesplegablesRazas();
     mapaSelect.value = nombre;
     mostrarDescripcionMapa();
     
     const container = document.getElementById('busqueda-mapa-container');
-    container.style.display = 'none';
-    document.getElementById('busqueda-mapa-input').value = '';
-    document.getElementById('resultados-busqueda-mapa').innerHTML = '';
+    if (container) container.style.display = 'none';
+    const searchInput = document.getElementById('busqueda-mapa-input');
+    if (searchInput) searchInput.value = '';
+    const searchResults = document.getElementById('resultados-busqueda-mapa');
+    if (searchResults) searchResults.innerHTML = '';
 }
 
-// --- 6. APPLICATION STARTUP & STYLING ---
+// --- 6. REPORTS LIST (REPORTS.HTML) ---
+
+async function cargarReportesGitHub() {
+    const repoOwner = "zokosting";
+    const repoName = "skirmeo";
+    const folderPath = "reports";
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+
+    const ulElement = document.getElementById('reports-ul');
+    const loadingText = document.getElementById('loading-text');
+
+    if (!ulElement) return;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error("Could not fetch repository contents.");
+        }
+
+        const files = await response.json();
+        const txtFiles = files.filter(file => file.type === 'file' && file.name.endsWith('.txt'));
+
+        if (txtFiles.length === 0) {
+            if (loadingText) loadingText.textContent = "No text reports found in the 'reports' folder.";
+            return;
+        }
+
+        function extraerFecha(nombreArchivo) {
+            const match = nombreArchivo.match(/(\d{4}-\d{2}-\d{2})/);
+            return match ? match[1] : '0000-00-00';
+        }
+
+        function extraerNombreMapa(nombreArchivo) {
+            return nombreArchivo.replace(/\s*-\s*\d{4}-\d{2}-\d{2}\.txt$/i, '').replace(/\.txt$/i, '').trim();
+        }
+
+        txtFiles.sort((a, b) => {
+            const fechaA = extraerFecha(a.name);
+            const fechaB = extraerFecha(b.name);
+            return fechaA.localeCompare(fechaB);
+        });
+
+        if (loadingText) loadingText.style.display = 'none';
+        ulElement.innerHTML = '';
+
+        txtFiles.forEach(file => {
+            const li = document.createElement('li');
+            li.classList.add('report-item');
+
+            const a = document.createElement('a');
+            a.href = file.download_url || file.html_url;
+            a.target = "_blank";
+            a.classList.add('report-link');
+            
+            const nombreMapa = extraerNombreMapa(file.name);
+            const fechaCreacion = extraerFecha(file.name);
+
+            a.innerHTML = `📄 <strong>${nombreMapa}</strong> (Created: ${fechaCreacion})`;
+
+            const img = document.createElement('img');
+            img.src = `map_icons/${nombreMapa}.png`;
+            img.alt = `Mapa ${nombreMapa}`;
+            img.classList.add('report-map-img');
+            
+            img.onerror = function() { this.style.display = 'none'; };
+            
+            img.onclick = function(e) {
+                e.preventDefault();
+                const modal = document.getElementById('map-modal');
+                const modalImg = document.getElementById('modal-img');
+                if (modal && modalImg) {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                }
+            };
+
+            li.appendChild(a);
+            li.appendChild(img);
+            ulElement.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error(error);
+        if (loadingText) {
+            loadingText.textContent = "Error loading reports. Make sure the 'reports' folder exists in the GitHub repository.";
+            loadingText.style.color = '#e74c3c';
+        }
+    }
+}
+
+// --- 7. APPLICATION STARTUP & STYLING ---
 
 function aplicarEstiloBotónGenerar() {
     const botones = document.querySelectorAll('button');
@@ -671,23 +780,32 @@ function ajustarContenedorResultado() {
 }
 
 function iniciarAplicacion() {
-    generarDesplegablesRazas();
-    generarCondicionesVictoria();
-    updateTeamOptionStyle();
-    aplicarEstiloBotónGenerar();
-    ajustarContenedorResultado();
-    resultadoDiv.innerHTML = '';
+    if (document.getElementById('num-jugadores')) {
+        generarDesplegablesRazas();
+        generarCondicionesVictoria();
+        updateTeamOptionStyle();
+        aplicarEstiloBotónGenerar();
+        ajustarContenedorResultado();
+        if (resultadoDiv) resultadoDiv.innerHTML = '';
 
-    document.getElementById('resultados-busqueda-mapa').addEventListener('click', function(e) {
-        const target = e.target.closest('.resultado-busqueda-item');
-        if (target) {
-            const nombre = target.dataset.nombre;
-            const jugadores = target.dataset.jugadores;
-            if (nombre && jugadores) {
-                seleccionarMapaDesdeBusqueda(nombre, jugadores);
-            }
+        const resultadosBusqueda = document.getElementById('resultados-busqueda-mapa');
+        if (resultadosBusqueda) {
+            resultadosBusqueda.addEventListener('click', function(e) {
+                const target = e.target.closest('.resultado-busqueda-item');
+                if (target) {
+                    const nombre = target.dataset.nombre;
+                    const jugadores = target.dataset.jugadores;
+                    if (nombre && jugadores) {
+                        seleccionarMapaDesdeBusqueda(nombre, jugadores);
+                    }
+                }
+            });
         }
-    });
+    }
+
+    if (document.getElementById('reports-ul')) {
+        cargarReportesGitHub();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', iniciarAplicacion);
