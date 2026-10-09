@@ -24,6 +24,7 @@
                     <option value="6">6</option>
                     <option value="8">8</option>
                 </select>
+                <button id="btn-mapa-buscar" onclick="toggleSearchInput()" class="btn-compact" aria-label="Search maps">🔍</button>
             </h2>
         </section>
 
@@ -31,7 +32,7 @@
             <h2>Map
                 <select id="mapa-seleccionado" onchange="mostrarDescripcionMapa()"></select>
                 <button id="btn-mapa-aleatorio" onclick="seleccionarMapaAleatorio()" class="btn-compact">RANDOM</button>
-                <button id="btn-mapa-buscar" onclick="toggleSearchInput()" class="btn-compact" aria-label="Search maps">🔍</button>
+                <button id="btn-add-map" class="btn-compact" onclick="window.location.href='maps.html'" style="display:none;">+</button>
             </h2>
             
             <div id="busqueda-mapa-container" style="display:none;">

@@ -819,6 +819,18 @@ async function cargarReportesGitHub() {
 
 // --- 7. APPLICATION STARTUP & STYLING ---
 
+function configurarBotonAddMap() {
+    const btnAddMap = document.getElementById('btn-add-map');
+    if (!btnAddMap) return;
+
+    const tieneRaton = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const anchoEscritorio = window.innerWidth >= 1024;
+
+    if (tieneRaton && anchoEscritorio) {
+        btnAddMap.style.display = 'inline-block';
+    }
+}
+
 function aplicarEstiloBotónGenerar() {
     const botones = document.querySelectorAll('button');
     botones.forEach(btn => {
@@ -845,9 +857,253 @@ function ajustarContenedorResultado() {
     }
 }
 
+// --- 8. MAPS FORM ---
+
+function validarFormularioMapa() {
+    const titulo      = document.getElementById('campo1-titulo').value.trim();
+    const jugadores   = document.getElementById('campo2-jugadores').value;
+    const descripcion = document.getElementById('campo3-descripcion').value.trim();
+    const tamano      = document.getElementById('campo4-tamano').value.trim();
+    const composicion = document.getElementById('campo5-composicion').value.trim();
+
+    if (!titulo) {
+        alert("Please enter a Map Title.");
+        return null;
+    }
+    if (!jugadores) {
+        alert("Please select the Max Players.");
+        return null;
+    }
+
+    return { titulo, jugadores, descripcion, tamano, composicion };
+}
+
+function construirDescripcionMapa(descripcion, tamano, composicion) {
+    const partes = [];
+    if (tamano)      partes.push(`Map size: ${tamano}`);
+    if (composicion) partes.push(composicion);
+
+    if (descripcion) {
+        let result = descripcion;
+        if (partes.length > 0) {
+            result += '<br/>' + partes.join('<br/>');
+        }
+        return result;
+    }
+    return partes.join(' | ');
+}
+
+function construirEntradaJS(datos) {
+    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+    return `{ nombre: ${JSON.stringify(datos.titulo)}, descripcion: ${JSON.stringify(descripcionCompleta)} }`;
+}
+
+function previsualizarMapa() {
+    const datos = validarFormularioMapa();
+    if (!datos) return;
+
+    const entrada = construirEntradaJS(datos);
+    const contenedor = document.getElementById('preview-container');
+    const codeEl = document.getElementById('preview-code');
+
+    codeEl.textContent =
+        `"${datos.jugadores}": [\n` +
+        `    ...existing maps...,\n` +
+        `    ${entrada}\n` +
+        `]`;
+    contenedor.style.display = 'block';
+    contenedor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function serializarMapsConfig(config) {
+    let output = '// --- MAP DATA CONFIGURATION ---\nconst MAPAS_CONFIG = {\n';
+    const keys = Object.keys(config);
+
+    keys.forEach((key, kIdx) => {
+        output += `    "${key}": [\n`;
+        config[key].forEach((mapa, mIdx) => {
+            const parts = [];
+            parts.push(`nombre: ${JSON.stringify(mapa.nombre)}`);
+            if (mapa.iconoNombre) {
+                parts.push(`iconoNombre: ${JSON.stringify(mapa.iconoNombre)}`);
+            }
+            if (mapa.descripcion) {
+                parts.push(`descripcion: ${JSON.stringify(mapa.descripcion)}`);
+            }
+            const comma = mIdx < config[key].length - 1 ? ',' : '';
+            output += `        { ${parts.join(', ')} }${comma}\n`;
+        });
+        const comma = kIdx < keys.length - 1 ? ',' : '';
+        output += `    ]${comma}\n`;
+    });
+
+    output += '};\n';
+    return output;
+}
+
+function encontrarIndiceAlfabetico(array, nombreNuevo) {
+    const objetivo = nombreNuevo.toLowerCase();
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].nombre.toLowerCase() > objetivo) {
+            return i;
+        }
+    }
+    return array.length;
+}
+
+// ELIMINABLE
+function descargarMapsJs() {
+    const datos = validarFormularioMapa();
+    if (!datos) return;
+
+    if (typeof MAPAS_CONFIG === 'undefined') {
+        alert("Error: Could not load the existing maps.js configuration.");
+        return;
+    }
+
+    const nuevaConfig = JSON.parse(JSON.stringify(MAPAS_CONFIG));
+
+    if (!nuevaConfig[datos.jugadores]) {
+        nuevaConfig[datos.jugadores] = [];
+    }
+
+    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+
+    const yaExiste = nuevaConfig[datos.jugadores].some(m => m.nombre === datos.titulo);
+    if (yaExiste) {
+        if (!confirm(`A map named "${datos.titulo}" already exists for ${datos.jugadores} players. Add anyway?`)) {
+            return;
+        }
+    }
+
+    const nuevoMapa = {
+        nombre: datos.titulo,
+        descripcion: descripcionCompleta
+    };
+
+    const arr = nuevaConfig[datos.jugadores];
+    const idx = encontrarIndiceAlfabetico(arr, datos.titulo);
+    arr.splice(idx, 0, nuevoMapa);
+
+    const contenido = serializarMapsConfig(nuevaConfig);
+    const blob = new Blob([contenido], { type: 'text/javascript;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'maps.js';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+async function actualizarMapsGithub() {
+    const datos = validarFormularioMapa();
+    if (!datos) return;
+
+    if (typeof MAPAS_CONFIG === 'undefined') {
+        alert("Error: Could not load the existing maps.js configuration.");
+        return;
+    }
+
+    const nuevaConfig = JSON.parse(JSON.stringify(MAPAS_CONFIG));
+
+    if (!nuevaConfig[datos.jugadores]) {
+        nuevaConfig[datos.jugadores] = [];
+    }
+
+    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+
+    const yaExiste = nuevaConfig[datos.jugadores].some(m => m.nombre === datos.titulo);
+    if (yaExiste) {
+        if (!confirm(`A map named "${datos.titulo}" already exists for ${datos.jugadores} players. Add anyway?`)) {
+            return;
+        }
+    }
+
+    const nuevoMapa = {
+        nombre: datos.titulo,
+        descripcion: descripcionCompleta
+    };
+
+    const arr = nuevaConfig[datos.jugadores];
+    const idx = encontrarIndiceAlfabetico(arr, datos.titulo);
+    arr.splice(idx, 0, nuevoMapa);
+
+    const contenido = serializarMapsConfig(nuevaConfig);
+
+    // --- GitHub upload ---
+    let token = localStorage.getItem('gh_pat_token');
+    if (!token) {
+        token = prompt("Para subir maps.js a GitHub, introduce tu Personal Access Token (PAT):");
+        if (!token) return;
+        token = token.trim();
+        localStorage.setItem('gh_pat_token', token);
+    }
+
+    const repoOwner = "zokosting";
+    const repoName  = "skirmeo";
+    const filePath  = "maps.js";
+    const apiUrl    = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+    const btnUpdate = document.getElementById('btn-download-maps');
+    if (btnUpdate) btnUpdate.disabled = true;
+
+    try {
+        let sha = null;
+        const checkRes = await fetch(apiUrl, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (checkRes.ok) {
+            const fileData = await checkRes.json();
+            sha = fileData.sha;
+        } else if (checkRes.status === 401 || checkRes.status === 403) {
+            localStorage.removeItem('gh_pat_token');
+            alert("El Token de GitHub no es válido o ha caducado. Se ha eliminado de la memoria local. Por favor, pulsa de nuevo e introduce un token válido.");
+            if (btnUpdate) btnUpdate.disabled = false;
+            return;
+        }
+
+        const base64Content = btoa(unescape(encodeURIComponent(contenido)));
+
+        const requestBody = {
+            message: `Update maps.js: add "${datos.titulo}" (${datos.jugadores} players)`,
+            content: base64Content
+        };
+        if (sha) {
+            requestBody.sha = sha;
+        }
+
+        const putRes = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if (putRes.ok) {
+            alert(`¡maps.js actualizado con éxito en GitHub!\nMapa añadido: "${datos.titulo}" (${datos.jugadores} players)`);
+        } else {
+            const errData = await putRes.json();
+            alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Ocurrió un error al intentar subir maps.js a GitHub.");
+    } finally {
+        if (btnUpdate) btnUpdate.disabled = false;
+    }
+}
+
+
 function iniciarAplicacion() {
+    // ---- index.html ----
     if (document.getElementById('num-jugadores')) {
         generarDesplegablesRazas();
+        configurarBotonAddMap();
         generarCondicionesVictoria();
         updateTeamOptionStyle();
         aplicarEstiloBotónGenerar();
@@ -869,8 +1125,13 @@ function iniciarAplicacion() {
         }
     }
 
+    // ---- reports.html ----
     if (document.getElementById('reports-ul')) {
         cargarReportesGitHub();
+    }
+
+    // ---- maps.html ----
+    if (document.getElementById('formulario-mapa')) {
     }
 }
 

@@ -474,3 +474,60 @@ hr {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* --- maps.html --- */
+.map-form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.map-form-group label {
+    font-weight: bold;
+    color: #34495e;
+    font-size: 0.95em;
+}
+
+.map-form-group input[type="text"],
+.map-form-group select,
+.map-form-group textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.preview-code {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: Consolas, Monaco, monospace;
+    margin-top: 8px;
+}
+
+#btn-download-maps {
+    background-color: #24726e;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#btn-download-maps:hover {
+    background-color: #2d918c;
+}
