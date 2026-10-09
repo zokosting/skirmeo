@@ -1,26 +1,25 @@
 === EVENT REPORT ===
 
-
-[5 Players:] 
+## 5 Players:
 1. T'au Empire (Saul'tn Sept)
 2. Tau Empire
 3. - Farsight Enclaves
 4. - Tyranids
 5. - Tyranids
 
-[Map:] 
+## Map:
 Temple of Cyrene
 Ruins of a temple-fortification in cratered terrain.
 Map size: 513
 Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5
 
-[Configuration:] 
+## Configuration:
 Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
 Resource Rate: Standard
 Hard
 ## Status: WIN
 
-[Background]
+## Background:
 Miles de güe'las huyeron de la virulenta erupción tiránida, con el Templo de Cirene como destino final de este éxodo; algunos buscando escapar del control rígido de los mundos imperiales. Pero no todos.
 
 Situado a los pies de las tierras altas, tras los riscos profundos, el grandioso templo no es sólo un santuario de la antigua religión del Emperador, es también una fortaleza instalada en el imaginario local. Una zona de arquitectura opresiva y geométrica, diseñada originalmente para proyectar la autoridad central y el poder sobre la región. Y ahora, una base militar donde se congregan las primeras fuerzas de Marines Espaciales que acuden al planeta para hacer frente a la múltiple amenaza xeno y aplicar la sentencia del Emperador.

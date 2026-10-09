@@ -351,7 +351,7 @@ function obtenerDatosReporte() {
     
     if (!resultadoContainer) return null;
 
-    let contenidoTexto = "=== EVENT REPORT ===\n\n";
+    let contenidoTexto = "=== EVENT REPORT ===\n";
     const headers = resultadoContainer.querySelectorAll('h3');
     headers.forEach(h3 => {
         const headerText = h3.textContent.replace(':', '').trim();
@@ -382,7 +382,6 @@ function obtenerDatosReporte() {
                 nextEl = nextEl.nextElementSibling;
             }
 
-            // Añadir ## Status: NO tras la sección Configuration:
             if (headerText.toLowerCase().includes('configuration')) {
                 contenidoTexto += "## Status: NO\n";
             }
@@ -745,7 +744,7 @@ async function cargarReportesGitHub() {
                 const contentRes = await fetch(file.download_url || file.html_url);
                 if (contentRes.ok) {
                     const textContent = await contentRes.text();
-                    if (textContent.includes('## Status: NO') || textContent.includes('[Status:] NO')) {
+                    if (textContent.includes('## Status: NO')) {
                         isDefeat = true;
                     }
                 }

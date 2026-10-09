@@ -1,30 +1,29 @@
 === EVENT REPORT ===
 
-
-[4 Players:] 
+## 4 Players:
 1. T'au Empire (Saul'tn Sept)
-2. Tyranids
+2. - Tyranids
 3. - Tyranids
 4. - Farsight Enclaves (Sault'n Farsight Post)
 
-[Map:] 
+## Map:
 Jalaganda Lowlands
 A boundary canal in a humid industrial city wasteland.
 Map size: 513
 
-[Configuration:] 
+## Configuration:
 Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period
 Resource Rate: Standard
 Hard
 ## Status: WIN
 
-[Background]
+## Background:
 En las extensiones industriales de la húmeda Jalaganda, los canales artificiales no llevan agua limpia desde hace milenios. 
 Ante el degradado canal principal se alza la vieja metrópolis industrial: una selva de metal corroído y chimeneas muertas desde donde avanza una amenaza silenciosa. Los monstruos tiránidos no vienen de la jungla, sino de la propia ciudad: han consumido los niveles inferiores y ahora emergen por las rejillas de ventilación urbana, arrastrándose hacia el exterior.
 Entre las compuertas de filtración abandonadas y las salidas de vertido que vomitan fango químico, el Enjambre Tiránido emerge no por planificación, sino por puro desborde y atracción orgánica. Una miríada de enjambres menores convergen saliendo de la ciudad, atraídos por las inmensas piscinas de procesamiento de residuos y los bio-desechos acumulados en las instalaciones de las tierras bajas; y también por las formas de vida que se amontonan al otro lado del canal principal. Refugiados.
 
 Los canales de filtración abandonados y las compuertas de desagüe ya no transportan agua, sino los vestigios de una civilización que se apagó. Fuera de los muros de la gran ciudad industrial, en el páramo, se acumula una enorme aglomeración de refugiados desesperados; un punto de reunión provisional de seres vivos huídos, amparados por la presencia del Sector Saul'tn.
-Los T'au no suelen inmiscuirse bélicamente. Sin embargo, es un símbolo vivo de cómo entiende el Sector Saul'tn el Bien Supremo: una red de apoyo mutuo para lograr un bien superior. Esta vasta área a la intemperie alberga entre otros a miles de humanos desplazados, familias enteras de súbditos del imperio de la humanidad, trabajadores o artesanos que han huído del colapso de las zonas urbanas centrales.
+Los T'au não suelen inmiscuirse bélicamente. Sin embargo, es un símbolo vivo de cómo entiende el Sector Saul'tn el Bien Supremo: una red de apoyo mutuo para lograr un bien superior. Esta vasta área a la intemperie alberga entre otros a miles de humanos desplazados, familias enteras de súbditos del imperio de la humanidad, trabajadores o artesanos que han huído del colapso de las zonas urbanas centrales.
 En el límite de la devastación, la oposición T'au no se desencadena por el control de recursos ni para tomar militarmente las ruinas de la ciudad industrial, sino por identidad y cohesión dentro de las castas. La victoria no consiste en exterminar a los devoradores, tampoco en defender gue'las, sino en asegurar y sellar los puntos de acceso y salida.
 Frente a ellos, los Tiránidos representan el reverso tenebroso de la unidad. La Mente Enjambre ofrece una "armonía" absoluta, pero absoluta en la aniquilación de la individualidad.
 

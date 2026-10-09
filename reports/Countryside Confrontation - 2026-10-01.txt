@@ -1,32 +1,31 @@
 === EVENT REPORT ===
 
-
-[5 Players:] 
+## 5 Players:
 1. T'au Empire (Saul'tn Sept)
 2. Tau Empire
 3. - Farsight Enclaves
 4. - Tyranids
 5. - Tyranids
 
-[Map:] 
+## Map:
 Countryside Confrontation
 Ambush in a countryside of an Imperial post.
 Map size: 513 | Strat. points: 21 | Critical loc.: 2 | Relics: 1
 
-[Configuration:] 
+## Configuration:
 Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
 Resource Rate: Standard
 Standard/Normal
 ## Status: WIN
 
-[Background]
+## Background:
 Para entender el peso estratégico de la confrontación en estos campos hay que mirar hacia atrás en el mapa, a Jalaganda. Aquella megaciudad industrial y canal de desagüe en ruinas representaba las cicatrices de una civilización pasada que planteó zafarse de los engranajes del control del Imperio de la humanidad, dejando tras de sí un laberinto de hormigón y colectores olvidados finalmente carcomido por El Gran Devorador. Si Jalaganda era el corazón industrial del sector, el cinturón agrario es sin embargo su sistema alimenticio: tras el páramo, una vasta periferia de campos antropizados y comunas agrarias que alimentaba con sus recursos tanto a la gran estructura urbana (de la que Jalaganda era sólo una pieza) como a ocultas redes de supervivencia de los Enclaves.
 
 Porque las fuerzas del sector Saul'tn, en un acto de sorprendente fortaleza moral, asumieron entonces la ingrata y peligrosa tarea de amparar, proteger y asegurar la evacuación de los refugiados de la ciudad en un punto seguro. Sin embargo, entre las espigas de los campos de cultivo, los veteranos de O'Shovah habían estado tejiendo una red de alianzas de mutuo apoyo con los humanos locales durante años, obteniendo así una producción descentralizada y libre del control de los Etéreos. Éstos ahora pueden comprender por qué los renegados estaban aquí, en medio de esta crisis de acogida cuando la ciudad humana de Jalaganda comenzó a caer.
 
 El Imperio Tau llega ahora a estas tierras agrarias con un mandato inflexible: defender la producción, purgar cualquier contaminación e interceptar a los refugiados gue'las. Para los mundos de T'au central, los humanos deben ser relocalizados bajo supervisión directa ya que la colaboración de las comunas rurales con los Enclaves es un peligro latente que podría desestabilizar todo el sector si no se unen al Bien Supremo. Así que se presentan para apoyar las labores de Saul'tn.
 
-Pero mientras las facciones tau dirimen si el futuro de su especie debe basarse en la coordinación comunitaria interdependiente o en la independencia individual, enjambres de tiránidos emergen de los subsuelos de la campiña como horrorosos gusanos, escapados de alguna manera del féretro industrial. La Mente Enjambre irrumpe no para negociar recursos o ideologías; busca la aniquilación total de toda forma de vida, su asimilación en su piscina genética. Para los tiránidos, la sofisticada estructura de castas de los t'au, los debates sociológicos sobre la libertad de los Enclaves o las tradiciones de las comunidades agrarias locales carecen por completo de significado. 
+Pero mientras las facciones tau dirimen si el futuro de su especie debe basarse en la coordinación comunitaria interdependiente o en la independencia individual, enjambres de tiránidos emergen de los subsuelos de la campiña como horrorosos gusanos, escapados de alguna manera del féretro industrial. La Mente Enjambre irrompe no para negociar recursos o ideologías; busca la aniquilación total de toda forma de vida, su asimilación en su piscina genética. Para los tiránidos, la sofisticada estructura de castas de los t'au, los debates sociológicos sobre la libertad de los Enclaves o las tradiciones de las comunidades agrarias locales carecen por completo de significado. 
 
 Mientras los gue'vesas locales y los trabajadores campesinos fortifican las vallas de los campos de cultivo, mientras los soldados de la casta del fuego de Saul'tn y de T'au se aprestan codo con codo junto a los exiliados de los Enclaves para proteger los vitales depósitos de agua, las tensiones chocan contra una realidad inapelable más urgente: los tiránidos no entienden de libertad, ni de lealtades, ni de clases sociales. Para la Mente Enjambre, un campesino gue'la, un Etéreo del sector T'au y un guerrero de los Enclaves son exactamente iguales: materia orgánica digerible. Una cacería en campo abierto. Es durante la confrontación cuando se produce la verdadera revelación sociológica: el modelo de los Etéreos y el de los Visionarios se enfrentan al abismo absoluto de que la vida, la agricultura, la cultura y estructura social, y los posibles debates sobre la libertad, la vida y el arte sean reducidos a la nada por una masa devoradora.
 
