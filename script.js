@@ -997,6 +997,25 @@ function descargarMapsJs() {
     URL.revokeObjectURL(url);
 }
 
+function configurarContadorDescripcionMapa() {
+    const textarea = document.getElementById('campo3-descripcion');
+    if (!textarea) return;
+
+    const LIMITE = 60;
+
+    function actualizarColor() {
+        if (textarea.value.length > LIMITE) {
+            textarea.style.color = '#e74c3c';
+            textarea.style.borderColor = '#e74c3c';   
+        } else {
+            textarea.style.color = '';          
+        }
+    }
+
+    textarea.addEventListener('input', actualizarColor);
+    actualizarColor(); 
+}
+
 async function actualizarMapsGithub() {
     const datos = validarFormularioMapa();
     if (!datos) return;
@@ -1132,6 +1151,7 @@ function iniciarAplicacion() {
 
     // ---- maps.html ----
     if (document.getElementById('formulario-mapa')) {
+        configurarContadorDescripcionMapa();
     }
 }
 
