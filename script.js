@@ -356,11 +356,11 @@ function obtenerDatosReporte() {
     headers.forEach(h3 => {
         const headerText = h3.textContent.replace(':', '').trim();
         if (h3.textContent.includes('Background:')) {
-            contenidoTexto += "\n## Background\n";
+            contenidoTexto += `\n## Background:\n`;
             const textareaVal = document.getElementById('background-text') ? document.getElementById('background-text').value : "";
             contenidoTexto += (textareaVal ? textareaVal : "(Sin notas adicionales)") + "\n\n";
         } else {
-            contenidoTexto += `\n## ${headerText}\n`;
+            contenidoTexto += `\n## ${headerText}:\n`;
             let nextEl = h3.nextElementSibling;
             while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('report-buttons-container')) {
                 let textLine = nextEl.innerText ? nextEl.innerText.trim() : "";
@@ -382,9 +382,9 @@ function obtenerDatosReporte() {
                 nextEl = nextEl.nextElementSibling;
             }
 
-            // Añadir [Status:] NO por defecto tras la sección Configuration
+            // Añadir ## Status: NO tras la sección Configuration:
             if (headerText.toLowerCase().includes('configuration')) {
-                contenidoTexto += "[Status:] NO\n";
+                contenidoTexto += "## Status: NO\n";
             }
         }
     });
@@ -745,7 +745,7 @@ async function cargarReportesGitHub() {
                 const contentRes = await fetch(file.download_url || file.html_url);
                 if (contentRes.ok) {
                     const textContent = await contentRes.text();
-                    if (textContent.includes('[Status:] NO')) {
+                    if (textContent.includes('## Status: NO') || textContent.includes('[Status:] NO')) {
                         isDefeat = true;
                     }
                 }
@@ -770,23 +770,26 @@ async function cargarReportesGitHub() {
             a.innerHTML = `📄 <strong>${nombreMapa}</strong> (${fechaCreacion})`;
             leftContainer.appendChild(a);
 
+            // Contenedor derecho para el icono de cruz y la imagen del mapa
+            const rightContainer = document.createElement('div');
+            rightContainer.style.display = 'flex';
+            rightContainer.style.alignItems = 'center';
+            rightContainer.style.gap = '12px';
+            rightContainer.style.marginLeft = 'auto';
+
             if (isDefeat) {
-                const skullSpan = document.createElement('span');
-                skullSpan.textContent = '💀';
-                skullSpan.style.color = '#1b365d';
-                skullSpan.style.marginLeft = 'auto';
-                skullSpan.style.marginRight = '15px';
-                skullSpan.style.fontSize = '1.2em';
-                leftContainer.appendChild(skullSpan);
+                const crossIconContainer = document.createElement('span');
+                crossIconContainer.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+                crossIconContainer.style.display = 'inline-flex';
+                crossIconContainer.style.alignItems = 'center';
+                rightContainer.appendChild(crossIconContainer);
             }
 
             const img = document.createElement('img');
             img.src = `map_icons/${nombreMapa}.png`;
             img.alt = `Mapa ${nombreMapa}`;
             img.classList.add('report-map-img');
-            
             img.onerror = function() { this.style.display = 'none'; };
-            
             img.onclick = function(e) {
                 e.preventDefault();
                 const modal = document.getElementById('map-modal');
@@ -797,8 +800,10 @@ async function cargarReportesGitHub() {
                 }
             };
 
+            rightContainer.appendChild(img);
+
             li.appendChild(leftContainer);
-            li.appendChild(img);
+            li.appendChild(rightContainer);
             ulElement.appendChild(li);
         }
 

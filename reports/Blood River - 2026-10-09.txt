@@ -13,7 +13,7 @@ Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0
 Destroy HQ – Win by razing all HQ buildings of the opponent
 Resource Rate: Standard
 Standard/Normal
-[Status:] NO
+## Status: NO
 
 ## Background
 (Sin notas adicionales)

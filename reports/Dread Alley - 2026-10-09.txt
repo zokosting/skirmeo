@@ -17,6 +17,7 @@ Map size: 513
 Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
 Resource Rate: Standard
 Hard
+## Status: WIN
 
 [Background]
 A pesar de haber sido retenidos en su desembarco en el Templo de Cirene, los Marines Espaciales han conseguido poner pie en el planeta igualmente y han asegurado el distrito urbano, un escenario denso que forma parte de las zonas residenciales e industriales en el mismo sector que Jalaganda. Ahora intentan expulsar a los destacamentos Saul'tn; su objetivo es purgar al Imperio T'au y restaurar el dominio absoluto del Imperio de la humanidad.

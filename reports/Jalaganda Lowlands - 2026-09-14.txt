@@ -16,6 +16,7 @@ Map size: 513
 Control Area – Win by controlling a majority (e.g., two-thirds) of the map’s strategic points for a set period
 Resource Rate: Standard
 Hard
+## Status: WIN
 
 [Background]
 En las extensiones industriales de la húmeda Jalaganda, los canales artificiales no llevan agua limpia desde hace milenios. 

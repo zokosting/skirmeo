@@ -347,11 +347,11 @@ hr {
     background-color: #2d918c; 
 }
 .btn-reports-list {
-    background-color: #538d78; /* Color intermedio entre amarillo y cian */
-    color: #ffffff;
+    background-color: #b8b634;
+    color: #1a1a1a;
 }
 .btn-reports-list svg {
-    stroke: white;
+    stroke: #1a1a1a;
 }
 
 .btn-save-report:hover {
@@ -361,7 +361,7 @@ hr {
     background-color: #2d7091;
 }
 .btn-reports-list:hover {
-    background-color: #416e5e; /* Hover para el botón intermedio */
+    background-color: #9e9c2c;
 }
 
 .btn-save-report:active,

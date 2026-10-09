@@ -18,6 +18,7 @@ Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5
 Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
 Resource Rate: Standard
 Hard
+## Status: WIN
 
 [Background]
 Miles de güe'las huyeron de la virulenta erupción tiránida, con el Templo de Cirene como destino final de este éxodo; algunos buscando escapar del control rígido de los mundos imperiales. Pero no todos.
