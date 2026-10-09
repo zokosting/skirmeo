@@ -1,0 +1,25 @@
+=== EVENT REPORT ===
+
+
+## 8 Players:
+1. T'au Empire (Saul'tn Sept)
+2. Space Marines (Chapter: Ultramarines)
+3. Space Marines (Chapter: Ultramarines)
+4. Space Marines (Chapter: Ultramarines)
+5. Space Marines (Chapter: Ultramarines)
+6. Space Marines (Chapter: Ultramarines)
+7. Space Marines (Chapter: Ultramarines)
+8. Space Marines (Chapter: Ultramarines)
+
+## Map:
+Cursed Forpost
+
+## Configuration:
+Destroy HQ – Win by razing all HQ buildings of the opponent
+Resource Rate: Standard
+Standard/Normal
+## Status: NO
+
+## Background:
+(Sin notas adicionales)
+
