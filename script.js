@@ -354,12 +354,13 @@ function obtenerDatosReporte() {
     let contenidoTexto = "=== EVENT REPORT ===\n\n";
     const headers = resultadoContainer.querySelectorAll('h3');
     headers.forEach(h3 => {
+        const headerText = h3.textContent.replace(':', '').trim();
         if (h3.textContent.includes('Background:')) {
-            contenidoTexto += "\n[Background]\n";
+            contenidoTexto += "\n## Background\n";
             const textareaVal = document.getElementById('background-text') ? document.getElementById('background-text').value : "";
             contenidoTexto += (textareaVal ? textareaVal : "(Sin notas adicionales)") + "\n\n";
         } else {
-            contenidoTexto += `\n[${h3.textContent}] \n`;
+            contenidoTexto += `\n## ${headerText}\n`;
             let nextEl = h3.nextElementSibling;
             while (nextEl && nextEl.tagName !== 'H3' && !nextEl.classList.contains('report-buttons-container')) {
                 let textLine = nextEl.innerText ? nextEl.innerText.trim() : "";
@@ -379,6 +380,11 @@ function obtenerDatosReporte() {
                 }
                 
                 nextEl = nextEl.nextElementSibling;
+            }
+
+            // Añadir [Status:] NO por defecto tras la sección Configuration
+            if (headerText.toLowerCase().includes('configuration')) {
+                contenidoTexto += "[Status:] NO\n";
             }
         }
     });
@@ -727,9 +733,31 @@ async function cargarReportesGitHub() {
         if (loadingText) loadingText.style.display = 'none';
         ulElement.innerHTML = '';
 
-        txtFiles.forEach(file => {
+        for (const file of txtFiles) {
             const li = document.createElement('li');
             li.classList.add('report-item');
+            li.style.display = 'flex';
+            li.style.justifyContent = 'space-between';
+            li.style.alignItems = 'center';
+
+            let isDefeat = false;
+            try {
+                const contentRes = await fetch(file.download_url || file.html_url);
+                if (contentRes.ok) {
+                    const textContent = await contentRes.text();
+                    if (textContent.includes('[Status:] NO')) {
+                        isDefeat = true;
+                    }
+                }
+            } catch (err) {
+                console.error("No se pudo comprobar el estado del reporte", err);
+            }
+
+            const leftContainer = document.createElement('div');
+            leftContainer.style.display = 'flex';
+            leftContainer.style.alignItems = 'center';
+            leftContainer.style.gap = '10px';
+            leftContainer.style.flex = '1';
 
             const a = document.createElement('a');
             a.href = file.download_url || file.html_url;
@@ -740,6 +768,17 @@ async function cargarReportesGitHub() {
             const fechaCreacion = extraerFecha(file.name);
 
             a.innerHTML = `📄 <strong>${nombreMapa}</strong> (${fechaCreacion})`;
+            leftContainer.appendChild(a);
+
+            if (isDefeat) {
+                const skullSpan = document.createElement('span');
+                skullSpan.textContent = '💀';
+                skullSpan.style.color = '#1b365d';
+                skullSpan.style.marginLeft = 'auto';
+                skullSpan.style.marginRight = '15px';
+                skullSpan.style.fontSize = '1.2em';
+                leftContainer.appendChild(skullSpan);
+            }
 
             const img = document.createElement('img');
             img.src = `map_icons/${nombreMapa}.png`;
@@ -758,10 +797,10 @@ async function cargarReportesGitHub() {
                 }
             };
 
-            li.appendChild(a);
+            li.appendChild(leftContainer);
             li.appendChild(img);
             ulElement.appendChild(li);
-        });
+        }
 
     } catch (error) {
         console.error(error);

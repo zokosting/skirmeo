@@ -10,7 +10,7 @@
 
 [Map:] 
 Dread Alley
-Rife with gangers and muties, every twist and turn in this tovel is dangerous.
+Wide urban grid with a central green island.
 Map size: 513
 
 [Configuration:] 
