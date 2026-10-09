@@ -1,4 +1,4 @@
-=== EVENT REPORT ===
+# === EVENT REPORT ===
 
 ## 5 Players:
 1. T'au Empire (Saul'tn Sept)

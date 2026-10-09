@@ -351,7 +351,7 @@ function obtenerDatosReporte() {
     
     if (!resultadoContainer) return null;
 
-    let contenidoTexto = "=== EVENT REPORT ===\n";
+    let contenidoTexto = "# === EVENT REPORT ===\n\n";
     const headers = resultadoContainer.querySelectorAll('h3');
     headers.forEach(h3 => {
         const headerText = h3.textContent.replace(':', '').trim();
@@ -382,6 +382,7 @@ function obtenerDatosReporte() {
                 nextEl = nextEl.nextElementSibling;
             }
 
+            // Añadir ## Status: NO tras la sección Configuration:
             if (headerText.toLowerCase().includes('configuration')) {
                 contenidoTexto += "## Status: NO\n";
             }
@@ -744,7 +745,7 @@ async function cargarReportesGitHub() {
                 const contentRes = await fetch(file.download_url || file.html_url);
                 if (contentRes.ok) {
                     const textContent = await contentRes.text();
-                    if (textContent.includes('## Status: NO')) {
+                    if (textContent.includes('## Status: NO') || textContent.includes('[Status:] NO')) {
                         isDefeat = true;
                     }
                 }
@@ -769,7 +770,7 @@ async function cargarReportesGitHub() {
             a.innerHTML = `📄 <strong>${nombreMapa}</strong> (${fechaCreacion})`;
             leftContainer.appendChild(a);
 
-            // Contenedor derecho para el icono de cruz y la imagen del mapa
+            // Contenedor derecho para la cruz (+) y la imagen del mapa
             const rightContainer = document.createElement('div');
             rightContainer.style.display = 'flex';
             rightContainer.style.alignItems = 'center';
@@ -778,8 +779,9 @@ async function cargarReportesGitHub() {
 
             if (isDefeat) {
                 const crossIconContainer = document.createElement('span');
-                crossIconContainer.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`;
-		crossIconContainer.style.display = 'inline-flex';
+                crossIconContainer.title = "Defeated";
+                crossIconContainer.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+                crossIconContainer.style.display = 'inline-flex';
                 crossIconContainer.style.alignItems = 'center';
                 rightContainer.appendChild(crossIconContainer);
             }
