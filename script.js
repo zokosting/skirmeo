@@ -859,6 +859,9 @@ function ajustarContenedorResultado() {
 
 // --- 8. MAPS FORM ---
 
+// Which existing map is being edited (null = creating a new one)
+let mapaEditando = null; 
+
 function validarFormularioMapa() {
     const titulo      = document.getElementById('campo1-titulo').value.trim();
     const jugadores   = document.getElementById('campo2-jugadores').value;
@@ -951,50 +954,113 @@ function encontrarIndiceAlfabetico(array, nombreNuevo) {
     return array.length;
 }
 
-// ELIMINABLE
-function descargarMapsJs() {
-    const datos = validarFormularioMapa();
-    if (!datos) return;
+// Reverse of construirDescripcionMapa: extract descripcion / tamano / composicion
+function parsearDescripcionMapa(desc) {
+    if (!desc) return { descripcion: '', tamano: '', composicion: '' };
 
-    if (typeof MAPAS_CONFIG === 'undefined') {
-        alert("Error: Could not load the existing maps.js configuration.");
-        return;
+    // Case 1: has <br/> → description (or size) on first line
+    if (desc.includes('<br/>')) {
+        const parts = desc.split('<br/>');
+        let descripcion = parts[0];
+        let tamano = '';
+        let composicion = '';
+        let idx = 1;
+
+        // If the first part is actually "Map size: ...", treat it as size (edge case)
+        if (descripcion.startsWith('Map size: ')) {
+            tamano = descripcion.substring('Map size: '.length);
+            descripcion = '';
+        } else if (idx < parts.length && parts[idx].startsWith('Map size: ')) {
+            tamano = parts[idx].substring('Map size: '.length);
+            idx++;
+        }
+
+        if (idx < parts.length) {
+            composicion = parts.slice(idx).join('<br/>');
+        }
+        return { descripcion, tamano, composicion };
     }
 
-    const nuevaConfig = JSON.parse(JSON.stringify(MAPAS_CONFIG));
-
-    if (!nuevaConfig[datos.jugadores]) {
-        nuevaConfig[datos.jugadores] = [];
+    // Case 2: starts with "Map size: ..." (no description)
+    if (desc.startsWith('Map size: ')) {
+        const rest = desc.substring('Map size: '.length);
+        if (rest.includes(' | ')) {
+            const parts = rest.split(' | ');
+            return {
+                descripcion: '',
+                tamano: parts[0],
+                composicion: parts.slice(1).join(' | ')
+            };
+        }
+        return { descripcion: '', tamano: rest, composicion: '' };
     }
 
-    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+    // Case 3: only description
+    return { descripcion: desc, tamano: '', composicion: '' };
+}
 
-    const yaExiste = nuevaConfig[datos.jugadores].some(m => m.nombre === datos.titulo);
-    if (yaExiste) {
-        if (!confirm(`A map named "${datos.titulo}" already exists for ${datos.jugadores} players. Add anyway?`)) {
+function poblarSelectMapasExistentes() {
+    const select = document.getElementById('select-mapa-existente');
+    if (!select || typeof MAPAS_CONFIG === 'undefined') return;
+
+    const todos = [];
+    Object.keys(MAPAS_CONFIG).forEach(numJug => {
+        (MAPAS_CONFIG[numJug] || []).forEach(mapa => {
+            todos.push({ nombre: mapa.nombre, jugadores: numJug });
+        });
+    });
+
+    todos.sort((a, b) => {
+        const cmp = a.nombre.toLowerCase().localeCompare(b.nombre.toLowerCase());
+        if (cmp !== 0) return cmp;
+        return parseInt(a.jugadores) - parseInt(b.jugadores);
+    });
+
+    select.innerHTML = '<option value="">... Existing</option>';
+    todos.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = `${item.jugadores}|${item.nombre}`;
+        opt.textContent = `${item.nombre} (${item.jugadores})`;
+        select.appendChild(opt);
+    });
+}
+
+function cargarMapaEnFormulario(jugadores, nombre) {
+    if (typeof MAPAS_CONFIG === 'undefined') return;
+    const arr = MAPAS_CONFIG[jugadores] || [];
+    const mapa = arr.find(m => m.nombre === nombre);
+    if (!mapa) return;
+
+    document.getElementById('campo1-titulo').value = mapa.nombre;
+    document.getElementById('campo2-jugadores').value = jugadores;
+
+    const parsed = parsearDescripcionMapa(mapa.descripcion || '');
+    document.getElementById('campo3-descripcion').value = parsed.descripcion;
+    document.getElementById('campo4-tamano').value = parsed.tamano;
+    document.getElementById('campo5-composicion').value = parsed.composicion;
+
+    // Refresca el color del textarea según el límite de 60
+    document.getElementById('campo3-descripcion').dispatchEvent(new Event('input'));
+
+    mapaEditando = { jugadores: jugadores, nombre: mapa.nombre };
+}
+
+function configurarSelectMapasExistentes() {
+    const select = document.getElementById('select-mapa-existente');
+    if (!select) return;
+
+    poblarSelectMapasExistentes();
+
+    select.addEventListener('change', function () {
+        if (!this.value) {
+            mapaEditando = null;
             return;
         }
-    }
-
-    const nuevoMapa = {
-        nombre: datos.titulo,
-        descripcion: descripcionCompleta
-    };
-
-    const arr = nuevaConfig[datos.jugadores];
-    const idx = encontrarIndiceAlfabetico(arr, datos.titulo);
-    arr.splice(idx, 0, nuevoMapa);
-
-    const contenido = serializarMapsConfig(nuevaConfig);
-    const blob = new Blob([contenido], { type: 'text/javascript;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'maps.js';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+        const sep = this.value.indexOf('|');
+        const jugadores = this.value.substring(0, sep);
+        const nombre = this.value.substring(sep + 1);
+        cargarMapaEnFormulario(jugadores, nombre);
+    });
 }
 
 function configurarContadorDescripcionMapa() {
@@ -1006,14 +1072,15 @@ function configurarContadorDescripcionMapa() {
     function actualizarColor() {
         if (textarea.value.length > LIMITE) {
             textarea.style.color = '#e74c3c';
-            textarea.style.borderColor = '#e74c3c';   
+            textarea.style.borderColor = '#e74c3c';
         } else {
-            textarea.style.color = '';          
+            textarea.style.color = '';
+            textarea.style.borderColor = '';   
         }
     }
 
     textarea.addEventListener('input', actualizarColor);
-    actualizarColor(); 
+    actualizarColor();
 }
 
 async function actualizarMapsGithub() {
@@ -1026,28 +1093,45 @@ async function actualizarMapsGithub() {
     }
 
     const nuevaConfig = JSON.parse(JSON.stringify(MAPAS_CONFIG));
+    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+    const nuevoMapa = { nombre: datos.titulo, descripcion: descripcionCompleta };
 
+    // Ensure target array exists
     if (!nuevaConfig[datos.jugadores]) {
         nuevaConfig[datos.jugadores] = [];
     }
 
-    const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
+    // If we're editing, remember which entry to remove
+    const aEliminar = mapaEditando
+        ? { jugadores: mapaEditando.jugadores, nombre: mapaEditando.nombre }
+        : null;
+    const esElMismo = aEliminar
+        && aEliminar.jugadores === datos.jugadores
+        && aEliminar.nombre === datos.titulo;
 
-    const yaExiste = nuevaConfig[datos.jugadores].some(m => m.nombre === datos.titulo);
-    if (yaExiste) {
-        if (!confirm(`A map named "${datos.titulo}" already exists for ${datos.jugadores} players. Add anyway?`)) {
+    // Conflict: same title + same player count already exists (and it's not the one we're editing)
+    const arrDest = nuevaConfig[datos.jugadores];
+    const idxConflicto = arrDest.findIndex(m => m.nombre === datos.titulo);
+    if (idxConflicto >= 0 && !esElMismo) {
+        if (!confirm(`A map named "${datos.titulo}" already exists for ${datos.jugadores} players. Replace it?`)) {
             return;
         }
     }
 
-    const nuevoMapa = {
-        nombre: datos.titulo,
-        descripcion: descripcionCompleta
-    };
+    // Remove the original entry (rename / move between player counts)
+    if (aEliminar) {
+        const arrOld = nuevaConfig[aEliminar.jugadores] || [];
+        const idxOld = arrOld.findIndex(m => m.nombre === aEliminar.nombre);
+        if (idxOld >= 0) arrOld.splice(idxOld, 1);
+    }
 
-    const arr = nuevaConfig[datos.jugadores];
-    const idx = encontrarIndiceAlfabetico(arr, datos.titulo);
-    arr.splice(idx, 0, nuevoMapa);
+    // Remove any leftover conflict in the destination array
+    const idxConflicto2 = arrDest.findIndex(m => m.nombre === datos.titulo);
+    if (idxConflicto2 >= 0) arrDest.splice(idxConflicto2, 1);
+
+    // Insert at alphabetical position
+    const idxInsert = encontrarIndiceAlfabetico(arrDest, datos.titulo);
+    arrDest.splice(idxInsert, 0, nuevoMapa);
 
     const contenido = serializarMapsConfig(nuevaConfig);
 
@@ -1087,12 +1171,12 @@ async function actualizarMapsGithub() {
         const base64Content = btoa(unescape(encodeURIComponent(contenido)));
 
         const requestBody = {
-            message: `Update maps.js: add "${datos.titulo}" (${datos.jugadores} players)`,
+            message: mapaEditando
+                ? `Update maps.js: "${datos.titulo}" (${datos.jugadores} players)`
+                : `Update maps.js: add "${datos.titulo}" (${datos.jugadores} players)`,
             content: base64Content
         };
-        if (sha) {
-            requestBody.sha = sha;
-        }
+        if (sha) requestBody.sha = sha;
 
         const putRes = await fetch(apiUrl, {
             method: 'PUT',
@@ -1104,7 +1188,14 @@ async function actualizarMapsGithub() {
         });
 
         if (putRes.ok) {
-            alert(`¡maps.js actualizado con éxito en GitHub!\nMapa añadido: "${datos.titulo}" (${datos.jugadores} players)`);
+            alert(mapaEditando
+                ? `¡maps.js actualizado en GitHub!\nMapa editado: "${datos.titulo}" (${datos.jugadores} players)`
+                : `¡maps.js actualizado en GitHub!\nMapa añadido: "${datos.titulo}" (${datos.jugadores} players)`);
+            // Reset the "editing" state
+            mapaEditando = null;
+            const sel = document.getElementById('select-mapa-existente');
+            if (sel) sel.value = '';
+	    location.reload();
         } else {
             const errData = await putRes.json();
             alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
@@ -1152,6 +1243,7 @@ function iniciarAplicacion() {
     // ---- maps.html ----
     if (document.getElementById('formulario-mapa')) {
         configurarContadorDescripcionMapa();
+        configurarSelectMapasExistentes();   
     }
 }
 

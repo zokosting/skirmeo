@@ -19,10 +19,15 @@
                 <button onclick="window.location.href='index.html'" class="btn-compact btn-right">< Back to Generator</button>
             </h2>
 
-            <div class="map-form-group">
-                <label for="campo1-titulo">Map Title: *</label>
-                <input type="text" id="campo1-titulo" placeholder="e.g. Black Fortress" maxlength="100">
-            </div>
+<div class="map-form-group">
+    <label for="campo1-titulo">Map Title: *</label>
+    <div class="title-row">
+        <input type="text" id="campo1-titulo" placeholder="e.g. Black Fortress" maxlength="100">
+        <select id="select-mapa-existente" aria-label="Load existing map">
+            <option value="">Load existing...</option>
+        </select>
+    </div>
+</div>
 
             <div class="map-form-group">
                 <label for="campo2-jugadores">Max Players: *</label>
@@ -49,7 +54,7 @@
 
             <div class="map-form-group">
                 <label for="campo5-composicion">Composition:</label>
-                <input type="text" id="campo5-composicion" placeholder="e.g. Strat. points: 44 | Critical loc.: 43 | Relics: 4 + 1">
+                <input type="text" id="campo5-composicion" placeholder="e.g. Strat. points: 44 | Critical loc.: 43 | Relics: 4">
             </div>
 
             <div class="report-buttons-container" style="margin-top: 20px;">

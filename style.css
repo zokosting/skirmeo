@@ -531,3 +531,44 @@ hr {
 #btn-download-maps:hover {
     background-color: #2d918c;
 }
+
+.title-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.title-row input[type="text"] {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.title-row select {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 45%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+@media (max-width: 550px) {
+    .title-row {
+        flex-wrap: wrap;
+    }
+    .title-row select {
+        max-width: none;
+        flex-basis: 100%;
+    }
+}

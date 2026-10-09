@@ -56,7 +56,6 @@ const MAPAS_CONFIG = {
         { nombre: "Aceria Forests", descripcion: "Field with forest and a central hill near to a lake.<br/>Map size: 257 | Strat. points: 17" },
         { nombre: "Istvaan V", descripcion: "Desolate landscape of ash, rocks and rugged terrain.<br/>Map size: 1025" },
         { nombre: "Red Jungle", descripcion: "Large island covered by dense forest and paths.<br/>Map size: 513 | Strat. points: 17 | Critical loc.: 6 | Relics: 2" },
-        { nombre: "Test", descripcion: "This is just a test.<br/>Map size: 513." },
         { nombre: "The Eye of Gorgon", descripcion: "Polar snowy terrain with multiple lakes and large bodies of water.<br/>Map size: 513" },
         { nombre: "Vyasastan", descripcion: "Urban environment with destroyed streets and buildings.<br/>Map size: 513" }
     ],
