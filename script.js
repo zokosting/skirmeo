@@ -780,9 +780,16 @@ async function cargarReportesGitHub() {
             if (isDefeat) {
                 const crossIconContainer = document.createElement('span');
                 crossIconContainer.title = "Defeated";
-                crossIconContainer.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
                 crossIconContainer.style.display = 'inline-flex';
                 crossIconContainer.style.alignItems = 'center';
+                crossIconContainer.style.cursor = 'pointer';
+                crossIconContainer.onclick = function() {
+                    alert("Status: Defeated");
+                };
+                crossIconContainer.innerHTML = `
+                    <span style="font-size: 0.8em; color: #1b365d; font-weight: bold; margin-right: 4px;">Defeated</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                `;
                 rightContainer.appendChild(crossIconContainer);
             }
 
@@ -859,7 +866,6 @@ function ajustarContenedorResultado() {
 
 // --- 8. MAPS FORM ---
 
-// Which existing map is being edited (null = creating a new one)
 let mapaEditando = null; 
 
 function validarFormularioMapa() {
@@ -954,11 +960,9 @@ function encontrarIndiceAlfabetico(array, nombreNuevo) {
     return array.length;
 }
 
-// Reverse of construirDescripcionMapa: extract descripcion / tamano / composicion
 function parsearDescripcionMapa(desc) {
     if (!desc) return { descripcion: '', tamano: '', composicion: '' };
 
-    // Case 1: has <br/> → description (or size) on first line
     if (desc.includes('<br/>')) {
         const parts = desc.split('<br/>');
         let descripcion = parts[0];
@@ -966,7 +970,6 @@ function parsearDescripcionMapa(desc) {
         let composicion = '';
         let idx = 1;
 
-        // If the first part is actually "Map size: ...", treat it as size (edge case)
         if (descripcion.startsWith('Map size: ')) {
             tamano = descripcion.substring('Map size: '.length);
             descripcion = '';
@@ -981,7 +984,6 @@ function parsearDescripcionMapa(desc) {
         return { descripcion, tamano, composicion };
     }
 
-    // Case 2: starts with "Map size: ..." (no description)
     if (desc.startsWith('Map size: ')) {
         const rest = desc.substring('Map size: '.length);
         if (rest.includes(' | ')) {
@@ -995,7 +997,6 @@ function parsearDescripcionMapa(desc) {
         return { descripcion: '', tamano: rest, composicion: '' };
     }
 
-    // Case 3: only description
     return { descripcion: desc, tamano: '', composicion: '' };
 }
 
@@ -1025,6 +1026,34 @@ function poblarSelectMapasExistentes() {
     });
 }
 
+// Nueva función para actualizar la previsualización de la imagen del mapa en maps.html
+function actualizarPreviewImagenMapa() {
+    const tituloEl = document.getElementById('campo1-titulo');
+    const imgEl = document.getElementById('map-preview-img');
+    if (!tituloEl || !imgEl) return;
+
+    const titulo = tituloEl.value.trim();
+    if (!titulo) {
+        imgEl.style.display = 'none';
+        imgEl.src = '';
+        return;
+    }
+
+    let iconoNombre = titulo;
+    if (typeof MAPAS_CONFIG !== 'undefined') {
+        for (const numJug in MAPAS_CONFIG) {
+            const encontrado = MAPAS_CONFIG[numJug].find(m => m.nombre.toLowerCase() === titulo.toLowerCase());
+            if (encontrado) {
+                iconoNombre = encontrado.iconoNombre || encontrado.nombre;
+                break;
+            }
+        }
+    }
+
+    imgEl.src = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconoNombre}.png`;
+    imgEl.style.display = 'block';
+}
+
 function cargarMapaEnFormulario(jugadores, nombre) {
     if (typeof MAPAS_CONFIG === 'undefined') return;
     const arr = MAPAS_CONFIG[jugadores] || [];
@@ -1039,10 +1068,12 @@ function cargarMapaEnFormulario(jugadores, nombre) {
     document.getElementById('campo4-tamano').value = parsed.tamano;
     document.getElementById('campo5-composicion').value = parsed.composicion;
 
-    // Refresca el color del textarea según el límite de 60
     document.getElementById('campo3-descripcion').dispatchEvent(new Event('input'));
 
     mapaEditando = { jugadores: jugadores, nombre: mapa.nombre };
+
+    // Actualiza la imagen de previsualización al cargar el mapa
+    actualizarPreviewImagenMapa();
 }
 
 function configurarSelectMapasExistentes() {
@@ -1054,6 +1085,7 @@ function configurarSelectMapasExistentes() {
     select.addEventListener('change', function () {
         if (!this.value) {
             mapaEditando = null;
+            actualizarPreviewImagenMapa();
             return;
         }
         const sep = this.value.indexOf('|');
@@ -1096,12 +1128,10 @@ async function actualizarMapsGithub() {
     const descripcionCompleta = construirDescripcionMapa(datos.descripcion, datos.tamano, datos.composicion);
     const nuevoMapa = { nombre: datos.titulo, descripcion: descripcionCompleta };
 
-    // Ensure target array exists
     if (!nuevaConfig[datos.jugadores]) {
         nuevaConfig[datos.jugadores] = [];
     }
 
-    // If we're editing, remember which entry to remove
     const aEliminar = mapaEditando
         ? { jugadores: mapaEditando.jugadores, nombre: mapaEditando.nombre }
         : null;
@@ -1109,7 +1139,6 @@ async function actualizarMapsGithub() {
         && aEliminar.jugadores === datos.jugadores
         && aEliminar.nombre === datos.titulo;
 
-    // Conflict: same title + same player count already exists (and it's not the one we're editing)
     const arrDest = nuevaConfig[datos.jugadores];
     const idxConflicto = arrDest.findIndex(m => m.nombre === datos.titulo);
     if (idxConflicto >= 0 && !esElMismo) {
@@ -1118,24 +1147,20 @@ async function actualizarMapsGithub() {
         }
     }
 
-    // Remove the original entry (rename / move between player counts)
     if (aEliminar) {
         const arrOld = nuevaConfig[aEliminar.jugadores] || [];
         const idxOld = arrOld.findIndex(m => m.nombre === aEliminar.nombre);
         if (idxOld >= 0) arrOld.splice(idxOld, 1);
     }
 
-    // Remove any leftover conflict in the destination array
     const idxConflicto2 = arrDest.findIndex(m => m.nombre === datos.titulo);
     if (idxConflicto2 >= 0) arrDest.splice(idxConflicto2, 1);
 
-    // Insert at alphabetical position
     const idxInsert = encontrarIndiceAlfabetico(arrDest, datos.titulo);
     arrDest.splice(idxInsert, 0, nuevoMapa);
 
     const contenido = serializarMapsConfig(nuevaConfig);
 
-    // --- GitHub upload ---
     let token = localStorage.getItem('gh_pat_token');
     if (!token) {
         token = prompt("Para subir maps.js a GitHub, introduce tu Personal Access Token (PAT):");
@@ -1191,11 +1216,10 @@ async function actualizarMapsGithub() {
             alert(mapaEditando
                 ? `¡maps.js actualizado en GitHub!\nMapa editado: "${datos.titulo}" (${datos.jugadores} players)`
                 : `¡maps.js actualizado en GitHub!\nMapa añadido: "${datos.titulo}" (${datos.jugadores} players)`);
-            // Reset the "editing" state
             mapaEditando = null;
             const sel = document.getElementById('select-mapa-existente');
             if (sel) sel.value = '';
-	    location.reload();
+            location.reload();
         } else {
             const errData = await putRes.json();
             alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
@@ -1210,7 +1234,6 @@ async function actualizarMapsGithub() {
 
 
 function iniciarAplicacion() {
-    // ---- index.html ----
     if (document.getElementById('num-jugadores')) {
         generarDesplegablesRazas();
         configurarBotonAddMap();
@@ -1235,15 +1258,17 @@ function iniciarAplicacion() {
         }
     }
 
-    // ---- reports.html ----
     if (document.getElementById('reports-ul')) {
         cargarReportesGitHub();
     }
 
-    // ---- maps.html ----
     if (document.getElementById('formulario-mapa')) {
         configurarContadorDescripcionMapa();
         configurarSelectMapasExistentes();   
+        const tituloInput = document.getElementById('campo1-titulo');
+        if (tituloInput) {
+            tituloInput.addEventListener('input', actualizarPreviewImagenMapa);
+        }
     }
 }
 

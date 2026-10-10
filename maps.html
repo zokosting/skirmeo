@@ -15,7 +15,7 @@
 
     <main>
         <section id="formulario-mapa">
-            <h2>Add New Map
+            <h2>Update Maps
                 <button onclick="window.location.href='index.html'" class="btn-compact btn-right">< Back to Generator</button>
             </h2>
 
@@ -29,37 +29,45 @@
     </div>
 </div>
 
-            <div class="map-form-group">
-                <label for="campo2-jugadores">Max Players: *</label>
-                <select id="campo2-jugadores">
-                    <option value="" selected disabled>-Select</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                </select>
-            </div>
+<div class="map-form-body-wrapper">
+    <div class="map-form-fields">
+        <div class="map-form-group">
+            <label for="campo2-jugadores">Max Players: *</label>
+            <select id="campo2-jugadores">
+                <option value="" selected disabled>-Select</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+            </select>
+        </div>
 
-            <div class="map-form-group">
-                <label for="campo3-descripcion">Description:</label>
-                <textarea id="campo3-descripcion" class="report-textarea" placeholder="e.g. A big fortress in a vast desert mountain area."></textarea>
-            </div>
+        <div class="map-form-group">
+            <label for="campo3-descripcion">Description:</label>
+            <textarea id="campo3-descripcion" class="report-textarea" placeholder="e.g. A big fortress in a vast desert mountain area."></textarea>
+        </div>
 
-            <div class="map-form-group">
-                <label for="campo4-tamano">Size:</label>
-                <input type="text" id="campo4-tamano" placeholder="e.g. 1025">
-            </div>
+        <div class="map-form-group">
+            <label for="campo4-tamano">Size:</label>
+            <input type="text" id="campo4-tamano" placeholder="e.g. 1025">
+        </div>
 
-            <div class="map-form-group">
-                <label for="campo5-composicion">Composition:</label>
-                <input type="text" id="campo5-composicion" placeholder="e.g. Strat. points: 44 | Critical loc.: 43 | Relics: 4">
-            </div>
+        <div class="map-form-group">
+            <label for="campo5-composicion">Composition:</label>
+            <input type="text" id="campo5-composicion" placeholder="e.g. Strat. points: 44 | Critical loc.: 43 | Relics: 4">
+        </div>
+    </div>
+
+    <div class="map-preview-sidebar">
+        <img id="map-preview-img" src="" alt="Map Preview" class="map-preview-display" style="display:none;" onerror="this.style.display='none'">
+    </div>
+</div>
 
             <div class="report-buttons-container" style="margin-top: 20px;">
                 <button id="btn-preview" class="btn-compact" onclick="previsualizarMapa()">Preview</button>
-                <button id="btn-download-maps" class="btn-save-report" onclick="actualizarMapsGithub()" title="Upload updated maps.js to GitHub">Update Maps</button>
+                <button id="btn-download-maps" class="btn-save-report" onclick="actualizarMapsGithub()" title="Upload updated maps.js to GitHub">add</button>
             </div>
 
             <div id="preview-container" style="display: none; margin-top: 25px;">

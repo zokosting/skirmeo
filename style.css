@@ -300,7 +300,6 @@ hr {
     border-radius: 4px;
     font-family: inherit;
     box-sizing: border-box;
-    margin-top: 5px;
     resize: vertical;
 }
 
@@ -516,20 +515,20 @@ hr {
 }
 
 #btn-download-maps {
-    background-color: #24726e;
+    background-color: #2d918c;
     color: white;
     border: none;
     padding: 12px;
     border-radius: 4px;
     cursor: pointer;
-    width: 50%;
+    width: 45%;
     font-size: 1em;
     font-weight: bold;
     transition: background-color 0.3s;
 }
 
 #btn-download-maps:hover {
-    background-color: #2d918c;
+    background-color: #24726e;
 }
 
 .title-row {
@@ -541,7 +540,7 @@ hr {
 .title-row input[type="text"] {
     flex: 1 1 auto;
     width: auto;
-    min-width: 0;
+    max-width: 55%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -552,7 +551,6 @@ hr {
 
 .title-row select {
     flex: 0 0 auto;
-    width: auto;
     max-width: 45%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -563,7 +561,41 @@ hr {
     cursor: pointer;
 }
 
-@media (max-width: 550px) {
+.map-form-body-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.map-form-fields {
+    flex: 1;
+    min-width: 0;
+}
+
+.map-preview-sidebar {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+}
+
+.map-preview-display {
+    width: 100%;
+    height: auto;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .map-form-body-wrapper {
+        flex-direction: column;
+    }
+    .map-preview-sidebar {
+        width: 100%;
+    }
     .title-row {
         flex-wrap: wrap;
     }
