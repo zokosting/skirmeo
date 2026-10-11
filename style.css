@@ -582,11 +582,11 @@ hr {
 
 .map-preview-display {
     width: 100%;
-    height: auto;
     border: 1px dashed #ccc;
     border-radius: 4px;
     padding: 5px;
-    background-color: transparent;
+    background-color: #f9f9f9;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

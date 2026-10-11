@@ -382,7 +382,6 @@ function obtenerDatosReporte() {
                 nextEl = nextEl.nextElementSibling;
             }
 
-            // Añadir ## Status: NO tras la sección Configuration:
             if (headerText.toLowerCase().includes('configuration')) {
                 contenidoTexto += "## Status: NO\n";
             }
@@ -770,7 +769,6 @@ async function cargarReportesGitHub() {
             a.innerHTML = `📄 <strong>${nombreMapa}</strong> (${fechaCreacion})`;
             leftContainer.appendChild(a);
 
-            // Contenedor derecho para la cruz (+) y la imagen del mapa
             const rightContainer = document.createElement('div');
             rightContainer.style.display = 'flex';
             rightContainer.style.alignItems = 'center';
@@ -1026,7 +1024,7 @@ function poblarSelectMapasExistentes() {
     });
 }
 
-// Nueva función para actualizar la previsualización de la imagen del mapa en maps.html
+// Función actualizada para la previsualización de la imagen con soporte de placeholder vacío
 function actualizarPreviewImagenMapa() {
     const tituloEl = document.getElementById('campo1-titulo');
     const imgEl = document.getElementById('map-preview-img');
@@ -1034,8 +1032,7 @@ function actualizarPreviewImagenMapa() {
 
     const titulo = tituloEl.value.trim();
     if (!titulo) {
-        imgEl.style.display = 'none';
-        imgEl.src = '';
+        imgEl.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
         return;
     }
 
@@ -1050,8 +1047,109 @@ function actualizarPreviewImagenMapa() {
         }
     }
 
-    imgEl.src = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconoNombre}.png`;
-    imgEl.style.display = 'block';
+    const imagePath = `https://raw.githubusercontent.com/zokosting/skirmeo/main/map_icons/${iconoNombre}.png`;
+    imgEl.onerror = function() {
+        this.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    };
+    imgEl.src = imagePath;
+}
+
+// Nueva función para subir la imagen del mapa directamente pulsando en el recuadro
+async function subirImagenMapaGithub() {
+    const tituloEl = document.getElementById('campo1-titulo');
+    if (!tituloEl || !tituloEl.value.trim()) {
+        alert("Please enter a Map Title first before uploading an image.");
+        return;
+    }
+    const titulo = tituloEl.value.trim();
+
+    let iconoNombre = titulo;
+    if (typeof MAPAS_CONFIG !== 'undefined') {
+        for (const numJug in MAPAS_CONFIG) {
+            const encontrado = MAPAS_CONFIG[numJug].find(m => m.nombre.toLowerCase() === titulo.toLowerCase());
+            if (encontrado) {
+                iconoNombre = encontrado.iconoNombre || encontrado.nombre;
+                break;
+            }
+        }
+    }
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const content = event.target.result;
+            const base64Data = content.includes(',') ? content.split(',')[1] : btoa(content);
+
+            let token = localStorage.getItem('gh_pat_token');
+            if (!token) {
+                token = prompt("Introduce tu Personal Access Token (PAT) de GitHub para subir la imagen del mapa:");
+                if (!token) return;
+                token = token.trim();
+                localStorage.setItem('gh_pat_token', token);
+            }
+
+            const repoOwner = "zokosting";
+            const repoName = "skirmeo";
+            const folderPath = "map_icons";
+            const filename = `${iconoNombre}.png`;
+            const filePath = `${folderPath}/${filename}`;
+            const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+
+            try {
+                let sha = null;
+                const checkRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (checkRes.ok) {
+                    const fileData = await checkRes.json();
+                    sha = fileData.sha;
+                } else if (checkRes.status === 401 || checkRes.status === 403) {
+                    localStorage.removeItem('gh_pat_token');
+                    alert("El Token de GitHub no es válido o ha caducado. Se ha eliminado de la memoria local. Inténtalo de nuevo.");
+                    return;
+                }
+
+                const requestBody = {
+                    message: `Upload map icon: ${filename}`,
+                    content: base64Data
+                };
+                if (sha) {
+                    requestBody.sha = sha;
+                }
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (putRes.ok) {
+                    alert(`¡Imagen "${filename}" subida con éxito a la carpeta '${folderPath}' de GitHub!`);
+                    actualizarPreviewImagenMapa();
+                } else {
+                    const errData = await putRes.json();
+                    alert(`Error al subir a GitHub: ${errData.message || 'Error desconocido'}`);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Ocurrió un error al intentar subir la imagen a GitHub.");
+            }
+        };
+        reader.readAsDataURL(file);
+    };
+
+    fileInput.click();
 }
 
 function cargarMapaEnFormulario(jugadores, nombre) {
@@ -1072,7 +1170,6 @@ function cargarMapaEnFormulario(jugadores, nombre) {
 
     mapaEditando = { jugadores: jugadores, nombre: mapa.nombre };
 
-    // Actualiza la imagen de previsualización al cargar el mapa
     actualizarPreviewImagenMapa();
 }
 
@@ -1269,6 +1366,7 @@ function iniciarAplicacion() {
         if (tituloInput) {
             tituloInput.addEventListener('input', actualizarPreviewImagenMapa);
         }
+        actualizarPreviewImagenMapa();
     }
 }
 
