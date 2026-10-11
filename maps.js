@@ -49,7 +49,7 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Place" },
         { nombre: "Tainted soul" },
         { nombre: "Tartarus Center" },
-        { nombre: "The Morholt Range" },
+        { nombre: "The Morholt Range", descripcion: "Underground passes outside an old base.<br/>Map size: 513<br/>Strat. points: 24 | Critical loc.: 3 | Relics: 4 | Slag: 4" },
         { nombre: "The Skerries", descripcion: "Dense string of small islands.<br/>Map size: 257" },
         { nombre: "Volcanic Reaction" }
     ],
