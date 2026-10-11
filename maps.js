@@ -17,6 +17,7 @@ const MAPAS_CONFIG = {
         { nombre: "Meeting of Minds" },
         { nombre: "Oja", descripcion: "Paths through dense jungle with bridges over rivers." },
         { nombre: "Outer Reaches", descripcion: "Mountainous terrain with paths, shrubs and ruins.<br/>Map size: 257" },
+        { nombre: "Perico", descripcion: "This is just a test." },
         { nombre: "Railway" },
         { nombre: "Riverbed" },
         { nombre: "Sands of Time", descripcion: "Sand desert with pyramids and a small river.<br/>Map size: 257 | Strat. points: 7 | Relics: 2 | Critical loc.: 3" },
