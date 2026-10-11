@@ -1,0 +1,26 @@
+# === EVENT REPORT ===
+
+
+## 4 Players:
+1. T'au Empire (Saul'tn Sept)
+2. Tau Empire
+3. - Farsight Enclaves
+4. - Tyranids
+
+## Map:
+The Morholt Range
+Underground tunnels outside an old infernal base.
+Map size: 513
+Strat. points: 24 | Critical loc.: 3 | Relics: 4 | Slag depos: 4
+
+## Configuration:
+Destroy HQ – Win by razing all HQ buildings of the opponent
+Resource Rate: Standard
+Hard
+## Status: WIN
+
+## Background:
+Al mismo tiempo que los etéreos enviaban una avanzada a impedir el desembarco humano en el Templo de Cirene, sabían que la invasión tiránida no iba a desaparecer y que algo crecía bajo el féretro industrial en el que fue detenida.
+Apostaron puntos de escucha en varios puntos del páramo que rodeaba a la ciudad abandonada y un fuerte destacamento en las entradas a túneles subterráneos. Ellos fueron los primeros que vieron a un hierofante tiránido salir de lo profundo de esas cuevas.
+Fue una batalla épica entre los túneles; las oleadas de tiránidos, cada vez de mayor tamaño, oscuras y con motivos luminiscentes, parecían inerminables.
+

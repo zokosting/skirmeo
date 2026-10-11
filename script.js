@@ -780,12 +780,7 @@ async function cargarReportesGitHub() {
                 crossIconContainer.title = "Defeated";
                 crossIconContainer.style.display = 'inline-flex';
                 crossIconContainer.style.alignItems = 'center';
-                crossIconContainer.style.cursor = 'pointer';
-                crossIconContainer.onclick = function() {
-                    alert("Status: Defeated");
-                };
                 crossIconContainer.innerHTML = `
-                    <span style="font-size: 0.8em; color: #1b365d; font-weight: bold; margin-right: 4px;">Defeated</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b365d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 `;
                 rightContainer.appendChild(crossIconContainer);
@@ -1024,7 +1019,6 @@ function poblarSelectMapasExistentes() {
     });
 }
 
-// Función actualizada para la previsualización de la imagen con soporte de placeholder vacío
 function actualizarPreviewImagenMapa() {
     const tituloEl = document.getElementById('campo1-titulo');
     const imgEl = document.getElementById('map-preview-img');
@@ -1054,7 +1048,6 @@ function actualizarPreviewImagenMapa() {
     imgEl.src = imagePath;
 }
 
-// Nueva función para subir la imagen del mapa directamente pulsando en el recuadro
 async function subirImagenMapaGithub() {
     const tituloEl = document.getElementById('campo1-titulo');
     if (!tituloEl || !tituloEl.value.trim()) {
