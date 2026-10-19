@@ -93,6 +93,7 @@ hr {
     background-color: white; 
     color: #333; 
     border: 1px solid #ccc; 
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
 }
@@ -294,7 +295,7 @@ hr {
 
 .report-textarea {
     width: 100%;
-    min-height: 100px;
+    min-height: 97px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;

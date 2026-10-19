@@ -853,7 +853,7 @@ function aplicarEstiloBotónGenerar() {
 
 function ajustarContenedorResultado() {
     if (resultadoDiv) {
-        resultadoDiv.style.padding = '0 15px';
+        resultadoDiv.style.paddingTop = '0px';
     }
 }
 
