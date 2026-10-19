@@ -161,6 +161,8 @@ hr {
     border-radius: 4px;
     font-weight: normal;
     min-width: 0;
+    height: 30px; /* Altura unificada */
+    box-sizing: border-box;
 }
 .chapter-select-container label {
     margin-right: 5px;
@@ -172,8 +174,9 @@ hr {
     min-width: 0; 
 }
 
-/* --- Estilos para la imagen de Tau en el desplegable --- */
-.tau-image-container {
+/* --- Estilos para las imágenes en los desplegables --- */
+.tau-image-container,
+.enclaves-image-container {
     display: none;
     align-items: center;
     justify-content: center;
@@ -182,21 +185,23 @@ hr {
     background-color: #f1f8ff; 
     border: 1px dashed #a0c3ff;
     border-radius: 4px;
-    height: 32px;
+    height: 30px; /* Igual altura que el chapter-select */
     box-sizing: border-box;
 }
 
-.tau-symbol-img {
+.tau-symbol-img,
+.enclaves-symbol-img {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
 }
 
-/* --- Estilo para imágenes en línea con el texto --- */
-.inline-icon {
-    height: 1.2em;
+/* --- Estilo para imágenes en el resultado generado --- */
+.inline-result-icon {
+    height: 1em; /* Mantiene la proporción con el texto (aprox 16px, muy por debajo de 25.6px) */
+    max-height: 25.6px;
     vertical-align: middle;
-    margin-left: 5px;
+    margin-left: 6px;
     display: inline-block;
 }
 
@@ -316,7 +321,6 @@ hr {
     padding: 15px;
 }
 
-/* Ocultar el contenedor de resultados si está vacío */
 #resultado:empty {
     display: none;
 }
@@ -614,7 +618,6 @@ hr {
     padding-top: 25px;
 }
 
-/* Añadida la cruz gris para cuando no hay imagen */
 .map-preview-display {
     width: 100%;
     min-height: 100px;

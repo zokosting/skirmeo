@@ -88,7 +88,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. <img src="icons/tau-dalyth.png" alt="Tau Empire - Dal'yth Sept" class="inline-icon"></p>`; 
+        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept.</p>`; 
         if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
@@ -103,7 +103,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems. <img src="icons/tau-dalyth.png" alt="Tau Empire - Dal'yth Sept" class="inline-icon"></p>`; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
     if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -153,13 +153,23 @@ function generarDesplegablesRazas() {
         
         raceWrapper.appendChild(chapterContainer);
 
+        // Contenedor para la imagen de Tau Empire en el desplegable
         const tauImageContainer = document.createElement('div');
         tauImageContainer.id = `tau-image-container-${playerId}`;
         tauImageContainer.classList.add('tau-image-container');
         tauImageContainer.style.display = select.value === 'Tau Empire' ? 'flex' : 'none';
-        tauImageContainer.innerHTML = `<img src="icons/tau-tau.png" alt="Tau Empire - T'au Sept" class="tau-symbol-img">`;
+        tauImageContainer.innerHTML = `<img src="icons/tau-tau.png" alt="Tau Empire" class="tau-symbol-img">`;
         
         raceWrapper.appendChild(tauImageContainer);
+
+        // Contenedor para la imagen de Farsight Enclaves en el desplegable
+        const enclavesImageContainer = document.createElement('div');
+        enclavesImageContainer.id = `enclaves-image-container-${playerId}`;
+        enclavesImageContainer.classList.add('enclaves-image-container');
+        enclavesImageContainer.style.display = select.value === '- Farsight Enclaves' ? 'flex' : 'none';
+        enclavesImageContainer.innerHTML = `<img src="icons/enclaves.png" alt="Farsight Enclaves" class="enclaves-symbol-img">`;
+        
+        raceWrapper.appendChild(enclavesImageContainer);
         
         if (contenedorDesplegables) contenedorDesplegables.appendChild(raceWrapper);
     }
@@ -293,21 +303,18 @@ function toggleChapterSelect(selectElement) {
     const playerId = selectElement.id.split('-').pop();
     const chapterContainer = document.getElementById(`chapter-container-${playerId}`);
     const tauContainer = document.getElementById(`tau-image-container-${playerId}`);
+    const enclavesContainer = document.getElementById(`enclaves-image-container-${playerId}`);
     
     if (chapterContainer) {
-        if (selectElement.value === 'Space Marines') {
-            chapterContainer.style.display = 'flex';
-        } else {
-            chapterContainer.style.display = 'none';
-        }
+        chapterContainer.style.display = selectElement.value === 'Space Marines' ? 'flex' : 'none';
     }
 
     if (tauContainer) {
-        if (selectElement.value === 'Tau Empire') {
-            tauContainer.style.display = 'flex';
-        } else {
-            tauContainer.style.display = 'none';
-        }
+        tauContainer.style.display = selectElement.value === 'Tau Empire' ? 'flex' : 'none';
+    }
+
+    if (enclavesContainer) {
+        enclavesContainer.style.display = selectElement.value === '- Farsight Enclaves' ? 'flex' : 'none';
     }
 }
 
@@ -595,10 +602,21 @@ function generarPartida() {
     partidaGenerada.forEach((raza, index) => {
         const jugadorNum = index + 1;
         let chapterInfo = '';
+        let iconHTML = '';
+
+        // Inserción de iconos según la raza en la lista generada
+        if (index === 0) {
+            iconHTML = ` <img src="icons/tau-dalyth.png" class="inline-result-icon" alt="Saul'tn Sept">`;
+        } else if (raza === 'Tau Empire') {
+            iconHTML = ` <img src="icons/tau-tau.png" class="inline-result-icon" alt="Tau Empire">`;
+        } else if (raza === '- Farsight Enclaves') {
+            iconHTML = ` <img src="icons/enclaves.png" class="inline-result-icon" alt="Farsight Enclaves">`;
+        }
+
         if (raza === 'Space Marines' && index > 0) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[index] || CHAPTERS_DISPONIBLES[0]})`;
         }
-        resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${raza}${chapterInfo}</li>`;
+        resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${raza}${iconHTML}${chapterInfo}</li>`;
     });
 
     resultadoHTML += `
@@ -841,7 +859,6 @@ function configurarBotonAddMap() {
     const btnAddMap = document.getElementById('btn-add-map');
     if (!btnAddMap) return;
 
-    // Ahora comprueba el ancho de pantalla para incluir tablets (ej. iPads de 768px en adelante)
     const anchoTabletEscritorio = window.innerWidth >= 768;
 
     if (anchoTabletEscritorio) {
