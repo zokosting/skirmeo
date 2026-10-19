@@ -162,12 +162,11 @@ function generarDesplegablesRazas() {
         
         raceWrapper.appendChild(tauImageContainer);
 
-        // Contenedor para la imagen de Farsight Enclaves en el desplegable
         const enclavesImageContainer = document.createElement('div');
         enclavesImageContainer.id = `enclaves-image-container-${playerId}`;
         enclavesImageContainer.classList.add('enclaves-image-container');
         enclavesImageContainer.style.display = select.value === '- Farsight Enclaves' ? 'flex' : 'none';
-        enclavesImageContainer.innerHTML = `<img src="icons/enclaves.png" alt="Farsight Enclaves" class="enclaves-symbol-img">`;
+        enclavesImageContainer.innerHTML = `<img src="icons/tau-enclaves.png" alt="T'au - Farsight Enclaves" class="enclaves-symbol-img">`;
         
         raceWrapper.appendChild(enclavesImageContainer);
         
@@ -606,11 +605,11 @@ function generarPartida() {
 
         // Inserción de iconos según la raza en la lista generada
         if (index === 0) {
-            iconHTML = ` <img src="icons/tau-dalyth.png" class="inline-result-icon" alt="Saul'tn Sept">`;
+            iconHTML = ` <img src="icons/tau-saultn.png" class="inline-result-icon" alt="Saul'tn Sept">`;
         } else if (raza === 'Tau Empire') {
             iconHTML = ` <img src="icons/tau-tau.png" class="inline-result-icon" alt="Tau Empire">`;
         } else if (raza === '- Farsight Enclaves') {
-            iconHTML = ` <img src="icons/enclaves.png" class="inline-result-icon" alt="Farsight Enclaves">`;
+            iconHTML = ` <img src="icons/tau-enclaves.png" class="inline-result-icon" alt="T'au - Farsight Enclaves">`;
         }
 
         if (raza === 'Space Marines' && index > 0) {
