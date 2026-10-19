@@ -88,7 +88,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. <img src="icons/tau-dal'yth sept.tga" alt="Tau Empire - Dalyth Sept" class="inline-icon"></p>`; 
+        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. <img src="icons/tau-dalyth.png" alt="Tau Empire - Dal'yth Sept" class="inline-icon"></p>`; 
         if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
@@ -103,7 +103,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems. <img src="icons/tau-dal'yth sept.tga" alt="Tau Empire - Dalyth Sept" class="inline-icon"></p>`; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems. <img src="icons/tau-dalyth.png" alt="Tau Empire - Dal'yth Sept" class="inline-icon"></p>`; 
     if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -153,12 +153,11 @@ function generarDesplegablesRazas() {
         
         raceWrapper.appendChild(chapterContainer);
 
-        // Contenedor para la imagen de Tau Empire en el desplegable
         const tauImageContainer = document.createElement('div');
         tauImageContainer.id = `tau-image-container-${playerId}`;
         tauImageContainer.classList.add('tau-image-container');
         tauImageContainer.style.display = select.value === 'Tau Empire' ? 'flex' : 'none';
-        tauImageContainer.innerHTML = `<img src="icons/tau-t'au sept.tga" alt="Tau Empire - Tau Sept" class="tau-symbol-img">`;
+        tauImageContainer.innerHTML = `<img src="icons/tau-tau.png" alt="Tau Empire - T'au Sept" class="tau-symbol-img">`;
         
         raceWrapper.appendChild(tauImageContainer);
         
@@ -842,10 +841,10 @@ function configurarBotonAddMap() {
     const btnAddMap = document.getElementById('btn-add-map');
     if (!btnAddMap) return;
 
-    const tieneRaton = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const anchoEscritorio = window.innerWidth >= 1024;
+    // Ahora comprueba el ancho de pantalla para incluir tablets (ej. iPads de 768px en adelante)
+    const anchoTabletEscritorio = window.innerWidth >= 768;
 
-    if (tieneRaton && anchoEscritorio) {
+    if (anchoTabletEscritorio) {
         btnAddMap.style.display = 'inline-block';
     }
 }

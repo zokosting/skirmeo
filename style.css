@@ -174,7 +174,7 @@ hr {
 
 /* --- Estilos para la imagen de Tau en el desplegable --- */
 .tau-image-container {
-    display: none; /* Oculto por defecto, JS lo controla */
+    display: none;
     align-items: center;
     justify-content: center;
     margin-top: 5px;
@@ -182,7 +182,7 @@ hr {
     background-color: #f1f8ff; 
     border: 1px dashed #a0c3ff;
     border-radius: 4px;
-    height: 32px; /* Mantiene el alto similar al chapter-select */
+    height: 32px;
     box-sizing: border-box;
 }
 
@@ -314,6 +314,11 @@ hr {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     padding: 15px;
+}
+
+/* Ocultar el contenedor de resultados si está vacío */
+#resultado:empty {
+    display: none;
 }
 
 .alerta {
@@ -609,13 +614,19 @@ hr {
     padding-top: 25px;
 }
 
+/* Añadida la cruz gris para cuando no hay imagen */
 .map-preview-display {
     width: 100%;
+    min-height: 100px;
     border: 1px dashed #ccc;
     border-radius: 4px;
     padding: 5px;
     background-color: #f9f9f9;
     cursor: pointer;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><line x1="16" y1="8" x2="16" y2="24" stroke="%23aaaaaa" stroke-width="2"/><line x1="8" y1="16" x2="24" y2="16" stroke="%23aaaaaa" stroke-width="2"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
 }
 
 @media (max-width: 768px) {
