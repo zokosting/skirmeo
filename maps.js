@@ -5,7 +5,7 @@ const MAPAS_CONFIG = {
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
-        { nombre: "Descent of Madness", descripcion: "Ruins in the split between a desert and forest<br/>Map size: 257" },
+        { nombre: "Descent of Madness", descripcion: "Urban settlement kindly built at the edge of the desert.<br/>Map size: 257" },
         { nombre: "Dicey Ambush", descripcion: "Wooded valley divided by a river and surrounded by mountains." },
         { nombre: "Dvellatores Fatales", descripcion: "Map size: 257 | Strat. points: 3 | Relics: 1 | Critical loc.: 1" },
         { nombre: "Ecstasy's Peril", descripcion: "A Chaos war temple in an artic terrain.<br/>Map size: 257" },
