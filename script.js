@@ -88,7 +88,7 @@ function generarDesplegablesRazas() {
     const numJugadoresStr = numJugadoresSelect.value; 
 
     if (numJugadoresStr === "") {
-        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept.</p>`; 
+        if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are part of Saul'tn T'au Sept. <img src="icons/tau-dal'yth sept.tga" alt="Tau Empire - Dalyth Sept" class="inline-icon"></p>`; 
         if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
         generarSeleccionMapa(); 
         return; 
@@ -103,7 +103,7 @@ function generarDesplegablesRazas() {
     
     const numRazasARotar = numJugadores - 1; 
     
-    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems.</p>`; 
+    if (instruccionRazas) instruccionRazas.innerHTML = `<p class="mapa-detalle">You are now part of Saul'tn T'au Sept. You were previously Space Marines Salamandrems. <img src="icons/tau-dal'yth sept.tga" alt="Tau Empire - Dalyth Sept" class="inline-icon"></p>`; 
     if (contenedorDesplegables) contenedorDesplegables.innerHTML = ''; 
 
     for (let i = 1; i <= numRazasARotar; i++) {
@@ -152,6 +152,16 @@ function generarDesplegablesRazas() {
         chapterContainer.innerHTML = chapterHTML;
         
         raceWrapper.appendChild(chapterContainer);
+
+        // Contenedor para la imagen de Tau Empire en el desplegable
+        const tauImageContainer = document.createElement('div');
+        tauImageContainer.id = `tau-image-container-${playerId}`;
+        tauImageContainer.classList.add('tau-image-container');
+        tauImageContainer.style.display = select.value === 'Tau Empire' ? 'flex' : 'none';
+        tauImageContainer.innerHTML = `<img src="icons/tau-t'au sept.tga" alt="Tau Empire - Tau Sept" class="tau-symbol-img">`;
+        
+        raceWrapper.appendChild(tauImageContainer);
+        
         if (contenedorDesplegables) contenedorDesplegables.appendChild(raceWrapper);
     }
     
@@ -283,12 +293,21 @@ function seleccionarMapaAleatorio() {
 function toggleChapterSelect(selectElement) {
     const playerId = selectElement.id.split('-').pop();
     const chapterContainer = document.getElementById(`chapter-container-${playerId}`);
+    const tauContainer = document.getElementById(`tau-image-container-${playerId}`);
     
     if (chapterContainer) {
         if (selectElement.value === 'Space Marines') {
             chapterContainer.style.display = 'flex';
         } else {
             chapterContainer.style.display = 'none';
+        }
+    }
+
+    if (tauContainer) {
+        if (selectElement.value === 'Tau Empire') {
+            tauContainer.style.display = 'flex';
+        } else {
+            tauContainer.style.display = 'none';
         }
     }
 }

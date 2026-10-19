@@ -172,6 +172,34 @@ hr {
     min-width: 0; 
 }
 
+/* --- Estilos para la imagen de Tau en el desplegable --- */
+.tau-image-container {
+    display: none; /* Oculto por defecto, JS lo controla */
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #f1f8ff; 
+    border: 1px dashed #a0c3ff;
+    border-radius: 4px;
+    height: 32px; /* Mantiene el alto similar al chapter-select */
+    box-sizing: border-box;
+}
+
+.tau-symbol-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* --- Estilo para imágenes en línea con el texto --- */
+.inline-icon {
+    height: 1.2em;
+    vertical-align: middle;
+    margin-left: 5px;
+    display: inline-block;
+}
+
 .instruccion-principal {
     background-color: #ecf0f1;
     padding: 10px;
