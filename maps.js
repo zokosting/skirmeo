@@ -67,6 +67,7 @@ const MAPAS_CONFIG = {
         { nombre: "Bloodshed Alley" },
         { nombre: "Countryside Confrontation", descripcion: "Ambush in a countryside of an Imperial post.<br/>Map size: 513 | Strat. points: 21 | Critical loc.: 2 | Relics: 1" },
         { nombre: "Crossroads" },
+        { nombre: "Crozous Arcanum", descripcion: "Snow<br/>Map size: 257" },
         { nombre: "Dread Alley", descripcion: "Wide urban grid with a central green island.<br/>Map size: 513" },
         { nombre: "Eight-Tide River", descripcion: "Islands with a CP." },
         { nombre: "Iknar", descripcion: "Remains of a Nekron temple in a desert scenario.<br/>Map size: 257<br/>Strat. points: 16 | Critical loc.: 2 | Relics: 1 | Slag depos: 1" },
