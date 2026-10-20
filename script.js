@@ -162,6 +162,7 @@ function generarDesplegablesRazas() {
         
         raceWrapper.appendChild(tauImageContainer);
 
+        // Contenedor para la imagen de Farsight Enclaves en el desplegable
         const enclavesImageContainer = document.createElement('div');
         enclavesImageContainer.id = `enclaves-image-container-${playerId}`;
         enclavesImageContainer.classList.add('enclaves-image-container');
@@ -169,6 +170,24 @@ function generarDesplegablesRazas() {
         enclavesImageContainer.innerHTML = `<img src="icons/tau-enclaves.png" alt="T'au - Farsight Enclaves" class="enclaves-symbol-img">`;
         
         raceWrapper.appendChild(enclavesImageContainer);
+
+        // NUEVO: Contenedor para la imagen de Tyranids en el desplegable
+        const tyranidsImageContainer = document.createElement('div');
+        tyranidsImageContainer.id = `tyranids-image-container-${playerId}`;
+        tyranidsImageContainer.classList.add('tau-image-container');
+        tyranidsImageContainer.style.display = select.value === '- Tyranids' ? 'flex' : 'none';
+        tyranidsImageContainer.innerHTML = `<img src="icons/tyranids.png" alt="Tyranids" class="tau-symbol-img">`;
+        
+        raceWrapper.appendChild(tyranidsImageContainer);
+
+        // NUEVO: Contenedor para la imagen de Vostroyan Firstborn en el desplegable
+        const vostroyanImageContainer = document.createElement('div');
+        vostroyanImageContainer.id = `vostroyan-image-container-${playerId}`;
+        vostroyanImageContainer.classList.add('tau-image-container');
+        vostroyanImageContainer.style.display = select.value === '- Vostroyan Firstborn' ? 'flex' : 'none';
+        vostroyanImageContainer.innerHTML = `<img src="icons/imperialguard-vostroyans.png" alt="Vostroyan Firstborn" class="tau-symbol-img">`;
+        
+        raceWrapper.appendChild(vostroyanImageContainer);
         
         if (contenedorDesplegables) contenedorDesplegables.appendChild(raceWrapper);
     }
@@ -303,6 +322,8 @@ function toggleChapterSelect(selectElement) {
     const chapterContainer = document.getElementById(`chapter-container-${playerId}`);
     const tauContainer = document.getElementById(`tau-image-container-${playerId}`);
     const enclavesContainer = document.getElementById(`enclaves-image-container-${playerId}`);
+    const tyranidsContainer = document.getElementById(`tyranids-image-container-${playerId}`);
+    const vostroyanContainer = document.getElementById(`vostroyan-image-container-${playerId}`);
     
     if (chapterContainer) {
         chapterContainer.style.display = selectElement.value === 'Space Marines' ? 'flex' : 'none';
@@ -314,6 +335,14 @@ function toggleChapterSelect(selectElement) {
 
     if (enclavesContainer) {
         enclavesContainer.style.display = selectElement.value === '- Farsight Enclaves' ? 'flex' : 'none';
+    }
+
+    if (tyranidsContainer) {
+        tyranidsContainer.style.display = selectElement.value === '- Tyranids' ? 'flex' : 'none';
+    }
+
+    if (vostroyanContainer) {
+        vostroyanContainer.style.display = selectElement.value === '- Vostroyan Firstborn' ? 'flex' : 'none';
     }
 }
 
@@ -603,19 +632,29 @@ function generarPartida() {
         let chapterInfo = '';
         let iconHTML = '';
 
-        // Inserción de iconos según la raza en la lista generada
         if (index === 0) {
-            iconHTML = ` <img src="icons/tau-saultn.png" class="inline-result-icon" alt="Saul'tn Sept">`;
+            iconHTML = `<img src="icons/tau-saultn.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Saul'tn Sept">`;
         } else if (raza === 'Tau Empire') {
-            iconHTML = ` <img src="icons/tau-tau.png" class="inline-result-icon" alt="Tau Empire">`;
+            iconHTML = `<img src="icons/tau-tau.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Tau Empire">`;
         } else if (raza === '- Farsight Enclaves') {
-            iconHTML = ` <img src="icons/tau-enclaves.png" class="inline-result-icon" alt="T'au - Farsight Enclaves">`;
+            iconHTML = `<img src="icons/tau-enclaves.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="T'au - Farsight Enclaves">`;
+        } else if (raza === '- Tyranids') {
+            iconHTML = `<img src="icons/tyranids.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Tyranids">`;
+        } else if (raza === '- Vostroyan Firstborn') {
+            iconHTML = `<img src="icons/imperialguard-vostroyans.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Vostroyan Firstborn">`;
+        } else if (raza === 'Space Marines' && index > 0) {
+            const chapter = chaptersSeleccionados[index] || CHAPTERS_DISPONIBLES[0];
+            if (chapter === 'Black Templars') {
+                iconHTML = `<img src="icons/spacemarines-blacktemplars.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Black Templars">`;
+            } else if (chapter === 'Dark Angels') {
+                iconHTML = `<img src="icons/spacemarines-darkangel.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Dark Angels">`;
+            }
         }
 
         if (raza === 'Space Marines' && index > 0) {
             chapterInfo = ` (Chapter: ${chaptersSeleccionados[index] || CHAPTERS_DISPONIBLES[0]})`;
         }
-        resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${raza}${iconHTML}${chapterInfo}</li>`;
+        resultadoHTML += `<li style="margin-bottom: 4px;"><strong>${jugadorNum}.</strong> ${iconHTML}${raza}${chapterInfo}</li>`;
     });
 
     resultadoHTML += `
