@@ -14,7 +14,7 @@ Strat. points: 8 | Relic: 2 | Critical points: 3 | Slag: 1
 Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
 Resource Rate: Standard
 Hard
-## Status: NO
+## Status: WIN
 
 ## Background:
 ¿Medio-humanos ahora? 
