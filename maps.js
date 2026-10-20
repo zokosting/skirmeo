@@ -12,6 +12,7 @@ const MAPAS_CONFIG = {
         { nombre: "Edemus Gamble", descripcion: "Map size: 257" },
         { nombre: "Faceoff" },
         { nombre: "Fallen City" },
+        { nombre: "Fata Morgana", descripcion: "A t'au desert with a CP." },
         { nombre: "Galenas Crusade", descripcion: "Arctic terrain, with large snowfields with craters." },
         { nombre: "Hellfire Canyon" },
         { nombre: "Jungle Morning", descripcion: "Grasslands, forest and rocks, large swamp areas.<br/>Map size: 257" },
