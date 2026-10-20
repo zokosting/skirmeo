@@ -15,7 +15,7 @@ const MAPAS_CONFIG = {
         { nombre: "Galenas Crusade", descripcion: "Arctic terrain, with large snowfields with craters." },
         { nombre: "Hellfire Canyon" },
         { nombre: "Jungle Morning", descripcion: "Grasslands, forest and rocks, large swamp areas.<br/>Map size: 257" },
-        { nombre: "Kaula Otan", descripcion: "A t'au city." },
+        { nombre: "Kaula Otan", descripcion: "A t'au city with a CP." },
         { nombre: "Meeting of Minds" },
         { nombre: "Oja", descripcion: "Paths through dense jungle with bridges over rivers." },
         { nombre: "Outer Reaches", descripcion: "Mountainous terrain with paths, shrubs and ruins.<br/>Map size: 257" },
