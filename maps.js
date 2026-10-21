@@ -85,6 +85,7 @@ const MAPAS_CONFIG = {
         { nombre: "Targorum", descripcion: "Map size: 257" },
         { nombre: "Temple of Change", descripcion: "The worst scenario you will face. Some weird temple." },
         { nombre: "Temple of Cyrene", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513<br/>Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5" },
+        { nombre: "Test", descripcion: "Snow.<br/>Strat. points: 18 | Critical loc.: 2" },
         { nombre: "Testing Grounds", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513" },
         { nombre: "Tristam Plains", descripcion: "Live combat fighting for Space Marines.<br/>Map size: 513" },
         { nombre: "Trivian Groves", descripcion: "Map size: 513" },
