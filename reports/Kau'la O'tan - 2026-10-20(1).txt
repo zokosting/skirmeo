@@ -1,0 +1,21 @@
+# === EVENT REPORT ===
+
+
+## 2 Players:
+1. T'au Empire (Saul'tn Sept)
+2. - Thousand Sons
+
+## Map:
+Kau'la O'tan
+A t'au city built on the ruins of a gue've'sa city.
+Strat. points: 8 | Relic: 2 | Critical points: 3 | Slag: 1
+
+## Configuration:
+Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
+Resource Rate: Standard
+Hard
+## Status: WIN
+
+## Background:
+El Imperio T'au comenzó meticulosamente a reconstruir con cuidado la nueva ciudad de Kau'la O'tan sobre las ruinas de la colmena humana.
+Sin embargo se encontraron con bizarros güe'vesas fanáticos realizando estrambóticos rituales. Procedieron a erradicarlos, tal y como estaban intentando hacer también en Cyrène. Lo sorprendente fue la repentina aparición de otros seres grotescos, que recordaban vagamente a animales pero deformes y en ocasiones devoraban a los propios humanos que les habían llamado. Sus temporalmente aliados de los Enclaves les proporcionaron más información: demonios eran llamados en la superstición güe'vesa.
