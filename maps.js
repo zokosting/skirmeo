@@ -26,6 +26,7 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Pair" },
         { nombre: "Tainted Soul", descripcion: "Map size: 257" },
         { nombre: "Tash'Var City", descripcion: "A Tau city. You'll get some help here.<br/>Map size: 1025" },
+        { nombre: "Urban Turmoil", descripcion: "Fight inside an Imperial city." },
         { nombre: "Valley of Khorne" },
         { nombre: "Velvet Duress", descripcion: "Archipelago of sand and vegetation in an open sea.<br/>Map size: 257" }
     ],
