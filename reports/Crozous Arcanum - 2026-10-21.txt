@@ -1,0 +1,24 @@
+# === EVENT REPORT ===
+
+
+## 5 Players:
+1. T'au Empire (Saul'tn Sept)
+2. Space Marines (Chapter: Dark Angels)
+3. Space Marines (Chapter: Dark Angels)
+4. - Tyranids
+5. - Farsight Enclaves
+
+## Map:
+Crozous Arcanum
+Two trenched bases in a snow-covered field.
+Map size: 257 | Strat. points: 18 | Critical loc.: 2
+
+## Configuration:
+Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time
+Resource Rate: Standard
+Hard
+## Status: WIN
+
+## Background:
+(Sin notas adicionales)
+
