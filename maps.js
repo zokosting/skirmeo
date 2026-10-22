@@ -43,7 +43,7 @@ const MAPAS_CONFIG = {
         { nombre: "Cris Nocturnes", descripcion: "Jungle ends in bridges to a temple in the night.<br/>Map size: 513<br/>Critical loc.: 3" },
         { nombre: "Cold War", descripcion: "Frozen landscape with bodies of frozen water and military structures." },
         { nombre: "Imerial Guard Base", descripcion: "Large rocky base on the other side of the river.<br/>Map size: 513 | Strat. points: 14 | Relics: 2 | Slag depos: 3" },
-        { nombre: "Living Contradiction", descripcion: "City of Hanamura.<br/>Map size: 513" },
+        { nombre: "Living Contradiction", descripcion: "Corruptes rests of the city of Hanamura.<br/>Map size: 513" },
         { nombre: "Mountain Trail" },
         { nombre: "Panrea Lowlands", descripcion: "Grasslands with gentle hills and multiple rivers or water channels.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
         { nombre: "Quatra", descripcion: "Map size: 513" },
