@@ -4,7 +4,7 @@ const MAPAS_CONFIG = {
         { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)", descripcion: "Dense forest surrounding a bay with craters." },
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
-        { nombre: "Deadly Fun Archeology", descripcion: "Remains of an ancient civilization in a deserted port.<br/>Map size: 253<br/>Strat. points: 9 | Relics: 2 | Critical loc.: 3" },
+        { nombre: "Deadly Fun Archeology", descripcion: "Remains of an ancient civilization in a deserted port.<br/>Map size: 257 | Strat. points: 9 | Relics: 2 | Critical loc.: 3" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
         { nombre: "Descent of Madness", descripcion: "Urban settlement kindly built at the edge of the desert.<br/>Map size: 257" },
         { nombre: "Dicey Ambush", descripcion: "Wooded valley divided by a river and surrounded by mountains." },
