@@ -4,6 +4,7 @@ const MAPAS_CONFIG = {
         { nombre: "Antiga Bay", iconoNombre: "Antiga Bay (2)", descripcion: "Dense forest surrounding a bay with craters." },
         { nombre: "Battle Marshes", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
         { nombre: "Blood River", descripcion: "Map size: 257 | Strat. points: 8 | Relics: 2 | Slag depos: 0" },
+        { nombre: "Deadly Fun Archeology", descripcion: "Remains of an ancient civilization in a deserted port.<br/>Map size: 257 | Strat. points: 9 | Relics: 2 | Critical loc.: 3" },
         { nombre: "Deadman's Crossing", descripcion: "Map size: 257" },
         { nombre: "Descent of Madness", descripcion: "Urban settlement kindly built at the edge of the desert.<br/>Map size: 257" },
         { nombre: "Dicey Ambush", descripcion: "Wooded valley divided by a river and surrounded by mountains." },
@@ -26,13 +27,15 @@ const MAPAS_CONFIG = {
         { nombre: "Tainted Pair" },
         { nombre: "Tainted Soul", descripcion: "Map size: 257" },
         { nombre: "Tash'Var City", descripcion: "A Tau city. You'll get some help here.<br/>Map size: 1025" },
+        { nombre: "Urban Turmoil", descripcion: "Fight inside an Imperial city." },
         { nombre: "Valley of Khorne" },
         { nombre: "Velvet Duress", descripcion: "Archipelago of sand and vegetation in an open sea.<br/>Map size: 257" }
     ],
     "3": [
         { nombre: "Coral Reef", descripcion: "Coral reef island with white sand, surrounded by sea.<br/>Map size: 257" },
         { nombre: "Fortress", descripcion: "Urban ruined environment with large craters, debris and streets.<br/>Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
-        { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." }
+        { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
+        { nombre: "Living Contradiction Assault", descripcion: "Corruption has bunkered the city of Hanamura.<br/>Map size: 1025" }
     ],
     "4": [
         { nombre: "Abandoned Origin", descripcion: "Desert at the outside of a Tau city with a center CP.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 1 | Relics: 4" },
@@ -42,9 +45,10 @@ const MAPAS_CONFIG = {
         { nombre: "Cris Nocturnes", descripcion: "Jungle ends in bridges to a temple in the night.<br/>Map size: 513<br/>Critical loc.: 3" },
         { nombre: "Cold War", descripcion: "Frozen landscape with bodies of frozen water and military structures." },
         { nombre: "Imerial Guard Base", descripcion: "Large rocky base on the other side of the river.<br/>Map size: 513 | Strat. points: 14 | Relics: 2 | Slag depos: 3" },
+        { nombre: "Living Contradiction", descripcion: "Corruption has reached the city of Hanamura.<br/>Map size: 513" },
         { nombre: "Mountain Trail" },
         { nombre: "Panrea Lowlands", descripcion: "Grasslands with gentle hills and multiple rivers or water channels.<br/>Map size: 257 | Strat. points: 16 | Relics: 2" },
-        { nombre: "Quatra" },
+        { nombre: "Quatra", descripcion: "Map size: 513" },
         { nombre: "Refinery", descripcion: "Industrial and desert environment structured a central refinery.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 2 | Relics: 2 | Slag depos: 4" },
         { nombre: "Rockclaw Foothills", descripcion: "Map size: 513" },
         { nombre: "Saint's Square" },
