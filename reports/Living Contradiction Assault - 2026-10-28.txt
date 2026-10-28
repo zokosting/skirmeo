@@ -1,0 +1,20 @@
+# === EVENT REPORT ===
+
+
+## 3 Players:
+1. T'au Empire (Saul'tn Sept)
+2. - Farsight Enclaves
+3. Space Marines (Chapter: Blood Angels)
+
+## Map:
+Living Contradiction Assault
+
+## Configuration:
+Destroy HQ – Win by razing all HQ buildings of the opponent
+Resource Rate: Standard
+Hard
+## Status: WIN
+
+## Background:
+Hay que tomar al asalto la ciudad de Hanamura. 
+
