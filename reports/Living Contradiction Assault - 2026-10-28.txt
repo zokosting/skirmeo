@@ -8,6 +8,7 @@
 
 ## Map:
 Living Contradiction Assault
+Corruption has bunkered the city of Hanamura.
 
 ## Configuration:
 Destroy HQ – Win by razing all HQ buildings of the opponent
