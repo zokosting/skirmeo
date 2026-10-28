@@ -59,7 +59,12 @@ const CONDICIONES_VICTORIA = [
     "Destroy HQ – Win by razing all HQ buildings of the opponent",
     "Economic Victory – Win by amassing a large amount of resources (e.g., requisition & power) and holding them",
     "Take and Hold – Win by maintaining control of more than half of the map’s critical locations for a given time",
-    "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly"
+    "Sudden Death – Win by capturing a strategic point from an enemy; the act triggers victory/defeat instantly",
+    "- Victory Points – Capturing critical locations give victory points over time, wins the first to reach 1000 victory points",
+    "- Servidor Hunt – Find and return over 50% of the servitors scattered around the map before your enemy does the same",
+    "- Power Up – Construct and defend your faction's buildings on 50% or more of the Slag Deposits on the map",
+    "- Extermination – Victory achieved by destroying all enemy buildings and units before they destroy yours",
+    "- Blood for the Blood God – Blood points are earned by killing units and razing structures, wins the first to reach 5000 blood points"
 ];
 
 // DOM Elements 
