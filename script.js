@@ -647,7 +647,9 @@ function generarPartida() {
             if (chapter === 'Black Templars') {
                 iconHTML = `<img src="icons/spacemarines-blacktemplars.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Black Templars">`;
             } else if (chapter === 'Dark Angels') {
-                iconHTML = `<img src="icons/spacemarines-darkangel.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Dark Angels">`;
+                iconHTML = `<img src="icons/spacemarines-darkangels.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Dark Angels">`;
+            } else if (chapter === 'Blood Angels') {
+                iconHTML = `<img src="icons/spacemarines-bloodangels.png" class="inline-result-icon" style="margin-left: 0; margin-right: 6px;" alt="Blood Angels">`;
             }
         }
 
