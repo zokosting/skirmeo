@@ -19,6 +19,7 @@ const MAPAS_CONFIG = {
         { nombre: "Kau'la O'tan", descripcion: "A t'au city built on the ruins of a gue've'sa city.<br/>Strat. points: 8 | Relic: 2 | Critical loc : 3 | Slag: 1" },
         { nombre: "Meeting of Minds" },
         { nombre: "Oja", descripcion: "Paths through dense jungle with bridges over rivers." },
+        { nombre: "Ouches Raitches", descripcion: "At night.<br/>Map size: 257" },
         { nombre: "Outer Reaches", descripcion: "Mountainous terrain with paths, shrubs and ruins.<br/>Map size: 257" },
         { nombre: "Railway" },
         { nombre: "Riverbed" },
