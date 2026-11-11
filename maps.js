@@ -34,6 +34,7 @@ const MAPAS_CONFIG = {
     ],
     "3": [
         { nombre: "Coral Reef", descripcion: "Coral reef island with white sand, surrounded by sea.<br/>Map size: 257" },
+        { nombre: "Debarq", descripcion: "Map size: 513" },
         { nombre: "Fortress", descripcion: "Urban ruined environment with large craters, debris and streets.<br/>Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
         { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
         { nombre: "Living Contradiction Assault", descripcion: "Corruption has bunkered in the city of Hanamura.<br/>Map size: 513" }
