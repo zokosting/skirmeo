@@ -19,6 +19,7 @@ const MAPAS_CONFIG = {
         { nombre: "Kau'la O'tan", descripcion: "A t'au city built on the ruins of a gue've'sa city.<br/>Strat. points: 8 | Relic: 2 | Critical loc : 3 | Slag: 1" },
         { nombre: "Meeting of Minds" },
         { nombre: "Oja", descripcion: "Paths through dense jungle with bridges over rivers." },
+        { nombre: "Ouches Raitches", descripcion: "At night.<br/>Map size: 257" },
         { nombre: "Outer Reaches", descripcion: "Mountainous terrain with paths, shrubs and ruins.<br/>Map size: 257" },
         { nombre: "Railway" },
         { nombre: "Riverbed" },
@@ -33,9 +34,10 @@ const MAPAS_CONFIG = {
     ],
     "3": [
         { nombre: "Coral Reef", descripcion: "Coral reef island with white sand, surrounded by sea.<br/>Map size: 257" },
+        { nombre: "Debarq", descripcion: "Map size: 513 | Strat. points: 13 | Critical loc.: 9 | Relics: 2 | Slags: 4" },
         { nombre: "Fortress", descripcion: "Urban ruined environment with large craters, debris and streets.<br/>Map size: 257 | Strat. points: 9 | Critical loc.: 3 | Relics: 1" },
         { nombre: "Inquisitors Fortress", descripcion: "Rocky terrain, fortress and military structures in ravines.<br/>Map size: 513<br/>Strat. points: 11 | Critical loc.: 2 | Relics: 2 | Slag depos: 2<br/>You'll get some help here from the Blood Angels." },
-        { nombre: "Living Contradiction Assault", descripcion: "Corruption has bunkered the city of Hanamura.<br/>Map size: 1025" }
+        { nombre: "Living Contradiction Assault", descripcion: "Corruption has bunkered in the city of Hanamura.<br/>Map size: 513" }
     ],
     "4": [
         { nombre: "Abandoned Origin", descripcion: "Desert at the outside of a Tau city with a center CP.<br/>Map size: 257<br/>Strat. points: 12 | Critical loc.: 1 | Relics: 4" },
@@ -85,7 +87,7 @@ const MAPAS_CONFIG = {
         { nombre: "Principian Badlands", descripcion: "Map size: 513" },
         { nombre: "Rhean Floodlands", descripcion: "Treacherous, winding paths, sharp ridges, and sudden gullies.<br/>Map size: 513" },
         { nombre: "Shakun Coast", descripcion: "Map size: 513" },
-        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
+        { nombre: "Streets of Vogen", descripcion: "A big imperial city ruined by war cratters.<br/>Map size: 513<br/>Strat. points: 23 | Críticas loc.: 3 | Relics: 2" },
         { nombre: "Targorum", descripcion: "Map size: 257" },
         { nombre: "Temple of Change", descripcion: "The worst scenario you will face. Some weird temple." },
         { nombre: "Temple of Cyrene", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513<br/>Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5" },
