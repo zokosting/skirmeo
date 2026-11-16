@@ -87,7 +87,7 @@ const MAPAS_CONFIG = {
         { nombre: "Principian Badlands", descripcion: "Map size: 513" },
         { nombre: "Rhean Floodlands", descripcion: "Treacherous, winding paths, sharp ridges, and sudden gullies.<br/>Map size: 513" },
         { nombre: "Shakun Coast", descripcion: "Map size: 513" },
-        { nombre: "Streets of Vogen", descripcion: "Map size: 513" },
+        { nombre: "Streets of Vogen", descripcion: "A big imperial city ruined by war cratters.<br/>Map size: 513<br/>Strat. points: 23 | Críticas loc.: 3 | Relics: 2" },
         { nombre: "Targorum", descripcion: "Map size: 257" },
         { nombre: "Temple of Change", descripcion: "The worst scenario you will face. Some weird temple." },
         { nombre: "Temple of Cyrene", descripcion: "Ruins of a temple-fortification in cratered terrain.<br/>Map size: 513<br/>Strat. points: 29 | Critical loc.: 3 | Relics: 4 | Slag depos: 5" },
