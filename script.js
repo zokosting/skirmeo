@@ -668,7 +668,7 @@ function generarPartida() {
 
     resultadoHTML += `
         </ul>
-        ${isFreeForAll ? `<p style="font-style: italic; margin-top: 4px; margin-bottom: 12px;">Free for All – There are no teams, every player will be hostile to all others, and the last one standing wins.</p>` : ''}
+        ${isFreeForAll ? `<p style="font-style: italic; margin-top: 4px; margin-bottom: 12px;">Free for All – No teams, every player will be hostile to all others, and the last one standing wins.</p>` : ''}
 
         <h3>Map:</h3>
         <div>
