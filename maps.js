@@ -109,7 +109,7 @@ const MAPAS_CONFIG = {
         { nombre: "Istvaan V", descripcion: "Map size: 1025" },
         { nombre: "Jalaganda Lowlands", descripcion: "A boundary canal in a humid industrial city wasteland.<br/>Map size: 513" },
         { nombre: "Kierr Harrad", descripcion: "Map size: 512" },
-        { nombre: "Lights Out", descripcion: "A city in darkness, an urban scenario.<br/>Strait. points: 28 | Critical loc.: 3 | Relic: 3 | Slag: 2" },
+        { nombre: "Lights Out", descripcion: "A city in darkness, an urban scenario.<br/>Map size: 513<br/>Strait. points: 28 | Critical loc.: 3 | Relic: 3 | Slag: 2" },
         { nombre: "Lost Hope" },
         { nombre: "Penal Colony" },
         { nombre: "Rhean Jungle", descripcion: "Dense jungle with open dirt paths and hills.<br/>Map size: 513" },
